@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import axios from 'axios'
 import * as types from '../mutation-types'
 
@@ -52,7 +53,7 @@ export const actions = {
 
   async fetchSurveyFillable ({ commit }, id) {
     try {
-      const { data } = await axios.get('/api/survey-fillable', { params: { id: id } })
+      const { data } = await axios.get('/api/survey-fillable' , { params: { id: id } })
       commit(types.FETCH_SURVEY_FILLABLE_SUCCESS, { surveyFillable: data })
     } catch (e) {
       commit(types.FETCH_SURVEY_FILLABLE_FAILURE)
@@ -62,7 +63,7 @@ export const actions = {
   // Backend Surveys
   async fetchBackendSurveysAllowed ({ commit }) {
     try {
-      const { data } = await axios.get('/api/backend/surveys-allowed')
+      const { data } = await axios.get( '/api/backend/surveys-allowed')
       commit(types.FETCH_BACKEND_SURVEYS_ALLOWED_SUCCESS, { backendSurveysAllowed: data })
     } catch (e) {
       commit(types.FETCH_BACKEND_SURVEYS_ALLOWED_FAILURE)
@@ -71,24 +72,24 @@ export const actions = {
 
   async fetchBackendSurveyAllowed ({ commit }, id) {
     try {
-      const { data } = await axios.get('/api/backend/survey-allowed', { params: { id: id } })
+      const { data } = await axios.get( '/api/backend/survey-allowed', { params: { id: id } })
       commit(types.FETCH_BACKEND_SURVEY_ALLOWED_SUCCESS, { backendSurveyAllowed: data })
     } catch (e) {
       commit(types.FETCH_BACKEND_SURVEY_ALLOWED_FAILURE)
     }
   },
 
-  addAllowedSurveyToGroup ({ commit }, payload) {
-    axios.post('/api/backend/add-survey-to-group', payload)
+  addAllowedSurveyToGroup (payload) {
+    axios.post( '/api/backend/add-survey-to-group', payload)
   },
 
   removeAllowedSurveyFromGroup ({ commit }, payload) {
-    axios.post('/api/backend/remove-survey-from-group', payload)
+    axios.post( '/api/backend/remove-survey-from-group', payload)
   },
 
   updateOrCreateAwnser ({ commit }, payload) {
     try {
-      return axios.post('/api/update-or-create-awnser', payload)
+      return axios.post( '/api/update-or-create-awnser', payload)
     } catch (e) {
       return e
     }
@@ -96,7 +97,7 @@ export const actions = {
 
   finishSurvey ({ commit }, payload) {
     try {
-      return axios.post('/api/finish-survey', payload)
+      return axios.post( '/api/finish-survey', payload)
     } catch (e) {
       return e
     }
@@ -104,7 +105,7 @@ export const actions = {
 
   createSurvey ({ commit }, payload) {
     try {
-      return axios.post('/api/backend/create-survey', payload)
+      return axios.post( '/api/backend/create-survey', payload)
     } catch (e) {
       return e
     }
@@ -112,7 +113,7 @@ export const actions = {
 
   updateSurvey ({ commit }, payload) {
     try {
-      return axios.patch('/api/backend/update-allowed-survey', payload)
+      return axios.patch( '/api/backend/update-allowed-survey', payload)
     } catch (e) {
       return e
     }
@@ -120,7 +121,7 @@ export const actions = {
 
   deleteSurvey ({ commit }, payload) {
     try {
-      return axios.patch('/api/backend/delete-allowed-survey', payload)
+      return axios.patch( '/api/backend/delete-allowed-survey', payload)
     } catch (e) {
       return e
     }
@@ -128,7 +129,7 @@ export const actions = {
 
   deleteQuestions ({ commit }, payload) {
     try {
-      return axios.patch('/api/backend/delete-questions', payload )
+      return axios.patch( '/api/backend/delete-questions', payload )
     } catch (e) {
       return e
     }

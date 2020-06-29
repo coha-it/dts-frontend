@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import * as types from '../mutation-types'
@@ -45,16 +46,17 @@ export const mutations = {
 
 // actions
 export const actions = {
-  saveToken ({ commit, /* dispatch */ }, payload) {
+  saveToken ({ commit, dispatch }, payload) {
     commit(types.SAVE_TOKEN, payload)
   },
 
   async fetchUser ({ commit }) {
+    console.log('Try fetching user!')
     try {
-      const { data } = await axios.get('/api/user')
-
+      const { data } = await axios.get( 'http://127.0.0.1:8000/api/user')
       commit(types.FETCH_USER_SUCCESS, { user: data })
     } catch (e) {
+      console.log('err fetching user!')
       commit(types.FETCH_USER_FAILURE)
     }
   },
@@ -65,7 +67,7 @@ export const actions = {
 
   async logout ({ commit }) {
     try {
-      await axios.post('/api/logout')
+      await axios.post( this.apiUrl('/api/logout'))
     } catch (e) {
       // 
     }

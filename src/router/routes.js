@@ -20,9 +20,9 @@ export default [
   // Authentificated
   { path: '/',
     component: page('index.vue'),
-    meta: {
-      middleware: 'auth'
-    },
+    // meta: {
+    //   middleware: 'auth'
+    // },
     children: [
       // Landing Pages
       { path: '/home', name: 'home', component: page('home.vue'), meta: { title: 'home' } },
@@ -51,17 +51,17 @@ export default [
     path: '/survey/:id',
     name: 'survey',
     component: page('surveys/survey.vue'),
-    meta: {
-      middleware: 'auth'
-    }
+    // meta: {
+    //   middleware: 'auth'
+    // }
   },
 
   // Managment / Verwaltung
   { path: '/backend',
     component: page('backend/index.vue'),
-    meta: {
-      middleware: 'auth'
-    },
+    // meta: {
+    //   middleware: 'auth'
+    // },
     children: [
       {
         path: 'users',

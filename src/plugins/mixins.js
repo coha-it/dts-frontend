@@ -2,9 +2,11 @@ const mixins = {
 
   methods: {
 
+    // URL
+
     // Api URL
     apiUrl: (path) => {
-      return process.env.API_DOMAIN + path
+      return process.env.VUE_APP_API_DOMAIN + path
     }
   }
 }

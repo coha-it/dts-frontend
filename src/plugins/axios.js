@@ -21,6 +21,9 @@ axios.interceptors.request.use(request => {
   return request
 })
 
+// Axios Default URL
+axios.defaults.baseURL = 'http://127.0.0.1:8000'
+
 // Response interceptor
 axios.interceptors.response.use(response => response, error => {
   const { status } = error.response
