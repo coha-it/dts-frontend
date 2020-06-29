@@ -1,11 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- <link rel="icon" href="<%= BASE_URL %>favicon.ico"> -->
+    <link href="https://dreamteam-survey.s3.eu-central-1.amazonaws.com/images/logo/favicon/favicon.ico" rel="shortcut icon" type="image/x-icon">
+    <link href="https://dreamteam-survey.s3.eu-central-1.amazonaws.com/images/logo/favicon/favicon.svg" rel="icon" type="image/svg+xml" sizes="any">
+    <link href="https://dreamteam-survey.s3.eu-central-1.amazonaws.com/images/logo/favicon/favicon.png" rel="icon" type="image/png" sizes="any">
+
+    <link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Nunito:400,400i,600,700|Merriweather:ital,wght@0,400;1,400;1,700|Roboto:100,300,400,500,700,900|Material+Icons|Raleway:400,700|Roboto+Mono&display=swap'>
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@3.x/css/materialdesignicons.min.css" rel="stylesheet">
+
     <title><%= htmlWebpackPlugin.options.title %></title>
+
+    <script>
+      window.config = {
+        'appName': 'Dev',// config('app.name'),
+        'locale': 'de',// $locale = app()->getLocale(),
+        'locales': [
+          'de',
+          'en'
+        ]// config('app.locales'),
+      }
+    </script>
+
   </head>
   <body>
     <noscript>

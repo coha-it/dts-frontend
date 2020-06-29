@@ -1,11 +1,15 @@
 {
-  "name": "dreamteam-survey",
+  "name": "frontend-v3",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "build:frontend": "vue-cli-service build --dest dist/frontend src/frontend.js",
+    "serve:frontend": "vue-cli-service serve src/frontend.js",
+    "build:backend": "vue-cli-service build --dest dist/backend src/backend.js",
+    "serve:backend": "vue-cli-service serve src/backend.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.29",
@@ -29,13 +33,13 @@
     "vue-moment": "^4.1.0",
     "vue-router": "^3.3.4",
     "vue-the-mask": "^0.11.1",
-    "vuex": "^3.4.0",
+    "vuex": "^3.5.0",
     "vuex-router-sync": "^5.0.0"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.4.0",
-    "@vue/cli-plugin-eslint": "^4.4.0",
-    "@vue/cli-service": "^4.4.0",
+    "@vue/cli-plugin-babel": "~4.4.0",
+    "@vue/cli-plugin-eslint": "~4.4.0",
+    "@vue/cli-service": "~4.4.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
