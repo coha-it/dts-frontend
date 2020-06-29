@@ -1,0 +1,142 @@
+// All Tables
+
+.q-table {
+
+  td, th {
+    /* don't shorten cell contents */
+    white-space: normal !important;
+  }
+
+  thead tr th {
+    position: relative;
+  }
+
+}
+
+// Sort
+.q-table__sort-icon {
+  position: absolute;
+  right: -2px;
+  top: -1px;
+}
+
+.q-table .sortable.sorted {
+  background: gainsboro;
+}
+
+
+
+// My Data-Table
+.my-data-table {
+  /* max height is important */
+  .q-table__middle{
+    max-height: 75vh;
+  }
+
+  // Cut Table Cells
+
+  td {
+
+    .max_lines {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 5; /* number of lines to show */
+      -webkit-box-orient: vertical;
+    }
+
+    /* number of lines to show */
+    &.max_lines_1 { -webkit-line-clamp: 1;}
+    &.max_lines_2 { -webkit-line-clamp: 2;}
+    &.max_lines_3 { -webkit-line-clamp: 3;}
+  }
+
+
+  thead tr th{
+    position: sticky;
+    z-index: 1;
+    background: #fff;
+    z-index: 102;
+  }
+
+  thead tr:first-child th {
+    &,
+    &:first-child,
+    &:last-child {
+      top: 0;
+      z-index: 109;
+    }
+  }
+
+  /* this is when the loading indicator appears */
+  &.q-table--loading thead tr:last-child th{
+    /* height of all previous header rows */
+    top: 48px;
+  }
+
+  th:first-child,
+  td:first-child,
+  th:last-child,
+  td:last-child{
+    position: sticky !important;
+    background-color: #fff;
+    // z-index: 102;
+    z-index: 105;
+  }
+
+  th:last-child,
+  td:last-child{
+    right: 0 !important;
+  }
+
+  th:first-child,
+  td:first-child{
+    left: 0;
+  }
+
+  .groups {
+    white-space: normal;
+  }
+}
+
+// Full Height Table
+.q-table__container.f-height .q-table__middle {
+  max-height: inherit;
+}
+
+// Questions Table
+.questions-table {
+
+    table {
+        tr {
+            td {
+                white-space: normal;
+            }
+        }
+    }
+}
+
+.expandable-row {
+  td {
+    &:before {
+      display: none;
+    }
+  }
+}
+
+.q-table {
+  td, th {
+    /* don't shorten cell contents */
+    // white-space: normal !important;
+  }
+}
+
+// Sort
+.should-be-sorted {
+  &:not(.sorted),
+  &.sort-desc {
+    background-color: red;
+    background-color: var(--q-color-error);
+    color: #fff;
+  }
+}

@@ -1,0 +1,18 @@
+// @import 'variables';
+// @import '~bootstrap/scss/bootstrap';
+@import '~sweetalert2/src/sweetalert2';
+
+// @import 'elements/card';
+// @import 'elements/navbar';
+// @import 'elements/buttons';
+@import 'elements/transitions';
+
+// Import Quasar
+@import '~quasar/dist/quasar.min.css';
+
+// Import CSS Files
+@import "../css/vivify/vivify.min.css"; // http://vivify.mkcreative.cz/
+@import "../css/tuesday/tuesday.min.css"; // http://shakrmedia.github.io/tuesday/
+
+// Custom Theme Design for Vuetify from CoHa
+@import 'coha/bundle.scss';

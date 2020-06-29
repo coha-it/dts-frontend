@@ -1,0 +1,29 @@
+
+h1 {
+  font-size: 4rem;
+  line-height: 4rem;
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+  color: var(--q-color-black);
+}
+
+.q-field {
+  font-size: 16px;
+}
+
+.code {
+  white-space: pre-wrap;
+  font-family: consolas;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1.25;
+  max-height: 25vh;
+  overflow: scroll;
+}
+
+

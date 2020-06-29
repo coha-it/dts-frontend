@@ -1,0 +1,541 @@
+.q-btn {
+  margin: 0 0 5px 0;
+}
+
+// Display Events as Long Stripes
+.q-date__event {
+  width: 37px;
+  border-radius: 0;
+  bottom: 1px;
+  height: 4px;
+}
+
+.q-date__today {
+    background: #d1af35;
+    color: #fff;
+
+    // .q-date__event {
+    //   display: none;
+    // }
+}
+
+// A Links
+// a:not(.q-btn):not(.q-item) {
+//     position: relative;
+//     z-index: 1;
+
+//     &:before {
+//         content: "";
+//         background: rgba(247, 223, 79, 0.5);
+//         width: 100%;
+//         height: 50%;
+//         position: absolute;
+//         bottom: -02%;
+//         left: 0;
+//         right: 0;
+//         margin: auto;
+//         z-index: -1;
+//     }
+// }
+
+.alert button.close {
+    border: 0;
+    padding: 0;
+    height: 0;
+    margin: 0;
+    width: 0;
+}
+
+.debug {
+    text-align: left;
+    white-space: pre-wrap;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+// Readonly
+.lowlighted, [lowlighted] {
+  opacity: 0.6!important;
+}
+
+// Menu
+.q-menu {
+
+  // List
+  .q-list {
+    // Direct Items
+    & > .q-item {
+      // Direct Checkbox
+      & > .q-checkbox {
+        justify-content: space-between;
+        width: 100%;
+      }
+    }
+  }
+}
+// Guest / Rightsided Content View
+.rightsided-content {
+    padding: 5px 20px;
+
+    .inner-content {
+        max-width: 465px;
+        @media screen and (max-width: 960px) {
+            & {
+                margin: auto;
+            }
+        }
+    }
+}
+
+// App-View
+.coha-app--view {
+
+    main {
+        & > .v-content__wrap {
+            padding-bottom: 50px;
+            // overflow: scroll;
+            // max-height: 100vh;
+
+            p {
+                color: rgba(0,0,0,.6);
+            }
+        }
+    }
+
+    h1 {
+        font-weight: 300;
+        font-size: 2.85em;
+    }
+    h2 {
+        font-weight: 300;
+        font-size: 2em;
+    }
+}
+
+select {
+    min-width: 15px;
+}
+
+.v-menu {
+
+    &.v-menu--inline {
+        display: inline;
+    }
+}
+
+// SELECT IN CHIP
+.v-chip__content > select {
+    height: 100%;
+    width: calc(100% + 20px);
+    margin: 0 -10px;
+    padding: 0px 10px;
+}
+
+
+// Toolbar
+.coha--toolbar {
+    &.v-toolbar {
+        display: flex;
+        align-items: center;
+        .v-toolbar__content {
+            height: 100%;
+            width: 100%;
+
+            @media screen and (max-width: 770px) {
+                padding: 16px 16px;
+                flex-direction: column;
+            }
+        }
+    }
+}
+
+// Button
+.v-btn__content {
+    flex: auto;
+    white-space: normal;
+}
+
+// .v-btn.v-btn--disabled {
+//     background: rgba(0, 0, 0, 0.16) !important;
+//     color: #aaaaaa !important;
+// }
+
+// Expanded Content
+.v-data-table tbody tr.v-data-table__expanded__content {
+  box-shadow: inherit;
+}
+
+// Footer
+.footer {
+  background-color: #f5f5f5;
+  color: rgba(0,0,0,.87);
+  a {
+    color: #000;
+  }
+}
+
+// Subheader / Divider
+.v-subheader.divider {
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: .1em;
+    &:before {
+        content: "";position: absolute;background: #757575;width: 100%;height: 1px;right: 0;
+        z-index: 0;
+    }
+    & > span {
+        background: #fafafa;
+        z-index: 1;
+        padding: 0 20px;
+    }
+}
+
+.auth-panel {
+    margin-bottom: 15px;
+
+    .headline {
+        text-transform: uppercase;
+        font-weight: 700;
+        font-size: 2rem !important;
+        letter-spacing: .1em !important;
+        margin: 0 !important;
+        font-family: Raleway, Roboto, sans-serif !important;
+    }
+
+    .subtitle {
+        font-size: 1.15rem;
+        opacity: .8;
+    }
+
+    .icon {
+      font-size: 40px;
+    }
+}
+
+// Login
+.coha--login-wrapper {
+    color: rgba(0,0,0,.6);
+    background-color: #b6b6b6;
+    // background-color: rgba(182, 182, 182, 0.75);
+
+    & + .footer {
+        background-color: rgb(171, 171, 171);
+    }
+}
+
+// Register
+.coha--register-wrapper {
+    background-color: #9ac0c9;
+    background-color: rgba(154, 192, 201, 0.62);
+
+    & + .footer {
+        background-color: #9ac0c9;
+    }
+}
+
+// PAN
+.coha--pan-wrapper {
+
+    & + .footer {
+        background-color: rgb(232, 208, 62);
+        background-color: rgba(232, 208, 62, 0.85);
+    }
+
+    input {
+        font-size: 40px;
+        line-height: 1;
+        padding-top: 2px;
+        padding-bottom: 2px;
+        height: auto;
+        max-height: inherit;
+        font-family: Roboto Mono, Consolas, monospace, monospaced;
+    }
+
+    .q-field__control {
+      height: auto;
+    }
+
+    .v-label {
+        right: 0 !important;
+        width: 100% !important;
+        max-width: 100%;
+        bottom: 0 !important;
+        top: 20px !important;
+    }
+
+    .v-label--active {
+        margin: 0 !important;
+        top: 0 !important;
+    }
+}
+
+// PIN
+.secured input {
+    -moz-appearance: textfield;
+    -webkit-appearance: textfield;
+    -webkit-text-security: disc;
+}
+
+// V-Dialogs
+.v-dialog {
+    &.naked {
+        box-shadow: unset;
+    }
+    &.dark {
+        color: #fff;
+    }
+    &.centered {
+        text-align: center;
+    }
+}
+
+
+// V-Navigation Sidebar
+.v-navigation-drawer {
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100) !important;
+}
+
+
+// List Item disabled
+.v-list-item--disabled {
+    opacity: .5;
+    &.theme--light {
+        background: #fefefe;
+    }
+}
+
+
+//
+.c-code-text {
+    &,
+    & input {
+        font-family: "Roboto Mono", "Consolas", "monospace", "Courier New", "Lucida Console";
+        font-size: 1.15em;
+    }
+}
+
+.import_comment {
+  font-family: "Roboto Mono", "Consolas", "monospace", "Courier New", "Lucida Console";
+  font-size: 12px !important;
+  white-space: pre !important;
+  white-space: pre-wrap !important;
+}
+
+.code_font {
+  display: inline-block;
+  background: #e6e6e6;
+  padding: .25em .4em .2em .4em;
+  border-radius: .5em;
+  color: black;
+  font-weight: bold;
+  font-family: "Consolas", "monospace", "Courier New", "Lucida Console", "Roboto Mono";
+  line-height: inherit;
+  // white-space: break-spaces;
+}
+
+.last_mail_status {
+  white-space: pre;
+}
+
+.coha--filter-input {
+    &.v-text-field.v-text-field--enclosed {
+        margin-left: -12px;
+        width: auto;
+        display: inline-block;
+    }
+}
+
+.pin--dialog-input {
+    &:hover {
+        & > span {
+            color: black !important;
+        }
+    }
+}
+
+.pan--dialog-input {
+    white-space: nowrap;
+
+    .v-text-field__slot > *,
+    input {
+        text-transform: uppercase;
+    }
+}
+
+.pan--part{
+  &:first-child {
+    margin-right: .35em;
+  }
+}
+
+.coha--list-item {
+
+    &.c-code-text {
+        &,
+        & > .v-small-dialog__activator {
+            // width: 100%;
+            display: inline-block;
+        }
+    }
+
+    &.pan {
+        white-space: nowrap;
+        .pan--part:first-child {
+            margin-right: .275em;
+        }
+    }
+
+    &.pin {
+        white-space: nowrap;
+    }
+}
+
+// Fullsize PopUp Edit
+.q-menu.scroll.q-popup-edit.maximize {
+  left: 0 !important;
+  right: 0 !important;
+  margin: auto;
+  top: 0 !important;
+  bottom: 0 !important;
+  background: rgba(0, 0, 0, 0.25);
+  position: fixed;
+  width: 100% !important;
+  max-width: unset !important;
+  height: 100% !important;
+  max-height: 1200px !important;
+
+  .inner,
+  .q-popup-edit__buttons
+  {
+    margin: auto;
+    min-width: 380px !important;
+    width: 50vw !important;
+    max-width: 90% !important;
+  }
+
+
+
+  .inner {
+    left: 0;
+    right: 0;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    height: auto;
+    padding: 20px;
+    background: #fff;
+    max-height: 90vh !important;
+    overflow: scroll;
+  }
+
+  .q-popup-edit__buttons {
+    background: #fff;
+    bottom: -8px;
+    position: sticky;
+  }
+}
+
+// Active Link in Navigation
+.q-item--active,
+.q-item.q-router-link--active {
+  background: rgba(77, 93, 99, 0.08);
+  color: #000;
+}
+
+// Selected Question Option
+.coha.selected-option {
+  text-align: center;
+  min-height: 90px;
+  .subtitle {
+    font-size: 27px;
+  }
+  .description {
+    opacity: .85;
+  }
+}
+
+// DEBUG
+.q-loading-bar.q-loading-bar--top {
+  background-color: #4caf50 !important;
+}
+
+
+// Comment
+.comment_wrapper {
+
+}
+
+.comment_inner {
+
+}
+
+
+.user_comment {
+  display: inline-block;
+  margin: 25px auto;
+  max-width: 80vw;
+  position: relative;
+
+  &,
+  .input {
+    color: #676767;
+    font-size: 19px;
+  }
+
+  .input {
+    min-width: 250px;
+    width: 350px;
+    max-width: 100%;
+    font-family: "Merriweather", serif;
+    display: inline-block;
+    font-weight: bold;
+    font-style: italic;
+    display: inline-block;
+    background: transparent;
+    padding: 12px 21px;
+    border: 0;
+    outline: 0;
+    background: #f0f0f0;
+    border-radius: 6px;
+
+    &::placeholder {
+      font-weight: 600;
+      opacity: .6;
+    }
+  }
+
+  &::before,
+  &::after{
+    content: '"';
+    position: absolute;
+    font-weight: 500;
+    font-style: italic;
+    font-size: 45px;
+    line-height: 1;
+  }
+
+  &::before{
+    content: "\201E";
+    bottom: -2px;
+    left: -3px;
+  }
+
+  &::after {
+    content: "\201C";
+    top: -10px;
+    right: -1px;
+  }
+}
+
+
+// Quasar Editor
+// QEditor
+.q-editor__toolbar {
+  flex-wrap: wrap;
+}
