@@ -9,6 +9,9 @@ import VueMoment from 'vue-moment'
 import '@/plugins'
 import '@/components'
 
+// Import Styling
+import '@/styles/scss/app.scss';
+
 // Some Config Settings
 Vue.config.productionTip = false
 

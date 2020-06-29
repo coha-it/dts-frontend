@@ -139,7 +139,8 @@ export default {
 
     async login () {
       // Submit the form.
-      const { data } = await this.form.post('/api/login').catch((error) => {
+      const url = this.apiUrl('/api/login')
+      const { data } = await this.form.post(url).catch((error) => {
         var response = error.response.data
         this.$q.notify({
           message: this.$t(response.message)
@@ -167,8 +168,8 @@ export default {
 
 .coha--login-wrapper {
 
-  .inner-content {
-  }
+  // .inner-content {
+  // }
 
   h1,
   .subtitle {

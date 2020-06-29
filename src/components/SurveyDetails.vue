@@ -86,7 +86,7 @@ export default {
   },
 
   watch: {
-    '$route.hash': function (current, before) {
+    '$route.hash': function (current/*, before*/) {
       this.changedHash(current)
       if (this.oSurvey) {
         // Set Transition

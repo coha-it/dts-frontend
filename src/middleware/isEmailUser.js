@@ -1,4 +1,4 @@
-import store from '~/store'
+import store from '@/store'
 
 export default async (to, from, next) => {
   var u = store.getters['auth/user']

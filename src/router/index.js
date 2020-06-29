@@ -94,7 +94,7 @@ async function beforeEach (to, from, next) {
  * @param {Route} from
  * @param {Function} next
  */
-async function afterEach (to, from, next) {
+async function afterEach (to) {
   await router.app.$nextTick()
 
   if (to.meta.title) document.title = i18n.t(to.meta.title)
