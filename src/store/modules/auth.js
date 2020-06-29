@@ -53,7 +53,7 @@ export const actions = {
   async fetchUser ({ commit }) {
     console.log('Try fetching user!')
     try {
-      const { data } = await axios.get( 'http://127.0.0.1:8000/api/user')
+      const { data } = await axios.get( '/api/user')
       commit(types.FETCH_USER_SUCCESS, { user: data })
     } catch (e) {
       console.log('err fetching user!')

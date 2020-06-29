@@ -22,7 +22,7 @@ axios.interceptors.request.use(request => {
 })
 
 // Axios Default URL
-axios.defaults.baseURL = 'http://127.0.0.1:8000'
+axios.defaults.baseURL = process.env.VUE_APP_API_DOMAIN
 
 // Response interceptor
 axios.interceptors.response.use(response => response, error => {
