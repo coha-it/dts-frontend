@@ -253,7 +253,7 @@ export default {
     async update () {
       const { data } = await this.form.patch('/api/settings/profile')
       this.$store.dispatch('auth/updateUser', { user: data })
-        .then((e) => {
+        .then(() => {
           this.form.pin = ''
           this.form.new_pin = ''
         })

@@ -275,7 +275,7 @@ export default {
             }
           }
         })
-        .then((e) => {
+        .then(() => {
           this.$q.notify({
             message: this.$t('Umfrage erfolgreich gespeichert'),
             color: 'green',

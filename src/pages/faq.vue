@@ -22,14 +22,14 @@
 
     <q-list bordered>
       <template>
-        <template v-for="(item, index) in filteredList">
+        <template v-for="(item) in filteredList">
           <div :key="item.title">
             <Item :item="item" />
             <q-separator />
           </div>
         </template>
 
-        <template v-for="(item, index) in unfilteredList">
+        <template v-for="(item) in unfilteredList">
           <div :key="item.title">
             <Item :item="item" :disable="true" />
             <q-separator />

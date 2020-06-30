@@ -1269,7 +1269,7 @@ export default {
 
     settings: {
       handler: function (newValue) {
-        console.log('update settings now')
+        console.log('update settings now', newValue)
         this.updateSettings()
       },
       deep: true
@@ -1377,13 +1377,11 @@ export default {
             case 'name':
               // String Sort
               return x[sortBy] > y[sortBy] ? 1 : x[sortBy] < y[sortBy] ? -1 : 0
-              break
 
             case 'pin':
             case 'pan':
               // String Sort
               return x.pan[sortBy] > y.pan[sortBy] ? 1 : x.pan[sortBy] < y.pan[sortBy] ? -1 : 0
-              break
 
             case 'company':
             case 'location':
@@ -1392,7 +1390,6 @@ export default {
               var yn = yf && yf.name ? yf.name : ''
 
               return xn > yn ? 1 : xn < yn ? -1 : 0
-              break
 
             case 'groups':
               var xid = xf.length > 0 ? xf.reduce(function (prev, curr) {
@@ -1404,12 +1401,10 @@ export default {
               }).id : 0
 
               return xid > yid ? 1 : xid < yid ? -1 : 0
-              break
 
             default:
               // numeric sort
               return parseFloat(x[sortBy]) - parseFloat(y[sortBy])
-              break
           }
         })
       }
@@ -1469,13 +1464,13 @@ export default {
         .then(function (response) {
           _this.panIsLoading = false
           user.pan.pan = response.data
-        }).catch(function (response) {
+        }).catch(function () {
           _this.panIsLoading = false
         })
     },
 
     generateRandomPin (item) {
-      if (item && item.pan && item.pan.pin) {
+      if (item && item.pan && item.pan.pin){
         item.pan.pin = Math.random().toString().substr(2, this.pinLength)
       }
     },
@@ -1514,10 +1509,10 @@ export default {
           _this.settings.bShowContactMailData = true
           console.log('import created successfully')
         }
-      }).catch(function (response) {
+      }).catch(() => {
         // ERROR
-        _this.bCreateUsersLoading = false
-        _this.bCreateUsersDialog = false
+        this.bCreateUsersLoading = false
+        this.bCreateUsersDialog = false
       })
     },
 
@@ -1636,7 +1631,7 @@ export default {
         await axios.post('/api/send-entrance-mail', {
           id: user.id,
           entrance: this.entranceMail
-        }).then((e) => {
+        }).then(() => {
           this.$q.notify({
             message: this.$t('Success sending E-Mail to ' + user.pan.contact_mail),
             color: 'positive',
@@ -1652,7 +1647,7 @@ export default {
             timeout: 10000,
             progress: true
           })
-        }).then((e) => {
+        }).then(() => {
           this.loading = false
           this.reloadUser(user)
         })
@@ -1741,7 +1736,7 @@ export default {
         var res = e.response.data
         var err = res.error
         var errText = ''
-        for (var e in err) {
+        for (const e in err) {
           errText += ': ' + err[e]
         }
 
@@ -1772,7 +1767,7 @@ export default {
       // Delete User
       this.$store.dispatch('users/deleteUsers', {
         ids: users.map(user => user.id)
-      }).then(function (e) {
+      }).then(function () {
         // Success
         _this.loading = false
 
@@ -1822,8 +1817,8 @@ export default {
       }
     },
 
-    changePin (item) {
-
+    changePin () {
+      // Change Pin
     },
 
     alreadyInGroups (group, groups) {

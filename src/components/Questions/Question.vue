@@ -514,10 +514,10 @@ export default {
       let o = this.firstAwnser(question)
       return (o && o.color && this.isLight(o.color)) ? 'black' : 'white'
     },
-    sliderInput (e) {
+    sliderInput () {
       // console.log(e)
     },
-    sliderMouseMove (e) {
+    sliderMouseMove () {
       // console.log('slidermousemove', e)
     },
     sliderChange (order) {

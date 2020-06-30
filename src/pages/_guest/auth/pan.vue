@@ -220,7 +220,7 @@ export default {
         } else {
           this.goToHome()
         }
-      }).catch((e) => {
+      }).catch(() => {
         this.hideLoader()
       })
     },

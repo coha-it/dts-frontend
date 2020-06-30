@@ -2269,7 +2269,7 @@ export default {
     },
 
     oSurvey: {
-      handler (before, after) {
+      handler () {
         // console.log('oSurvey Changed', before, after)
         // this.$refs.form.validate();
       },
@@ -2428,9 +2428,9 @@ export default {
           outline: true,
           unelevated: true
         }
-      }).onOk(data => {
+      }).onOk(() => {
         this.useHtml()
-      }).onCancel(data => {
+      }).onCancel(() => {
         this.dontUseHtml()
       })
     },
@@ -2462,7 +2462,7 @@ export default {
           color: 'grey',
           unelevated: true
         }
-      }).onOk(data => {
+      }).onOk(() => {
         this.$q.notify({
           message: this.$t('Umfrage wird gelöscht ...'),
           color: 'warning',
@@ -2533,9 +2533,9 @@ export default {
 
           case 'questions_append':
             // questions append
-            const questions = json.questions
+            var questions = json.questions
             for (const key in questions) {
-              if (questions.hasOwnProperty(key)) {
+              if (Object.prototype.hasOwnProperty.call(questions, key)) {
                 const q = questions[key]
                 this.addQuestion(q)
               }
@@ -2587,7 +2587,7 @@ export default {
       delete data.updated_at
 
       for (const i in data.groups) {
-        if (data.groups.hasOwnProperty(i)) {
+        if (Object.prototype.hasOwnProperty.call(data.groups, i) ) {
           let g = data.groups[i]
           delete g.pivot
           delete g.created_at
@@ -2599,7 +2599,7 @@ export default {
       delete data.groups
 
       for (const i in data.questions) {
-        if (data.questions.hasOwnProperty(i)) {
+        if (Object.prototype.hasOwnProperty.call(data.questions, i)) {
           let q = data.questions[i]
           let options = q.options
           delete q.id
@@ -2609,7 +2609,7 @@ export default {
           delete q.updated_at
 
           for (const j in options) {
-            if (options.hasOwnProperty(j)) {
+            if (Object.prototype.hasOwnProperty.call(options, j)) {
               let o = options[j]
 
               delete o.id
@@ -2724,7 +2724,7 @@ export default {
 
       // Change Options
       for (const i in aNotes) {
-        if (aNotes.hasOwnProperty(i)) {
+        if (Object.prototype.hasOwnProperty.call(aNotes, i)) {
           const sNote = aNotes[i]
 
           let c = '#C6C6C6'
@@ -3052,7 +3052,7 @@ export default {
       return arr.find(x => x.id === id)
     },
 
-    filterGroups (val, update, abort) {
+    filterGroups (val, update) {
       this.aFilteredGroups = this.user.groups_moderating
       update(() => {
         const needle = val.toLowerCase()
@@ -3104,7 +3104,7 @@ export default {
     reorderQuestions () {
       var oQuestions = this.oSurvey.questions
       for (var i in oQuestions) {
-        if (oQuestions.hasOwnProperty(i)) {
+        if (Object.prototype.hasOwnProperty.call(oQuestions, i)) {
           var oQuestion = oQuestions[i]
           oQuestion.order = parseInt(i) + 1
         }
@@ -3114,7 +3114,7 @@ export default {
     reorderOptions (question) {
       var oOptions = question.options
       for (var i in oOptions) {
-        if (oOptions.hasOwnProperty(i)) {
+        if (Object.prototype.hasOwnProperty.call(oOptions, i)) {
           var oOption = oOptions[i]
           oOption.order = parseInt(i) + 1
         }
