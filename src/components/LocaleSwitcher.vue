@@ -1,7 +1,7 @@
-<template>
-  <span data-app>
-    <a href="#" @click="show()" >{{ $t(locales[locale]) }}</a>
-  </span>
+<template lang="pug">
+  span(data-app)
+    a(href="#" @click='show')
+      |{{ getLocale() }}
 </template>
 
 <script>
@@ -22,11 +22,13 @@ export default {
     setLocale (locale) {
       if (this.$i18n.locale !== locale) {
         loadMessages(locale)
-
         this.$store.dispatch('lang/setLocale', { locale })
       }
     },
     show () {
+      console.log('joghurt 1')
+      console.log(this.locale)
+      console.log(this.locales)
       this.$q.bottomSheet({
         message: 'Sprache auswählen',
         actions: this.aLocaleOptions
@@ -37,6 +39,13 @@ export default {
       }).onDismiss(() => {
         // console.log('I am triggered on both OK and Cancel')
       })
+    },
+
+    getLocale () {
+      const locales = this.locales
+      const locale = this.locale
+
+      return this.$t(locales[locale])
     }
   },
 

@@ -2,55 +2,64 @@
   <div>
     <div style="max-width: 400px">
       <div class="row q-gutter-md">
-        <q-card
-          v-for="oSurvey in aSurveys"
-          :id="'survey-'+oSurvey.id"
-          :key="oSurvey.id"
-          :class="'col col-12 col-xs-12 col-xl-12 ' + (isEnabled(oSurvey) ? 'pointer' : null)"
-          clickable
-          flat
-          bordered
-          ripple
-          :disabled="isDisabled(oSurvey)"
-          @click="isEnabled(oSurvey) ? link('survey/'+oSurvey.id + '#overview') : null"
-        >
-          <q-card-section>
-            <div class="text-subtitle2">
-              <template v-if="oSurvey.author">
-                Von {{ oSurvey.author }}
-              </template>
-              <q-badge
-                outline
-                :color="getBadgeColor(oSurvey)"
-                :label="getBadgeLabel(oSurvey)"
-                style="float:right"
-              />
-            </div>
-            <div class="text-h6 text-black">{{ oSurvey.title || 'Umfrage #'+oSurvey.id }}</div>
-
-            <div v-if="oSurvey.question_count" class="row justify-center full-height full-width text-center  items-center">
-              <div class="col col-4">
-                <q-linear-progress rounded size="8px" :value="oSurvey.awnser_count / oSurvey.question_count" color="green" />
+        <template v-if="aSurveys && aSurveys.length > 0">
+          <q-card
+            v-for="oSurvey in aSurveys"
+            :id="'survey-'+oSurvey.id"
+            :key="oSurvey.id"
+            :class="'col col-12 col-xs-12 col-xl-12 ' + (isEnabled(oSurvey) ? 'pointer' : null)"
+            clickable
+            flat
+            bordered
+            ripple
+            :disabled="isDisabled(oSurvey)"
+            @click="isEnabled(oSurvey) ? link('survey/'+oSurvey.id + '#overview') : null"
+          >
+            <q-card-section>
+              <div class="text-subtitle2">
+                <template v-if="oSurvey.author">
+                  Von {{ oSurvey.author }}
+                </template>
+                <q-badge
+                  outline
+                  :color="getBadgeColor(oSurvey)"
+                  :label="getBadgeLabel(oSurvey)"
+                  style="float:right"
+                />
               </div>
-              <div class="col col-8 text-left q-pl-sm">
-                <small class="text-caption">
-                  {{ oSurvey.awnser_count + ' von '+ oSurvey.question_count +' Fragen beantwortet' }}
-                </small>
+              <div class="text-h6 text-black">{{ oSurvey.title || 'Umfrage #'+oSurvey.id }}</div>
+
+              <div v-if="oSurvey.question_count" class="row justify-center full-height full-width text-center  items-center">
+                <div class="col col-4">
+                  <q-linear-progress rounded size="8px" :value="oSurvey.awnser_count / oSurvey.question_count" color="green" />
+                </div>
+                <div class="col col-8 text-left q-pl-sm">
+                  <small class="text-caption">
+                    {{ oSurvey.awnser_count + ' von '+ oSurvey.question_count +' Fragen beantwortet' }}
+                  </small>
+                </div>
               </div>
-            </div>
 
-            <div class="q-mt-smxxx">
-              {{ oSurvey.desc_short }}
-            </div>
-          </q-card-section>
+              <div class="q-mt-smxxx">
+                {{ oSurvey.desc_short }}
+              </div>
+            </q-card-section>
 
-          <q-card-section>
-            <div class="text-right text-grey text-caption">
-              Startet am {{ fhd(oSurvey.start_datetime) }} um {{ fht(oSurvey.start_datetime) }}<br>
-              Endet um {{ fhd(oSurvey.end_datetime) }} um {{ fht(oSurvey.end_datetime) }}<br>
-            </div>
-          </q-card-section>
-        </q-card>
+            <q-card-section>
+              <div class="text-right text-grey text-caption">
+                Startet am {{ fhd(oSurvey.start_datetime) }} um {{ fht(oSurvey.start_datetime) }}<br>
+                Endet um {{ fhd(oSurvey.end_datetime) }} um {{ fht(oSurvey.end_datetime) }}<br>
+              </div>
+            </q-card-section>
+          </q-card>
+        </template>
+        <template v-else>
+          <div class="col col-12 col-xs-12 col-xl-12 text-grey-7">
+            <p class="text-body2">
+              Es wurden aktuell noch keine Umfragen erstellt, welche Sie ausfüllen können. Tut uns Leid
+            </p>
+          </div>
+        </template>
       </div>
     </div>
   </div>
