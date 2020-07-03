@@ -363,7 +363,7 @@ export default {
       ) {
         return question.users_awnser.awnser_options
       }
-      return {}
+      return []
     },
     usersAwnserRequiresComment (question = this.question) {
       return !!(
