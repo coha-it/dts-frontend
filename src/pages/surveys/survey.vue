@@ -1,10 +1,6 @@
-<template>
-  <transition name="fade" mode="out-in">
-    <SurveyDetails
-      v-if="oSurvey"
-      :o-survey="oSurvey"
-    />
-  </transition>
+<template lang="pug">
+transition(name="fade" mode="out-in")
+  SurveyDetails(v-if="oSurvey" :o-survey="oSurvey")
 </template>
 
 <script>

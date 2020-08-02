@@ -45,6 +45,7 @@ export default {
 
   created: function () {
     this.updateViewportHeightOnResize();
+    // this.$q.dark.set(true)
   },
 
   mounted () {

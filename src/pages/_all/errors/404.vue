@@ -1,16 +1,8 @@
-<template>
-  <div class="flex-center position-ref full-height">
-      <div class="code">
-          <!-- @yield('code') -->
-          404
-      </div>
-      <div class="message" style="padding: 10px;">
-          {{ $t('page_not_found') }}<br>
-          <router-link :to="{ name: 'welcome' }">
-            {{ $t('go_home') }}
-          </router-link>
-      </div>
-  </div>
+<template lang="pug">
+.flex-center.position-ref.full-height
+    .code 404
+    .message(style="padding: 10px;") {{ $t('page_not_found') }}<br>
+        router-link(:to="{ name: 'welcome' }") {{ $t('go_home') }}
 </template>
 
 <script>

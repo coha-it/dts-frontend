@@ -1,3 +1,5 @@
+$console_font: "Consolas", "Roboto Mono", "monospace", "Courier New", "Lucida Console";
+
 .q-btn {
   margin: 0 0 5px 0;
 }
@@ -253,7 +255,7 @@ select {
         padding-bottom: 2px;
         height: auto;
         max-height: inherit;
-        font-family: Roboto Mono, Consolas, monospace, monospaced;
+        font-family: $console_font;
     }
 
     .q-field__control {
@@ -315,13 +317,13 @@ select {
 .c-code-text {
     &,
     & input {
-        font-family: "Roboto Mono", "Consolas", "monospace", "Courier New", "Lucida Console";
+        font-family: $console_font;
         font-size: 1.15em;
     }
 }
 
 .import_comment {
-  font-family: "Roboto Mono", "Consolas", "monospace", "Courier New", "Lucida Console";
+  font-family: $console_font;
   font-size: 12px !important;
   white-space: pre !important;
   white-space: pre-wrap !important;
@@ -334,7 +336,7 @@ select {
   border-radius: .5em;
   color: black;
   font-weight: bold;
-  font-family: "Consolas", "monospace", "Courier New", "Lucida Console", "Roboto Mono";
+  font-family: $console_font;
   line-height: inherit;
   // white-space: break-spaces;
 }
