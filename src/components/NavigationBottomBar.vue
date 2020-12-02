@@ -38,7 +38,7 @@ export default {
     return {
       tab: 'selectedTab',
       bottomnav: [
-        { title: 'bottombar.profile', icon: 'person', route: {name: 'profile'} },
+        { title: 'bottombar.profile', icon: 'person', route: {name: 'settings'} },
         { title: 'bottombar.home', icon: 'home', route: {name: 'home'} },
         { title: 'bottombar.surveys', icon: 'poll', route: {name: 'surveys'} },
         { title: 'bottombar.faq', icon: 'help', route: {name: 'faq'} },
