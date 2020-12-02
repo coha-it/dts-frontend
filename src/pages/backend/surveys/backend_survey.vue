@@ -1389,7 +1389,7 @@
                                                   </q-tr>
 
                                                   <!-- Body Expansion Slot: Erweiterte Einstellungen -->
-                                                  <q-tr v-if="option.row.settings !== null" :props="option">
+                                                  <q-tr v-if="option.row && option.row.settings" :props="option">
                                                     <q-td colspan="100%">
                                                       <div class="text-left">
                                                         <template v-if="props.row.is_commentable">
