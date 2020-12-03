@@ -26,7 +26,7 @@ div
     template(v-if="selected.length")
       q-list
         |Selected
-        q-item(v-for="(survey, key) in selected")
+        q-item(v-for="(survey, key) in selected" :key="survey.id")
 
           q-item-section(avatar)
             q-icon(name="analytics")
