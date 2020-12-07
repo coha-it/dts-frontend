@@ -107,7 +107,7 @@
 
 // import { mapGetters } from 'vuex'
 // import axios from 'axios'
-// import QrcodeVue from 'qrcode.vue'
+import QrcodeVue from 'qrcode.vue'
 
 export default {
   props: [
@@ -115,8 +115,9 @@ export default {
     'disabled'
   ],
 
+  template: '<qrcode-vue :value="value"></qrcode-vue>',
   components: {
-    // QrcodeVue
+    QrcodeVue
   },
 
   data() {
