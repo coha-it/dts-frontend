@@ -74,7 +74,8 @@ q-layout(view='hHr lpr fFr')
                   | Ihre Umfrage wurden erfolgreich ausgef&uuml;llt.
           q-card-actions(align='right')
             q-space
-            q-btn(v-close-popup='' unelevated='' label='Ok' color='primary' @click="$router.push('/')")
+            //- q-btn(v-close-popup unelevated label='Ok' color='primary' @click="$router.push('/')")
+            q-btn(v-close-popup unelevated label='Ok' color='primary' @click="logout")
 </template>
 
 <script>
@@ -127,6 +128,14 @@ export default {
   },
 
   methods: {
+
+    async logout () {
+      // Log out the user.
+      await this.$store.dispatch('auth/logout')
+
+      // Redirect to login.
+      this.$router.push({ name: 'welcome' })
+    },
 
     getUsersAwnser (question) {
       // Check if User has awnsered
