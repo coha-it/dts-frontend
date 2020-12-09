@@ -17,13 +17,14 @@
             <q-icon name="print" left /> Drucken
           </q-btn>
           <q-toggle class="mt-7 ml-1 mr-5" v-model="colorfull" :label="colorfull ? 'Farbenfroh' : 'Schwarz & Weiß' " color="accent" />
+          <q-toggle class="mt-7 ml-1 mr-5" v-model="oPrint.bFormatA3" label="A3" color="accent" />
           <q-toggle class="mt-7 ml-1 mr-5" v-model="oPrint.bShowCompany" label="Firma" color="secondary" />
           <q-toggle class="mt-7 ml-1 mr-5" v-model="oPrint.bShowDepartment" label="Abteilung" color="secondary" />
           <q-toggle class="mt-7 ml-1 mr-5" v-model="oPrint.bShowLocation" label="Ort" color="secondary" />
           <div class="flex-grow-1"></div>
         </q-toolbar>
 
-        <div class="coha--print">
+        <div class="coha--print" :class="{'a3': oPrint.bFormatA3}">
           <div v-for="user in users" v-bind:key="user.id" class="element page-break" :class="colorfull ? '' : 'blackAndWhite'">
             <div class="inner">
 
@@ -91,12 +92,13 @@
 
       nav,
       .v-application--wrap,
-      .q-toolbar{
-      display: none !important;
+      .q-toolbar,
+      .q-menu {
+        display: none !important;
       }
 
       .fixed, .fixed-bottom, .fixed-bottom-left, .fixed-bottom-right, .fixed-center, .fixed-full, .fixed-left, .fixed-right, .fixed-top, .fixed-top-left, .fixed-top-right, .fullscreen {
-      position: static !important;
+        position: static !important;
       }
     </component>
 
@@ -128,7 +130,8 @@ export default {
       oPrint: {
         bShowCompany: true,
         bShowDepartment: true,
-        bShowLocation: true
+        bShowLocation: true,
+        bFormatA3: true
       }
     }
   },
@@ -262,8 +265,38 @@ export default {
               margin-top: 5px;
           }
       }
+
+    // A3
+    &.a3 {
+      .element {
+          // Test
+          width: auto;
+          height: auto;
+          display: inline-block;
+          margin: 28px 0 0 20px;
+          page-break-inside: auto;
+
+          h3 {
+            font-size: 8mm;
+            line-height: 1.15;
+          }
+
+
+          .inner {
+              width: 90mm;
+              height: 150mm;
+              padding: 1mm 6mm;
+          }
+
+          &,
+          & .inner {
+            page-break-inside: auto;
+          }
+      }
+    }
   }
 }
+
 
 .q-dialog__inner>div {
   overflow: inherit;
