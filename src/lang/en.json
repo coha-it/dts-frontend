@@ -48,6 +48,7 @@
   "pan_and_pin": "PIN & PAN",
   "pan_and_pin_desc": "I know my PIN and PAN and want to authentificate with it",
   "loading": {
-    "text": "Loading... Please wait"
+    "text": "Loading... Please wait",
+    "statistics": "Please wait a moment. Statistics loading. This could take a while..."
   }
 }

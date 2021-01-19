@@ -161,7 +161,8 @@
     "data_unsaved": "Daten nicht gespeichert",
     "reset": "Zurücksetzen",
     "loading": {
-      "text": "Bitte warten ..."
+      "text": "Bitte warten ...",
+      "statistics": "Bitte warten. Die Statistiken werden geladen. Das könnte einen Moment dauern..."
     },
     "required": "Dieses Feld ist erforderlich",
     "years": "Jahre",
