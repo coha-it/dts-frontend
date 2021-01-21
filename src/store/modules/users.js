@@ -4,20 +4,20 @@ import * as types from '../mutation-types'
 
 // state
 export const state = {
-  usersCreated: null,
+  usersAllowed: null,
   groupsModerating: null
 }
 
 // getters
 export const getters = {
-  usersCreated: state => state.usersCreated,
+  usersAllowed: state => state.usersAllowed,
   groupsModerating: state => state.groupsModerating
 }
 
 // mutations
 export const mutations = {
-  [types.FETCH_USERS_CREATED_SUCCESS] (state, { usersCreated }) {
-    state.usersCreated = usersCreated
+  [types.FETCH_USERS_ALLOWED_SUCCESS] (state, { usersAllowed }) {
+    state.usersAllowed = usersAllowed
   },
 
   [types.FETCH_GROUPS_MODERATING_SUCCESS] (state, { groupsModerating }) {
@@ -27,12 +27,12 @@ export const mutations = {
 
 // actions
 export const actions = {
-  async fetchUsersCreated ({ commit }) {
+  async fetchAllowedUsers ({ commit }) {
     try {
-      const { data } = await axios.get('/api/users-created')
-      commit(types.FETCH_USERS_CREATED_SUCCESS, { usersCreated: data })
+      const { data } = await axios.get('/api/users-allowed')
+      commit(types.FETCH_USERS_ALLOWED_SUCCESS, { usersAllowed: data })
     } catch (e) {
-      commit(types.FETCH_USERS_CREATED_FAILURE)
+      commit(types.FETCH_USERS_ALLOWED_FAILURE)
     }
   },
   async fetchGroupsModerating ({ commit }) {
@@ -44,17 +44,17 @@ export const actions = {
     }
   },
 
-  addCreatedUserToGroup ({ commit }, payload) {
+  addAllowedUserToGroup ({ commit }, payload) {
     axios.post('/api/add-user-to-group', payload)
   },
 
-  removeCreatedUserFromGroup ({ commit }, payload) {
+  removeAllowedUserFromGroup ({ commit }, payload) {
     axios.post('/api/remove-user-from-group', payload)
   },
 
   updateUsers ({ commit }, payload) {
     try {
-      return axios.patch('/api/update-created-users', payload )
+      return axios.patch('/api/update-allowed-users', payload )
     } catch (e) {
       return e
     }
@@ -70,7 +70,7 @@ export const actions = {
 
   deleteUsers ({ commit }, payload) {
     try {
-      return axios.patch('/api/delete-created-user', payload )
+      return axios.patch('/api/delete-allowed-user', payload )
     } catch (e) {
       return e
     }
