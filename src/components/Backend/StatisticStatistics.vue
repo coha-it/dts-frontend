@@ -127,7 +127,7 @@ function wrapCsvValue (val, formatFn) {
     ? ''
     : String(formatted)
 
-  formatted = formatted.split('"').join('"XXX"')
+  formatted = formatted.split('"').join('""')
   /**
    * Excel accepts \n and \r in strings, but some other CSV parsers do not
    * Uncomment the next two lines to escape new lines
@@ -370,7 +370,7 @@ export default {
     exportTable (stats = this.stats) {
 
       // naive encoding to csv format
-      const content = [ stats.header.map(col => wrapCsvValue(col)) ].concat(
+      const content = [ stats.header.map(col => wrapCsvValue(col)).join(';') ].concat(
         stats.data.map(row => stats.header.map(col => wrapCsvValue(
           typeof col.field === 'function'
             ? col.field(row)
