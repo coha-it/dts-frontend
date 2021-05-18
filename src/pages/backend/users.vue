@@ -783,6 +783,7 @@
                   v-if="
                     props &&
                     props.row &&
+                    props.row.pan &&
                     props.row.pan.pin &&
                     props.row.pan.pin.length > 0
                   "
@@ -1092,6 +1093,9 @@
           <!-- Company -->
           <template v-slot:body-cell-company="props">
             <q-td :props="props">
+              <div>
+                <small v-if="props.row.company">{{ props.row.company.name }}</small>
+              </div>
               <select
                 v-model="props.row.company_id"
                 @change="companyChanged(props.row)"
@@ -1113,6 +1117,9 @@
           <!-- Department -->
           <template v-slot:body-cell-department="props">
             <q-td :props="props">
+              <div>
+                <small v-if="props.row.department">{{ props.row.department.name }}</small>
+              </div>
               <select
                 v-model="props.row.department_id"
                 @change="departmentChanged(props.row)"
@@ -1135,6 +1142,9 @@
           <!-- Location -->
           <template v-slot:body-cell-location="props">
             <q-td :props="props">
+              <div>
+                <small v-if="props.row.location">{{ props.row.location.name }}</small>
+              </div>
               <select
                 v-model="props.row.location_id"
                 @change="locationChanged(props.row)"
@@ -1160,7 +1170,11 @@
               class="import_comment"
               :props="props"
             >
-              <template v-if="props.row.pan.import_comment">
+              <template v-if="
+                props.row &&
+                props.row.pan &&
+                props.row.pan.import_comment
+              ">
                 <span class="code_font">{{
                   props.row.pan.import_comment
                 }}</span>
