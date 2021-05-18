@@ -2195,11 +2195,15 @@ export default {
         is_member: 1,
       };
 
-      user.groups.push(group);
+      if(user.groups) {
+        user.groups.push(group);
+      }
     },
 
     removeAllowedUserFromGroup(user, index) {
-      user.groups.splice(index, 1);
+      if(user.groups) {
+        user.groups.splice(index, 1);
+      }
     },
   },
 };
