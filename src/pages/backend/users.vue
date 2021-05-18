@@ -704,6 +704,7 @@
                   v-if="
                     props &&
                     props.row &&
+                    props.row.pan &&
                     props.row.pan.pan &&
                     props.row.pan.pan.length > 0
                   "
@@ -725,6 +726,7 @@
                   >
                 </template>
                 <q-popup-edit
+                  v-if="props && props.row && props.row.pan && props.row.pan.pan"
                   v-model="props.row.pan.pan"
                   buttons
                   single-line
@@ -798,6 +800,7 @@
                 </template>
 
                 <q-popup-edit
+                  v-if="props && props.row && props.row.pan && props.row.pan.pin"
                   v-model="props.row.pan.pin"
                   buttons
                   single-line
@@ -1170,7 +1173,7 @@
             <q-td v-if="settings.bShowContactMailData" :props="props">
               <div>
                 <template
-                  v-if="props && props.row && props.row.pan.contact_mail"
+                  v-if="props && props.row && props.row.pan && props.row.pan.contact_mail"
                 >
                   <span class="code_font contact_mail">{{
                     props.row.pan.contact_mail
@@ -1182,6 +1185,7 @@
                   }}</span>
                 </template>
                 <q-popup-edit
+                  v-if="props.row.pan && props.row.pan.contact_mail"
                   v-model="props.row.pan.contact_mail"
                   buttons
                   single-line
@@ -1221,7 +1225,7 @@
           <!-- last_mail_date -->
           <template v-slot:body-cell-last_mail_date="props">
             <q-td v-if="settings.bShowContactMailData" :props="props">
-              <template v-if="props.row.pan.last_mail_date">
+              <template v-if="props.row.pan && props.row.pan.last_mail_date">
                 <span class="code_font last_mail_date">{{
                   props.row.pan.last_mail_date
                 }}</span
@@ -1241,7 +1245,7 @@
           <!-- last_mail_status -->
           <template v-slot:body-cell-last_mail_status="props">
             <q-td v-if="settings.bShowContactMailData" :props="props">
-              <span class="code_font last_mail_status">{{
+              <span v-if="props.row.pan" class="code_font last_mail_status">{{
                 props.row.pan.last_mail_status
               }}</span>
             </q-td>
