@@ -58,7 +58,7 @@
                   :append-icon="show1 ? 'visibility' : 'visibility_off'"
                   required
                   color="black"
-                  :hint="form.password ? form.password.length + ' / 6 ' + $t('password_hint') : false"
+                  :hint="form.password ? form.password.length + ' / 6 ' + $t('password_hint') : null"
                   @click:append="show1 = !show1"
                 />
               </div>
@@ -77,7 +77,7 @@
                   :type="show1 ? 'text' : 'password'"
                   :append-icon="show1 ? 'visibility' : 'visibility_off'"
                   required
-                  :hint="form.password_confirmation ? $t('password_repeat_hint') : false"
+                  :hint="form.password_confirmation ? $t('password_repeat_hint') : null"
                   @click:append="show1 = !show1"
                 />
               </div>

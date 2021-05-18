@@ -3,21 +3,21 @@
     <div class="inner-content">
 
       <!-- Back and Header -->
-      <v-container>
+      <div class="container">
 
 
-        <v-row>
-          <v-col cols="12" sm="12" md="12">
+        <div class="row">
+          <div class="col col-12 sm-12 md-12">
             <h1>{{ $t('verify_email') }}</h1>
-          </v-col>
-        </v-row>
+          </div>
+        </div>
 
-        <v-row>
-          <v-col cols="12" sm="12" md="12">
+        <div class="row">
+          <div class="col col-12 sm-12 md-12">
             <!-- Alert -->
             <template v-if="success">
               <div>
-                  <v-alert
+                  <q-alert
                   color="blue-grey"
                   dark
                   icon="mdi-email-mark-as-unread"
@@ -27,7 +27,7 @@
                   class="animated tdDropInLeft"
                 >
                   <div v-html="$t(success)"></div>
-                </v-alert>
+                </q-alert>
 
                 <router-link :to="{ name: 'login' }" class="btn btn-primary">
                   {{ $t('login') }}
@@ -37,7 +37,7 @@
             <!-- Error -->
             <template v-else>
               <div>
-                <v-alert
+                <q-alert
                   color="warning"
                   dark
                   icon="mdi-email-mark-as-unread"
@@ -46,17 +46,17 @@
                   class="animated tdDropInLeft"
                 >
                   <span v-html="error || $t('failed_to_verify_email')"></span>
-                </v-alert>
+                </q-alert>
 
                 <router-link :to="{ name: 'verification.resend' }" class="small float-right">
                   {{ $t('resend_verification_link') }}
                 </router-link>
               </div>
             </template>
-          </v-col>
-        </v-row>
+          </div>
+        </div>
 
-      </v-container>
+      </div>
     </div>
   </div>
 </template>

@@ -2,23 +2,23 @@
   <div class="rightsided-content coha--login-wrapper">
     <div class="inner-content">
       <!-- Back and Header -->
-      <v-container>
-        <v-row>
-          <v-col cols="12" sm="12" md="12">
+      <div>
+        <div class="row">
+          <div class="col col-12 sm-12 md-12">
             <!-- Alert -->
             <alert-success :form="form" :message="status" />
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="10" sm="10" md="10" align-self="center">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col col-10 sm-10 md-10 align-self">
             <h1>{{ $t('verify_email') }}</h1>
             <p class="subtitle">{{ $t('verify_email_desc') }}</p>
-          </v-col>
-        </v-row>
+          </div>
+        </div>
 
         <form @submit.prevent="send" @keydown="form.onKeydown($event)">
-          <v-row>
-            <v-col>
+          <div class="row">
+            <div class="col">
 
                 <!-- Email -->
                 <q-input
@@ -31,16 +31,16 @@
                   required
                   ref="email"
                 />
-            </v-col>
-          </v-row>
-          <v-row>
-              <v-col cols="12" sm="12" md="12" align="right">
+            </div>
+          </div>
+          <div class="row">
+              <div class="col col-12 sm-12 md-12 align-right">
                 <!-- Submit Button -->
                 <q-btn color="primary" large block :loading="form.busy" type="submit" :label="$t('send_verification_link')" />
-              </v-col>
-          </v-row>
+              </div>
+          </div>
         </form>
-      </v-container>
+      </div>
     </div>
   </div>
 </template>
