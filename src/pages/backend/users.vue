@@ -134,11 +134,7 @@
           <q-progress-linear indeterminate color="white" class="mb-0" />
         </template>
       </q-dialog>
-      &nbsp;
-
       <CsvUsersImport ref="CsvUsersImport" />
-
-      &nbsp;
     </p>
 
     <p>
@@ -725,7 +721,9 @@
                   >
                 </template>
                 <q-popup-edit
-                  v-if="props && props.row && props.row.pan && props.row.pan.pan"
+                  v-if="
+                    props && props.row && props.row.pan && props.row.pan.pan
+                  "
                   v-model="props.row.pan.pan"
                   buttons
                   single-line
@@ -800,7 +798,9 @@
                 </template>
 
                 <q-popup-edit
-                  v-if="props && props.row && props.row.pan && props.row.pan.pin"
+                  v-if="
+                    props && props.row && props.row.pan && props.row.pan.pin
+                  "
                   v-model="props.row.pan.pin"
                   buttons
                   single-line
@@ -996,7 +996,9 @@
                                       size="small"
                                       color="error"
                                       :label="$t('remove')"
-                                      @click="removeAllowedUserFromGroup(props.row, i)"
+                                      @click="
+                                        removeAllowedUserFromGroup(props.row, i)
+                                      "
                                     />
                                   </q-item-label>
                                 </q-item-section>
@@ -1093,7 +1095,9 @@
           <template v-slot:body-cell-company="props">
             <q-td :props="props">
               <div>
-                <small v-if="props.row.company">{{props.row.company.name}}</small>
+                <small v-if="props.row.company">{{
+                  props.row.company.name
+                }}</small>
               </div>
               <select
                 v-model="props.row.company_id"
@@ -1117,7 +1121,9 @@
           <template v-slot:body-cell-department="props">
             <q-td :props="props">
               <div>
-                <small v-if="props.row.department">{{props.row.department.name}}</small>
+                <small v-if="props.row.department">{{
+                  props.row.department.name
+                }}</small>
               </div>
               <select
                 v-model="props.row.department_id"
@@ -1142,7 +1148,9 @@
           <template v-slot:body-cell-location="props">
             <q-td :props="props">
               <div>
-                <small v-if="props.row.location">{{props.row.location.name}}</small>
+                <small v-if="props.row.location">{{
+                  props.row.location.name
+                }}</small>
               </div>
               <select
                 v-model="props.row.location_id"
@@ -1169,11 +1177,11 @@
               class="import_comment"
               :props="props"
             >
-              <template v-if="
-                props.row &&
-                props.row.pan &&
-                props.row.pan.import_comment
-              ">
+              <template
+                v-if="
+                  props.row && props.row.pan && props.row.pan.import_comment
+                "
+              >
                 <span class="code_font">{{
                   props.row.pan.import_comment
                 }}</span>
@@ -1186,7 +1194,12 @@
             <q-td v-if="settings.bShowContactMailData" :props="props">
               <div>
                 <template
-                  v-if="props && props.row && props.row.pan && props.row.pan.contact_mail"
+                  v-if="
+                    props &&
+                    props.row &&
+                    props.row.pan &&
+                    props.row.pan.contact_mail
+                  "
                 >
                   <span class="code_font contact_mail">{{
                     props.row.pan.contact_mail
@@ -2207,13 +2220,13 @@ export default {
         is_member: 1,
       };
 
-      if(user.groups) {
+      if (user.groups) {
         user.groups.push(group);
       }
     },
 
     removeAllowedUserFromGroup(user, index) {
-      if(user.groups) {
+      if (user.groups) {
         user.groups.splice(index, 1);
       }
     },
