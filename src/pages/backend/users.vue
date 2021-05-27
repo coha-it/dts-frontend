@@ -4,7 +4,6 @@
     <p>Erstelle Benutzerkonten und dafür jeweils PAN & PIN</p>
     <p>
       <!-- Create User -->
-
       <q-btn
         label="Benutzer erstellen"
         unelevated
@@ -1094,7 +1093,7 @@
           <template v-slot:body-cell-company="props">
             <q-td :props="props">
               <div>
-                <small v-if="props.row.company">{{ props.row.company.name }}</small>
+                <small v-if="props.row.company">{{props.row.company.name}}</small>
               </div>
               <select
                 v-model="props.row.company_id"
@@ -1118,7 +1117,7 @@
           <template v-slot:body-cell-department="props">
             <q-td :props="props">
               <div>
-                <small v-if="props.row.department">{{ props.row.department.name }}</small>
+                <small v-if="props.row.department">{{props.row.department.name}}</small>
               </div>
               <select
                 v-model="props.row.department_id"
@@ -1143,7 +1142,7 @@
           <template v-slot:body-cell-location="props">
             <q-td :props="props">
               <div>
-                <small v-if="props.row.location">{{ props.row.location.name }}</small>
+                <small v-if="props.row.location">{{props.row.location.name}}</small>
               </div>
               <select
                 v-model="props.row.location_id"
@@ -1573,8 +1572,7 @@ export default {
     },
 
     settings: {
-      handler: function (newValue) {
-        console.log("update settings now", newValue);
+      handler: function () {
         this.updateSettings();
       },
       deep: true,
