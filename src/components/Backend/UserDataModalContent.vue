@@ -1,8 +1,8 @@
 <template lang="pug">
-q-card
-  q-card-section
-    // New Company
-    q-btn(color='primary' depressed='' dark='' @click='createDialog = true') {{ sCreateText }}
+div
+  p
+    q-btn(color='primary' depressed dark unelevated @click='createDialog = true') {{ sCreateText }}
+  q-card
     q-dialog(v-model='createDialog' persistent)
       q-card(style='min-width: 350px')
         q-card-section
@@ -16,16 +16,16 @@ q-card
           q-btn(v-close-popup='' flat='' :label="$t('cancel')")
           q-btn(v-close-popup='' flat='' :label="$t('save')" @click='createModel(item)')
     .flex-grow-1
-  q-table.elevation-1.my-sticky-header-table(v-if='aHeaders' :columns='aHeaders' :data='oModels' :items-per-page='20')
-    template(v-slot:body-cell-name='props')
-      q-td(:props='props')
-        MyPopupEdit(:props='props' val='name' :save='save')
-    template(v-slot:body-cell-description_public='props')
-      q-td(:props='props')
-        MyPopupEdit(:props='props' val='description_public' :save='save')
-    template(v-slot:body-cell-description_mods='props')
-      q-td(:props='props')
-        MyPopupEdit(:props='props' val='description_mods' :save='save')
+    q-table.elevation-1.my-sticky-header-table(v-if='aHeaders' :columns='aHeaders' :data='oModels' :items-per-page='20')
+      template(v-slot:body-cell-name='props')
+        q-td(:props='props')
+          MyPopupEdit(:props='props' val='name' :save='save')
+      template(v-slot:body-cell-description_public='props')
+        q-td(:props='props')
+          MyPopupEdit(:props='props' val='description_public' :save='save')
+      template(v-slot:body-cell-description_mods='props')
+        q-td(:props='props')
+          MyPopupEdit(:props='props' val='description_mods' :save='save')
 </template>
 
 <script>
