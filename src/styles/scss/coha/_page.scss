@@ -12,6 +12,14 @@ a {
   color: var(--q-color-black);
 }
 
+html a {
+
+  &:not(.q-item,.q-btn) {
+    color: #438a9a;
+    font-weight: 900;
+  }
+}
+
 .q-field {
   font-size: 16px;
 }
@@ -26,4 +34,9 @@ a {
   overflow: scroll;
 }
 
+button {
 
+  &.close {
+    cursor: pointer;
+  }
+}
