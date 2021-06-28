@@ -35,25 +35,25 @@
     "settings": "Einstellungen",
     "your settings": "Ihre Einstellungen",
     "profile": {
-      "title": "Profil",
-      "h1": "Profil",
-      "company": {
-        "create": "Erstelle Firma",
-        "choose": "Firma auswählen"
-      },
-      "department": {
-        "create": "Erstelle eine Abteilung",
-        "choose": "Wähle eine Abteilung"
-      },
-      "location": {
-        "create": "Erstelle einen Ort",
-        "choose": "Wähle einen Ort"
-      }
+        "title": "Profil",
+        "h1": "Profil",
+        "company": {
+            "create": "Erstelle Firma",
+            "choose": "Firma auswählen"
+        },
+        "department": {
+            "create": "Erstelle eine Abteilung",
+            "choose": "Wähle eine Abteilung"
+        },
+        "location": {
+            "create": "Erstelle einen Ort",
+            "choose": "Wähle einen Ort"
+        }
     },
     "validation": {
-      "length": {
-        "short": "Diese Eingabe ist zu kurz"
-      }
+        "length": {
+            "short": "Diese Eingabe ist zu kurz"
+        }
     },
     "your_info": "Ihre Infos",
     "info_updated": "Ihre Infos wurden aktualisiert!",
@@ -69,8 +69,8 @@
     "resend_verification_link": "Verifikations-Link erneut senden?",
     "failed_to_verify_email": "E-Mail verifikation fehlgeschlagen.",
     "verify_email_address": "Wir senden dir eine E-Mail mit dem Verifikations-Link.",
-    "You must :linkOpen verify :linkClose your email first." : "aggna",
-    "You must {a} verify {b} your email first." : "usni",
+    "You must :linkOpen verify :linkClose your email first.": "aggna",
+    "You must {a} verify {b} your email first.": "usni",
     "back": "zurück",
     "authentificate_title": "Authentifizieren",
     "closer_button": "schließen",
@@ -81,10 +81,10 @@
     "pan_and_pin": "PAN & PIN",
     "pan_title": "PIN & PAN",
     "pan_desc": "Ich besitze PAN und PIN und möchte mich damit anmelden",
-    "login_title":"Anmelden",
-    "login_desc":"Ich besitze ein Konto und möchte mich darin anmelden",
-    "register_title":"Registrieren",
-    "register_desc":"Ich will ein neues Konto mit meiner E-Mail Adresse erstellen",
+    "login_title": "Anmelden",
+    "login_desc": "Ich besitze ein Konto und möchte mich darin anmelden",
+    "register_title": "Registrieren",
+    "register_desc": "Ich will ein neues Konto mit meiner E-Mail Adresse erstellen",
     "with_email": "Mit E-Mail",
     "free_register": "Jetzt kostenlos registrieren",
     "PAN": "PAN",
@@ -99,42 +99,42 @@
     "home": "Startseite",
     "surveys": "Umfragen",
     "bottombar": {
-      "menu": "Menü",
-      "profile": "Konto",
-      "home": "Home",
-      "surveys": "Umfragen",
-      "faq": "FAQ"
+        "menu": "Menü",
+        "profile": "Konto",
+        "home": "Home",
+        "surveys": "Umfragen",
+        "faq": "FAQ"
     },
 
     "sidenav": {
-      "subtitle": "Befragungen Online",
-      "home": "Home",
-      "profile": "Konto",
-      "surveys": "Ihre Umfragen",
-      "faq": "FAQ  /  Hilfe",
-      "settings": "Einstellungen",
+        "subtitle": "Befragungen Online",
+        "home": "Home",
+        "profile": "Konto",
+        "surveys": "Ihre Umfragen",
+        "faq": "FAQ  /  Hilfe",
+        "settings": "Einstellungen",
 
-      "backend": {
-        "title": "Administration",
-        "users": "Benutzer",
-        "pan": "Zugänge",
-        "groups": "Gruppen",
-        "surveys": "Umfragen",
-        "statistics": "Statistiken",
-        "statistic": "Statistiken"
-      }
+        "backend": {
+            "title": "Administration",
+            "users": "Benutzer",
+            "pan": "Zugänge",
+            "groups": "Gruppen",
+            "surveys": "Umfragen",
+            "statistics": "Statistiken",
+            "statistic": "Statistiken"
+        }
     },
 
     "logout": {
-      "title": "Abmelden",
-      "desc": "Möchten Sie sich abmelden?",
-      "btn": "Abmelden",
-      "btn_stay_here":"Hier bleiben"
+        "title": "Abmelden",
+        "desc": "Möchten Sie sich abmelden?",
+        "btn": "Abmelden",
+        "btn_stay_here": "Hier bleiben"
     },
     "password_hint": "Zeichen",
     "password_repeat_hint": "Passwort wiederholen",
     "auth": {
-      "failed": "Login fehlgeschlagen"
+        "failed": "Login fehlgeschlagen"
     },
     "invalid_given_data": "Die eingegeben Daten waren nicht korrekt",
     "company": "Firma",
@@ -142,7 +142,7 @@
     "location": "Ort",
 
     "newsletter": {
-      "newsletter": "Newsletter"
+        "newsletter": "Newsletter"
     },
 
     "groups": "Gruppen",
@@ -161,8 +161,8 @@
     "data_unsaved": "Daten nicht gespeichert",
     "reset": "Zurücksetzen",
     "loading": {
-      "text": "Bitte warten ...",
-      "statistics": "Bitte warten. Die Statistiken werden geladen. Das könnte einen Moment dauern..."
+        "text": "Bitte warten ...",
+        "statistics": "Bitte warten. Die Statistiken werden geladen. Das könnte einen Moment dauern..."
     },
     "required": "Dieses Feld ist erforderlich",
     "years": "Jahre",
@@ -192,5 +192,11 @@
     "import comment": "Import-Kommentar",
     "contact mail": "Kontakt-Mail",
     "last mail date": "Datum letzter Mail",
-    "last mail status": "Status letzter Mail"
+    "last mail status": "Status letzter Mail",
+
+    "faq": {
+        "title": "FAQ / Hilfe",
+        "subtitle": "Fragen & Antworten",
+        "text": "Bei Fragen oder Hilfestellung, melden Sie sich via E-Mail bei <a href='mailto:{email}'>{email}</a>"
+    }
 }
