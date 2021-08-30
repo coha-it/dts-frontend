@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h6 class="q-my-sm" header>{{ $t('your_surveys') }}</h6>
     <div style="max-width: 400px">
       <div class="row q-gutter-md">
         <template v-if="aSurveys && aSurveys.length > 0">
