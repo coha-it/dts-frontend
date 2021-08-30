@@ -7,7 +7,6 @@
     "token_expired_alert_text": "Bitte einloggen um weiter zu machen",
     "entry": "Anmelden",
     "login": "Anmelden",
-    "register": "Registrieren",
     "page_not_found": "Seite nicht gefunden",
     "go_home": "Zur Startseite",
     "email": "E-Mail",
@@ -16,7 +15,9 @@
     "email sent": "E-Mail versendet",
     "remember_me": "Angemeldet bleiben",
     "password": "Passwort",
-    "forgot_password": "Passwort vergessen?",
+    "forgot_password": "Passwort vergessen",
+    "forgot_password_text": "Haben Sie ihr",
+    "forgot_password_link": "Passwort vergessen?",
     "confirm_password": "Passwort wiederholen",
     "name": "Name",
     "save": "speichern",
@@ -62,7 +63,6 @@
     "password_updated": "Ihr Passwort wurde geändert!",
     "new_password": "Neues Passwort",
     "login_with": "Anmelden mit",
-    "register_with": "Registrieren mit",
     "verify_email": "E-Mail verifizieren",
     "verify_email_desc": "Versenden Sie einen Link an Ihre untenstehende E-Mail-Adresse um Ihr Konto zu verifizieren",
     "send_verification_link": "Sende Verifikations-Link",
@@ -83,10 +83,13 @@
     "pan_desc": "Ich besitze PAN und PIN und möchte mich damit anmelden",
     "login_title": "Anmelden",
     "login_desc": "Ich besitze ein Konto und möchte mich darin anmelden",
+    "register": "Registrieren",
     "register_title": "Registrieren",
     "register_desc": "Ich will ein neues Konto mit meiner E-Mail Adresse erstellen",
-    "with_email": "Mit E-Mail",
+    "register_with": "Registrieren mit",
+    "register_alternative": "Neu hier?",
     "free_register": "Jetzt kostenlos registrieren",
+    "with_email": "Mit E-Mail",
     "PAN": "PAN",
     "PIN": "PIN",
     "Welcome": "Willkommen",
@@ -194,9 +197,12 @@
     "last mail date": "Datum letzter Mail",
     "last mail status": "Status letzter Mail",
 
+    "welcome_heading": "Willkommen",
+    "welcome_text": "Um sich in ihr Konto anzumelden, klicken Sie auf eine der drei unterstehenden Optionen",
+
     "faq": {
         "title": "FAQ / Hilfe",
         "subtitle": "Fragen & Antworten",
         "text": "Bei Fragen oder Hilfestellung, melden Sie sich via E-Mail bei <a href='mailto:{email}'>{email}</a>"
-    }
+    },
 }

@@ -76,13 +76,13 @@
             <div class="col-12 sm-12 md-12 self-center text-center">
               <br>
               <p>
-                Neu hier? <router-link :to="{ name: 'register' }" class="small ml-auto my-auto">
+                {{ $t('register_alternative') }} <router-link :to="{ name: 'register' }" class="small ml-auto my-auto">
                   {{ $t('free_register') }}
                 </router-link>
               </p>
               <p>
-                Haben Sie Ihr <router-link :to="{ name: 'password.request' }" class="small ml-auto my-auto">
-                  {{ $t('forgot_password') }}
+                {{ $t('forgot_password_text') }} <router-link :to="{ name: 'password.request' }" class="small ml-auto my-auto">
+                  {{ $t('forgot_password_link') }}
                 </router-link>
               </p>
             </div>
