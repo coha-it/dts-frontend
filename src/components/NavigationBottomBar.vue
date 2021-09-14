@@ -1,35 +1,32 @@
-<template>
-  <div class="lt-md">
-    <q-footer class="shadow-box shadow-2 bg-white">
-      <!-- BottomBar -->
-      <q-tabs
-        v-model="tab"
-        dense
-        align="justify"
-        active-color="black"
-        class="bg-white text-grey-5 coha-bottom-bar"
-        indicator-color="transparent"
+<template lang="pug">
+.lt-md
+  q-footer.shadow-box.shadow-2.bg-white
+    // BottomBar
+    q-tabs(
+      v-model="tab"
+      dense
+      align="justify"
+      active-color="black"
+      class="bg-white text-grey-5 coha-bottom-bar"
+      indicator-color="transparent"
+      no-caps
+      style="max-width: 770px; margin: 0 auto;"
+    )
+      q-btn(
+        flat
         no-caps
-        style="max-width: 770px; margin: 0 auto;"
-      >
-        <q-btn
-          flat
-          no-caps
-          icon="menu"
-          @click="toggleNavigation"
-        />
-        <q-route-tab
-          v-for="item in bottomnav"
-          :key="item.title"
-          :to="item.route"
-          :name="item.title"
-          :label="$t(item.title)"
-          :icon="item.icon"
-          active="true"
-        ></q-route-tab>
-      </q-tabs>
-    </q-footer>
-  </div>
+        icon="menu"
+        @click="toggleNavigation"
+      )
+      q-route-tab(
+        v-for="item in bottomnav"
+        :key="item.title"
+        :to="item.route"
+        :name="item.title"
+        :label="$t(item.title)"
+        :icon="item.icon"
+        active="true"
+      )
 </template>
 
 <script>

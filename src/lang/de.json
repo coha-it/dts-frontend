@@ -205,5 +205,9 @@
         "title": "FAQ / Hilfe",
         "subtitle": "Fragen & Antworten",
         "text": "Bei Fragen oder Hilfestellung, melden Sie sich via E-Mail bei <a href='mailto:{email}'>{email}</a>"
+    },
+
+    "management": {
+        "header": "Verwaltung"
     }
 }
