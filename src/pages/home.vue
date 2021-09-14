@@ -1,9 +1,7 @@
-<template>
-  <div class="main-layout">
-    <h1>{{ $t('home') }}</h1>
-    <h6 class="q-my-sm" header>Ihre Umfragen</h6>
-    <SurveysList />
-  </div>
+<template lang="pug">
+.main-layout
+  h1 {{ $t('home') }}
+  SurveysList
 </template>
 
 <script>

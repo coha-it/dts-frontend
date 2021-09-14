@@ -1,7 +1,6 @@
-<template>
-  <div class="footer q-pa-md">
-    <Locale />
-  </div>
+<template lang="pug">
+.footer.q-pa-md
+  Locale
 </template>
 
 <script>
