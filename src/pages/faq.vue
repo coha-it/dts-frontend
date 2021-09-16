@@ -1,5 +1,5 @@
 <template lang="pug">
-.q-pa-md(style="max-width: 770px")
+.q-pa-sm(style="max-width: 770px")
   h1 {{ $t('faq.title') }}
   h5(style="margin-top:0") {{ $t('faq.subtitle') }}
   p(v-html="$t('faq.text', { email: 'it@corporate-happiness.de'})")
