@@ -1,53 +1,51 @@
 <template lang="pug">
 #app
-  loading(ref='loading')
-  transition(name='page' mode='out-in')
-    component(:is='layout' v-if='layout')
+  loading(ref="loading")
+  transition(name="page", mode="out-in")
+    component(:is="layout", v-if="layout")
 </template>
 
 <script>
-import Loading from './components/Loading'
+import Loading from "./components/Loading";
 
 // Load layout components dynamically.
-const requireContext = require.context('@/layouts', false, /.*\.vue$/)
+const requireContext = require.context("@/layouts", false, /.*\.vue$/);
 
-const layouts = requireContext.keys()
-  .map(file =>
-    [file.replace(/(^.\/)|(\.vue$)/g, ''), requireContext(file)]
-  )
+const layouts = requireContext
+  .keys()
+  .map((file) => [file.replace(/(^.\/)|(\.vue$)/g, ""), requireContext(file)])
   .reduce((components, [name, component]) => {
-    components[name] = component.default || component
-    return components
-  }, {})
+    components[name] = component.default || component;
+    return components;
+  }, {});
 
 export default {
-  el: '#app',
+  el: "#app",
 
   components: {
-    Loading
+    Loading,
   },
 
   data: () => ({
     layout: null,
-    defaultLayout: 'AppLayout'
+    defaultLayout: "AppLayout",
   }),
 
-  metaInfo () {
-    const { appName } = window.config
+  metaInfo() {
+    const { appName } = window.config;
 
     return {
       title: appName,
-      titleTemplate: `%s · ${appName}`
-    }
+      titleTemplate: `%s · ${appName}`,
+    };
   },
 
   created: function () {
     this.updateViewportHeightOnResize();
-    // this.$q.dark.set(true)
   },
 
-  mounted () {
-    this.$loading = this.$refs.loading
+  mounted() {
+    this.$loading = this.$refs.loading;
   },
 
   methods: {
@@ -56,23 +54,22 @@ export default {
      *
      * @param {String} layout
      */
-    setLayout (layout) {
+    setLayout(layout) {
       if (!layout || !layouts[layout]) {
-        layout = this.defaultLayout
+        layout = this.defaultLayout;
       }
 
-      this.layout = layouts[layout]
+      this.layout = layouts[layout];
     },
 
     updateViewportHeightOnResize() {
       // We listen to the resize event
-      window.addEventListener('resize', () => {
+      window.addEventListener("resize", () => {
         // We execute the same script as before
         let vh = window.innerHeight * 0.01;
-        document.documentElement.style.setProperty('--vh', `${vh}px`);
+        document.documentElement.style.setProperty("--vh", `${vh}px`);
       });
     },
-
-  }
-}
+  },
+};
 </script>

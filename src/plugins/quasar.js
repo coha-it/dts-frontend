@@ -19,6 +19,7 @@ export default Vue.use(Quasar, {
   framework: {
     iconSet: 'mdi-v4',
     config: {
+      // dark: true, // 'auto'
       brand: {
         primary: 'red'
       }

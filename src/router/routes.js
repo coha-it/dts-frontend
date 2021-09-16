@@ -1,4 +1,4 @@
-function page (path) {
+function page(path) {
   return () => import(/* webpackChunkName: '' */ `@/pages/${path}`).then(m => m.default || m)
 }
 
@@ -18,21 +18,50 @@ export default [
   { path: '/email/resend', name: 'verification.resend', component: page('_guest/auth/verification/resend.vue'), meta: { title: 'verify_email' } },
 
   // Authentificated
-  { path: '/',
+  {
+    path: '/',
     component: page('index.vue'),
     // meta: {
     //   middleware: 'auth'
     // },
     children: [
       // Landing Pages
-      { path: '/home', name: 'home', component: page('home.vue'), meta: { title: 'home' } },
-      { path: '/faq', name: 'faq', component: page('faq.vue'), meta: { title: 'FAQ' } },
+      {
+        path: '/home',
+        name: 'home',
+        component: page('home.vue'),
+        meta: {
+          title: 'home'
+        }
+      },
+      {
+        path: '/faq',
+        name: 'faq',
+        component: page('faq.vue'),
+        meta: {
+          title: 'FAQ'
+        }
+      },
 
       // Surveys
-      { path: '/surveys', name: 'surveys', component: page('surveys/surveys.vue') },
+      {
+        path: '/surveys',
+        name: 'surveys',
+        component: page('surveys/surveys.vue'),
+        meta: {
+          title: 'surveys'
+        }
+      },
 
       // Account Settings
-      { path: '/settings', name: 'settings', component: page('profile/profile.vue'), meta: { title: 'profile.title' } }
+      {
+        path: '/settings',
+        name: 'settings',
+        component: page('settings'),
+        meta: {
+          title: 'settings'
+        }
+      }
 
       // Old Settings
       // { path: '/settings',
@@ -57,7 +86,8 @@ export default [
   },
 
   // Managment / Verwaltung
-  { path: '/backend',
+  {
+    path: '/backend',
     component: page('backend/index.vue'),
     // meta: {
     //   middleware: 'auth'

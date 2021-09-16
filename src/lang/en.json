@@ -95,6 +95,7 @@
     "bottombar": {
         "menu": "Menu",
         "profile": "Profile",
+        "settings": "Settings",
         "home": "Home",
         "surveys": "Surveys",
         "faq": "FAQ"

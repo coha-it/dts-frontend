@@ -2,52 +2,70 @@
 .lt-md
   q-footer.shadow-box.shadow-2.bg-white
     // BottomBar
-    q-tabs(
-      v-model="tab"
-      dense
-      align="justify"
-      active-color="black"
-      class="bg-white text-grey-5 coha-bottom-bar"
-      indicator-color="transparent"
-      no-caps
-      style="max-width: 770px; margin: 0 auto;"
+    q-tabs.bg-white.text-grey-5.coha-bottom-bar(
+      v-model="tab",
+      dense,
+      align="justify",
+      active-color="black",
+      indicator-color="transparent",
+      no-caps,
+      style="max-width: 770px; margin: 0 auto"
     )
-      q-btn(
-        flat
-        no-caps
-        icon="menu"
-        @click="toggleNavigation"
-      )
+      q-btn(flat, no-caps, icon="menu", @click="toggleNavigation")
       q-route-tab(
-        v-for="item in bottomnav"
-        :key="item.title"
-        :to="item.route"
-        :name="item.title"
-        :label="$t(item.title)"
+        v-for="item in bottomnav",
+        :key="item.title",
+        :to="item.route",
+        :name="item.title",
+        :label="$t(item.title)",
         :icon="item.icon"
       )
 </template>
 
 <script>
 export default {
-  data () {
+  data() {
     return {
-      tab: 'selectedTab',
+      tab: "selectedTab",
       bottomnav: [
-        { title: 'bottombar.profile', icon: 'person', route: {name: 'settings'} },
-        { title: 'bottombar.home', icon: 'home', route: {name: 'home'} },
-        { title: 'bottombar.surveys', icon: 'poll', route: {name: 'surveys'} },
-        { title: 'bottombar.faq', icon: 'help', route: {name: 'faq'} },
+        {
+          title: "bottombar.settings",
+          icon: "settings",
+          route: {
+            name: "settings"
+          },
+        },
+        {
+          title: "bottombar.home",
+          icon: "home",
+          route: {
+            name: "home"
+          },
+        },
+        {
+          title: "bottombar.surveys",
+          icon: "poll",
+          route: {
+            name: "surveys"
+          },
+        },
+        {
+          title: "bottombar.faq",
+          icon: "help",
+          route: {
+            name: "faq"
+          },
+        },
       ],
-    }
+    };
   },
 
   methods: {
-    toggleNavigation: function() {
+    toggleNavigation: function () {
       this.$emit("toggle-navigation", true);
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="scss">
