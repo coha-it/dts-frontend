@@ -1,51 +1,52 @@
 <template lang="pug">
-  q-drawer(
-    show-if-above
-    v-model="bLeft"
-    side="left"
-    bordered
-    @input="callToggleNavigation"
-  )
-    // drawer content 
-    q-scroll-area.fit.nav-flex
-      div(style="flex: auto; min-height: 100%")
-        q-item.pointer
-          q-item-section.q-ml-none(top)
-            router-link(:to="{ path: '/' }")
-              img.logo(src="https://dreamteam-survey.s3.eu-central-1.amazonaws.com/app/logo/dts-app-logo.svg")
+q-drawer(
+  show-if-above,
+  v-model="bLeft",
+  side="left",
+  bordered,
+  @input="callToggleNavigation"
+)
+  // drawer content 
+  q-scroll-area.fit.nav-flex
+    div(style="flex: auto; min-height: 100%")
+      q-item.pointer
+        q-item-section.q-ml-none(top)
+          router-link(:to="{ path: '/' }")
+            img.logo(
+              src="https://dreamteam-survey.s3.eu-central-1.amazonaws.com/app/logo/dts-app-logo.svg"
+            )
 
-        template(v-if="user")
-          q-list(v-for="(cat, key) in sidenav" :key="key")
-            template(v-if="managementCategoryIsVisible(cat)")
-              template(v-if="cat.title")
-                q-separator(spaced)
-                q-item-label(header) {{ $t('management.header') }}
+      template(v-if="user")
+        q-list(v-for="(cat, key) in sidenav", :key="key")
+          template(v-if="managementCategoryIsVisible(cat)")
+            template(v-if="cat.title")
+              q-separator(spaced)
+              q-item-label(header) {{ $t('management.header') }}
 
-              q-item(
-                v-for="item in cat.pages"
-                :key="item.title"
-                v-ripple
-                color="red"
-                exact
-                :to="item.route"
-                clickable
-              )
-                q-item-section(avatar)
-                  q-icon(:name="item.icon")
-                q-item-section {{ $t(item.title) }}
+            q-item(
+              v-for="item in cat.pages",
+              :key="item.title",
+              v-ripple,
+              color="red",
+              exact,
+              :to="item.route",
+              clickable
+            )
+              q-item-section(avatar)
+                q-icon(:name="item.icon")
+              q-item-section {{ $t(item.title) }}
 
-      // Bottom of Sidenav
-      .q-pa-sm.bg-white(style="position: sticky; bottom: 0")
-        // q-footer.bg-white
-        q-btn(
-          block
-          outline
-          depressed
-          :label="$t('logout.btn')"
-          color="grey"
-          class="full-width"
-          @click="tryLogout"
-        )
+    // Bottom of Sidenav
+    .q-pa-sm.bg-white(style="position: sticky; bottom: 0")
+      // q-footer.bg-white
+      q-btn.full-width(
+        block,
+        outline,
+        depressed,
+        :label="$t('logout.btn')",
+        color="grey",
+        @click="tryLogout"
+      )
 </template>
 
 <script>
@@ -184,15 +185,15 @@ export default {
       return true;
     },
 
-    managementCategoryIsVisible (category) {
-      const u = this.user
+    managementCategoryIsVisible(category) {
+      const u = this.user;
 
-      if(category.hide_for_pan) {
-        return !u.is_panuser && u.right
+      if (category.hide_for_pan) {
+        return !u.is_panuser && u.right;
       }
 
-      return true
-    }
+      return true;
+    },
   },
 };
 </script>

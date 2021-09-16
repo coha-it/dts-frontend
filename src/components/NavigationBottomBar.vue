@@ -25,7 +25,6 @@
         :name="item.title"
         :label="$t(item.title)"
         :icon="item.icon"
-        active="true"
       )
 </template>
 
