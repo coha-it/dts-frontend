@@ -372,6 +372,7 @@
 
                         <div class="row">
                           <div class="col col-12 col-sm-6 col-md-6">
+                            <!-- TODO: Rangepicker instead of two picker -->
                             <Datepicker
                               s-model="end_datetime"
                               s-label="Endet am"
@@ -383,7 +384,7 @@
                               :colors="eventColor"
                               :get-dates-diff-days="getDatesDiffDays"
                               :s-value="getDateFormat(oSurvey.end_datetime)"
-                              :b-range="true"
+                              :XXXb-range="true"
 
                               :o-survey="oSurvey"
                               :disable="surveyIsUneditable()"
@@ -2210,7 +2211,7 @@ export default {
       sTodayDatetime: this.format_y_m_d_h_m_s(),
 
       // Datepicker Mask
-      datepicker_mask: 'YYYY-MM-DD HH:mm:ss',
+      datepicker_mask: 'YYYY-MM-DD HH:mm',
 
       // Tmps Start
       // sStartDate: '', // this.getStartDate(),
