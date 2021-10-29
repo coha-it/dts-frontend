@@ -74,6 +74,10 @@
     "back": "zurück",
     "authentificate_title": "Authentifizieren",
     "Unauthenticated": "Abgemeldet",
+    "auth.failed": "Anmeldung fehlgeschlagen",
+    "auth": {
+        "failed": "Anmeldung fehlgeschlagen"
+    },
     "closer_button": "schließen",
     "DE": "Deutsch",
     "EN": "Englisch",
@@ -92,6 +96,7 @@
     "free_register": "Jetzt kostenlos registrieren",
     "with_email": "Mit E-Mail",
     "PAN": "PAN",
+    "PAN & PIN Combination failed": "PAN & PIN Kombination fehlgeschlagen",
     "PIN": "PIN",
     "Welcome": "Willkommen",
     "id": "ID",
@@ -138,9 +143,6 @@
     },
     "password_hint": "Zeichen",
     "password_repeat_hint": "Passwort wiederholen",
-    "auth": {
-        "failed": "Login fehlgeschlagen"
-    },
     "invalid_given_data": "Die eingegeben Daten waren nicht korrekt",
     "company": "Firma",
     "department": "Abteilung",

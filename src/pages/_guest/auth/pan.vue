@@ -188,16 +188,9 @@ export default {
 
       // Submit the form
       const { data } = await this.form.post('/api/loginpan')
-        .catch((error) => {
+        .catch(() => {
           this.hideLoader()
           this.form.pin = ''
-          if (error && error.response && error.response.data) {
-            this.$q.notify({
-              message: error.response.data.message,
-              icon: 'error',
-              color: 'error'
-            })
-          }
         })
 
       this.$store.dispatch('auth/saveToken', {

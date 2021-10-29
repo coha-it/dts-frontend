@@ -71,6 +71,10 @@
     "verify_email_address": "We sent you an email with an the verification link.",
     "authentificate_title": "Authentificate",
     "Unauthenticated": "Logged out",
+    "auth.failed": "Authentification error",
+    "auth": {
+        "failed": "Authentification error"
+    },
     "closer_button": "close",
     "DE": "German",
     "de": "German",
@@ -84,6 +88,7 @@
     "pan_desc": "I have a PAN and PIN and would like to use them to log in",
     "pan_and_pin": "PIN & PAN",
     "pan_and_pin_desc": "I know my PIN and PAN and want to authentificate with it",
+    "PAN & PIN Combination failed": "PAN & PIN Combination failed",
     "loading": {
         "text": "Loading... Please wait",
         "statistics": "Please wait a moment. Statistics loading. This could take a while..."
