@@ -135,6 +135,9 @@
         }
     },
 
+    "statistic": "Statistiken",
+    "statistics": "Statistiken",
+
     "logout": {
         "title": "Abmelden",
         "desc": "Möchten Sie sich abmelden?",
