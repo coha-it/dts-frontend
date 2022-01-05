@@ -148,7 +148,7 @@ export default [
         name: "backend.survey",
         component: page("backend/surveys/backend_survey.vue"),
         meta: {
-          title: "id",
+          title: "edit_survey",
         },
       },
       {

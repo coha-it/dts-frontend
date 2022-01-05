@@ -143,5 +143,8 @@
         "header": "Management"
     },
 
-    "select_surveys": "Select surveys"
+    "select_surveys": "Select surveys",
+    "select_statistics": "Statistic | Select survey",
+    "view_statistics": "Statistic | View survey",
+    "edit_survey": "Edit survey"
 }
