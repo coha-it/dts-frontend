@@ -141,5 +141,7 @@
 
     "management": {
         "header": "Management"
-    }
+    },
+
+    "select_surveys": "Select surveys"
 }

@@ -1,6 +1,6 @@
 <template lang="pug">
-div
-  div(style="max-width: 770px")
+.row
+  .col-12.col-md-6.q-pr-md
     q-list(bordered)
       q-toolbar.bg-primary.text-white.shadow-2
         .full-width
@@ -35,27 +35,29 @@ div
             q-item-label(caption) # {{ survey.id }}
         q-separator
     br
-    template(v-if="selected.length")
-      q-list
-        span(v-if="selected") {{ 'Ausgewählte Umfragen: ' + selected.length }}
-        span(v-else) Keine Umfrage ausgewählt
-        q-item(v-for="(survey, key) in selected", :key="survey.id")
-          q-item-section(avatar)
-            q-icon(name="analytics")
-          q-item-section
-            q-item-label(lines="2") {{ survey.title }}
-            q-item-label(caption, lines="3") {{ survey.desc_long }}
-            q-item-label(caption, lines="3") {{ survey.desc_short }}
-          q-item-section(side)
-            q-btn(
-              label="abwählen",
-              size="sm",
-              unelevated,
-              color="grey",
-              @click="deselectSurvey(survey, key)"
-            )
-          q-item-section(side, top)
-            q-item-label(caption) # {{ survey.id }}
+  .col-12.col-md-6(v-if="selected.length")
+    q-list
+      span(v-if="selected") {{ 'Ausgewählte Umfragen: ' + selected.length }}
+      span(v-else) Keine Umfrage ausgewählt
+      q-item(v-for="(survey, key) in selected", :key="survey.id")
+        q-item-section(avatar)
+          q-icon(name="analytics")
+        q-item-section
+          q-item-label(lines="2") {{ survey.title }}
+          q-item-label(caption, lines="3") {{ survey.desc_long }}
+          q-item-label(caption, lines="3") {{ survey.desc_short }}
+        q-item-section(side)
+          q-btn(
+            label="abwählen",
+            size="sm",
+            unelevated,
+            color="grey",
+            @click="deselectSurvey(survey, key)"
+          )
+        q-item-section(side, top)
+          q-item-label(caption) # {{ survey.id }}
+  .col-12
+    q-btn(@click="this.showStatistics" depressed unelevated color="primary") Zeige Statistik
 </template>
 
 <script>
@@ -63,13 +65,6 @@ import axios from "axios";
 import { mapGetters } from "vuex";
 
 export default {
-  props: {
-    initUrlQuerys: {
-      type: Function,
-      required: true
-    }
-  },
-
   data() {
     return {
       // From Above
@@ -85,10 +80,6 @@ export default {
     }),
   },
 
-  mounted: function () {
-    this.initUrlQuerys()
-  },
-
   watch: {
     search: {
       handler(after, before) {
@@ -99,11 +90,6 @@ export default {
           this.loadFilteredSurveys(after);
         }
       },
-    },
-    selected: {
-      handler() {
-        this.showStatistics()
-      }
     }
   },
 
@@ -137,14 +123,16 @@ export default {
       });
     },
 
-    showStatistics(selected = this.selected) {
-      const ids = selected.map((e) => {
+    showStatistics() {
+      const survey_ids = this.selected.map((e) => {
         return e.id;
-      });
+      }).join(',')
+
       this.$router.push({
-        name: "backend.statistics",
-        query: {
-          ids: ids,
+        name: "backend.statistics.view",
+        params: {
+          survey_ids,
+          'test': 'Der Test'
         },
       });
     },

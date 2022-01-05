@@ -216,5 +216,9 @@
 
     "management": {
         "header": "Verwaltung"
-    }
+    },
+
+    "select_surveys": "Umfrage auswählen",
+    "select_statistics": "Statistik | Umfrage auswählen",
+    "view_statistics": "Statistik | ansehen"
 }

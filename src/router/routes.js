@@ -105,7 +105,7 @@ export default [
     name: "survey",
     component: page("surveys/survey.vue"),
     meta: {
-      // middleware: 'auth'
+      middleware: 'auth',
       title: "survey",
     },
   },
@@ -116,7 +116,7 @@ export default [
     component: page("backend/index.vue"),
     meta: {
       title: "managment",
-      //   middleware: 'auth'
+      middleware: 'auth',
     },
     children: [
       {
@@ -152,11 +152,20 @@ export default [
         },
       },
       {
-        path: "statistics",
-        name: "backend.statistics",
-        component: page("backend/statistics/statistics.vue"),
+        path: "statistics/select",
+        name: "backend.statistics.select",
+        component: page("backend/statistics/select.vue"),
         meta: {
-          title: "statistics",
+          title: "select_statistics",
+        },
+      },
+      {
+        path: "statistics/surveys/:survey_ids/statistic/:statistic_id?",
+        name: "backend.statistics.view",
+        component: page("backend/statistics/view.vue"),
+        props: true,
+        meta: {
+          title: "view_statistics",
         },
       },
     ],

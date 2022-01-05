@@ -60,7 +60,11 @@ export default {
       sidenav: [
         {
           pages: [
-            { title: "sidenav.home", icon: "home", route: { name: "home" } },
+            {
+              title: "sidenav.home",
+              icon: "home",
+              route: { name: "home" }
+            },
             {
               title: "sidenav.surveys",
               icon: "poll",
@@ -71,7 +75,11 @@ export default {
               icon: "settings",
               route: { name: "settings" },
             },
-            { title: "sidenav.faq", icon: "help", route: { name: "faq" } },
+            {
+              title: "sidenav.faq",
+              icon: "help",
+              route: { name: "faq" }
+            },
           ],
         },
         {
@@ -99,7 +107,7 @@ export default {
             {
               title: "sidenav.backend.statistics",
               icon: "pie_chart",
-              route: { name: "backend.statistics" },
+              route: { name: "backend.statistics.select" },
             },
           ],
         },
@@ -112,14 +120,6 @@ export default {
   computed: mapGetters({
     user: "auth/user",
   }),
-
-  mounted() {
-    //
-  },
-
-  // created: function() {
-  //   this.$parent.$on('updateNavigation', this.toggleNavigation);
-  // },
 
   methods: {
     tryLogout() {
@@ -166,9 +166,7 @@ export default {
     },
 
     userIsAdmin() {
-      return this.user && this.user.right && this.user.right.admin
-        ? true
-        : false;
+      return this.user?.right?.admin;
     },
 
     checkRights(item) {

@@ -1,7 +1,7 @@
 <template lang="pug">
 div
-  template(v-if="getSurveyIds()")
-    | Wähle Statstiken für die Umfragen mit der ID: {{ getSurveyIds() }}
+  template(v-if="surveyIds")
+    | Wähle Statstiken für die Umfragen mit der ID: {{ surveyIds }}
     br
 
   .q-gutter-md.row.items-start
@@ -15,6 +15,7 @@ div
       style="width: 250px",
       behavior="menu",
       @filter="filterFn"
+      @input="statisticChanged"
     )
       // Options
       template(v-slot:option="scope")
@@ -52,7 +53,6 @@ div
       error-message="Warning: ein Limit beschränkt die Ausgabe der Ergebnisse"
     )
 
-
   // Load Statitics Button
   br
   q-btn(
@@ -67,7 +67,6 @@ div
 
   // If Stats
   template(v-if="stats")
-
     q-select(
       filled
       v-model="selectedView"
@@ -177,13 +176,6 @@ const constStatistics = [
 ];
 
 export default {
-  props: {
-    initUrlQuerys: {
-      type: Function,
-      required: true
-    }
-  },
-
   data() {
     return {
       // IDs
@@ -243,55 +235,35 @@ export default {
     };
   },
 
-  watch: {
-    selectedStatistic: {
-      handler(statistic) {
-        // Build Query
-        let query = {
-          ids: this.$route.query.ids,
-        };
+  mounted () {
+    this.selectedStatistic = this.statisticId
+  },
 
-        // If Statistic is Selected
-        if (statistic && statistic.id) {
-          query.statistic = String(statistic.id);
-        }
-
-        // If unequal Route
-        if (!this.sameObjects(query, this.$route.query)) {
-          // Push to Router
-          this.$router.push({
-            name: "backend.statistics",
-            query: query,
-          });
-        }
-      },
+  computed: {
+    surveyIds() {
+      return this.$route?.params?.survey_ids?.split(',')
+    },
+    statisticId() {
+      return this.$route?.params?.statistic_id?.split(',')
     },
   },
 
-  mounted: function () {
-    this.initUrlQuerys()
-  },
-
   methods: {
-    showLoader() {
+    statisticChanged (statistic) {
+      this.$router.replace({ params: {statistic_id: statistic.id} })
+    },
+    showLoader () {
       this.$q.loading.show({
         delay: 0,
         message: this.$t("loading.statistics"),
       });
     },
 
-    hideLoader() {
+    hideLoader () {
       this.$q.loading.hide();
     },
 
-    getSurveyIds () {
-      return this.$route?.query?.ids
-    },
-
-    getSurveyStatistics() {
-      // Reinit Query URLS
-      this.initUrlQuerys()
-
+    getSurveyStatistics () {
       // If there is no Selected Statistic
       if (!this.selectedStatistic) {
         return this.$q.notify({
@@ -308,8 +280,8 @@ export default {
       this.showLoader();
 
       // Define IDs for Surveys and Statistic
-      const surveyIds = this.$route.query.ids
-      const statisticId = this.$route.query.statistic
+      const surveyIds = this.surveyIds
+      const statisticId = this.statsticId
 
       // Ajax Call
       axios
