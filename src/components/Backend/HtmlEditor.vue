@@ -11,7 +11,7 @@
           @click="model[field] = ' '"
         /> -->
         <q-editor
-          v-model="model[field]"
+          v-model="value"
           :disable="disable"
           :toolbar="toolbar"
           :fonts="fonts"
@@ -30,7 +30,7 @@
     </template>
     <template v-else>
       <q-input
-        v-model="model[field]"
+        v-model="value"
         type="textarea"
         :disable="disable"
         dense
@@ -75,6 +75,17 @@ export default {
     placeholder: {
       type: String,
       default: 'Bitte hier Ihre Beschreibung einfügen'
+    }
+  },
+
+  computed: {
+    value: {
+      set (e) {
+        this.model[this.field] = e
+      },
+      get () {
+        return this.model[this.field] ?? ''
+      },
     }
   },
 
@@ -163,20 +174,5 @@ export default {
     }
   },
 
-  created () {
-    // If Model is empty - fill empty String
-    // if (!this.model[this.field]) {
-    //   this.model[this.field] = ''
-    // }
-  },
-
-  methods: {
-    isAvailable () {
-      const model = this.model
-      const field = this.field
-
-      return model && field && typeof model[field] !== 'undefined'
-    }
-  }
 }
 </script>

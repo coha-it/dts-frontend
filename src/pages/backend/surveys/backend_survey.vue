@@ -635,50 +635,54 @@
                             </q-td>
 
                             <q-td key="min_options" :props="props">
-                              {{ props.row.min_options }}
-                              <q-popup-edit
-                                v-model="props.row.min_options"
-                                buttons
-                                single-line
-                                persistent
-                                :cover="false"
-                                self="center left"
-                                anchor="center right"
-                                :offset="[5, 0]"
-                                @save="save(props.row)"
-                              >
-                                <q-input
+                              <template v-if="formatWithMultipleOptions(props.row.format)">
+                                {{ props.row.min_options }}
+                                <q-popup-edit
                                   v-model="props.row.min_options"
-                                  :label="$t('min_options')"
-                                  :max="parseInt(props.row.max_options)"
-                                  autofocus
-                                  type="number"
-                                />
-                              </q-popup-edit>
+                                  buttons
+                                  single-line
+                                  persistent
+                                  :cover="false"
+                                  self="center left"
+                                  anchor="center right"
+                                  :offset="[5, 0]"
+                                  @save="save(props.row)"
+                                >
+                                  <q-input
+                                    v-model="props.row.min_options"
+                                    :label="$t('min_options')"
+                                    :max="parseInt(props.row.max_options)"
+                                    autofocus
+                                    type="number"
+                                  />
+                                </q-popup-edit>
+                              </template>
                             </q-td>
 
                             <q-td key="max_options" :props="props">
-                              {{ props.row.max_options }}
-                              <q-popup-edit
-                                v-model="props.row.max_options"
-                                buttons
-                                single-line
-                                persistent
-                                :cover="false"
-                                self="center left"
-                                anchor="center right"
-                                :offset="[5, 0]"
-                                @save="save(props.row)"
-                              >
-                                <q-input
+                              <template v-if="formatWithMultipleOptions(props.row.format)">
+                                {{ props.row.max_options }}
+                                <q-popup-edit
                                   v-model="props.row.max_options"
-                                  :label="$t('max_options')"
-                                  :min="parseInt(props.row.min_options)"
-                                  :max="10"
-                                  autofocus
-                                  type="number"
-                                />
-                              </q-popup-edit>
+                                  buttons
+                                  single-line
+                                  persistent
+                                  :cover="false"
+                                  self="center left"
+                                  anchor="center right"
+                                  :offset="[5, 0]"
+                                  @save="save(props.row)"
+                                >
+                                  <q-input
+                                    v-model="props.row.max_options"
+                                    :label="$t('max_options')"
+                                    :min="parseInt(props.row.min_options)"
+                                    :max="10"
+                                    autofocus
+                                    type="number"
+                                  />
+                                </q-popup-edit>
+                              </template>
                             </q-td>
                           </template>
 
@@ -1030,7 +1034,7 @@
                                       </q-list>
                                     </div>
                                     <div class="col col-12 col-sm-12 col-md-12 col-lg-6">
-                                      <div v-show="formatWithMultipleOptions(props.row.format)">
+                                      <div v-if="formatWithMultipleOptions(props.row.format)">
                                         <q-item-label header>
                                           Bestimmt die Minimale und Maximale Anzahl an auswählbaren optionen
                                         </q-item-label>
@@ -1568,6 +1572,7 @@
             </div>
             <div class="text-right">
               <Preview :o-survey="oSurvey" />
+              &nbsp;
               <q-btn
                 v-if="surveyIsEditable()"
                 color="primary"
@@ -2334,8 +2339,6 @@ export default {
     onChangeMinMaxOptions (props) {
       const min = parseInt(props.row.min_options)
       const max = parseInt(props.row.max_options)
-
-      console.log(min,max)
 
       switch (true) {
         case min < 0:
@@ -3346,7 +3349,6 @@ export default {
     },
 
     moveUp (oElem, aList, iValue = 1) {
-      console.log(oElem, aList)
       this.move(oElem, aList, -(iValue))
     },
 
@@ -3463,7 +3465,6 @@ export default {
         aNewSelected.push(this.duplicateQuestion(question))
       })
       this.selected = aNewSelected
-      console.log(aNewSelected)
     },
 
     duplicateLastQuestion () {
@@ -3794,7 +3795,7 @@ export default {
       if (itemL && itemR) {
         // Differences
         if (JSON.stringify(itemR) !== JSON.stringify(itemL)) {
-          console.log(JSON.stringify(itemR), JSON.stringify(itemL))
+          // console.log(JSON.stringify(itemR), JSON.stringify(itemL))
           bReturn = false
         } else {
           bReturn = true
@@ -3891,8 +3892,8 @@ export default {
           this.$q.loading.hide()
         })
         .catch((e) => {
-          console.log(e.response.data)
-          console.log(e.response.data.errors)
+          // console.log(e.response.data)
+          // console.log(e.response.data.errors)
           // Error
           let errText = ''
           if (e.response && e.response.data && e.response.data) {
