@@ -830,7 +830,7 @@
 
                                         <q-separator inset="item" />
 
-                                        <template v-show="props.row.is_commentable">
+                                        <div v-show="props.row.is_commentable">
                                           <q-item>
                                             <q-item-section side top>
                                               <q-checkbox
@@ -962,7 +962,7 @@
                                               @click="props.row.settings = {}"
                                             />
                                           </q-item>
-                                        </template>
+                                        </div>
                                       </q-list>
                                     </div>
                                   </div>
@@ -1030,7 +1030,7 @@
                                       </q-list>
                                     </div>
                                     <div class="col col-12 col-sm-12 col-md-12 col-lg-6">
-                                      <template v-if="formatWithMultipleOptions(props.row.format)">
+                                      <div v-show="formatWithMultipleOptions(props.row.format)">
                                         <q-item-label header>
                                           Bestimmt die Minimale und Maximale Anzahl an auswählbaren optionen
                                         </q-item-label>
@@ -1045,7 +1045,7 @@
                                                   outlined
                                                   placeholder="1 - 255"
                                                   type="number"
-                                                  :max="parseInt(props.row.max_options)"
+                                                  :max="maxOptions(props)"
                                                   label="Minimale Optionen"
                                                   required
                                                   @change="onChangeMinMaxOptions(props)"
@@ -1068,7 +1068,7 @@
                                                   outlined
                                                   placeholder="1 - 255"
                                                   type="number"
-                                                  :min="parseInt(props.row.min_options)"
+                                                  :min="minOptions(props)"
                                                   label="Maximale Optionen"
                                                   required
                                                   @change="onChangeMinMaxOptions(props)"
@@ -1086,7 +1086,7 @@
                                             </div>
                                           </q-item-section>
                                         </q-item>
-                                      </template>
+                                      </div>
                                     </div>
                                     <div class="col col-12 col-sm-12 col-md-12 col-lg-12">
                                       <q-list subheader two-line flat>
@@ -1475,21 +1475,21 @@
 
               <div class="q-pa-md">
                 <q-btn
-                  label="Textblock"
-                  :disabled="!!pagination.search"
-                  icon="text_snippet"
-                  unelevated
-                  outline
-                  @click="addNewTextblock()"
-                />
-                &nbsp;
-                <q-btn
                   label="Neue Frage"
                   :disabled="!!pagination.search"
                   icon="control_point"
                   unelevated
                   outline
                   @click="addNewQuestion()"
+                />
+                &nbsp;
+                <q-btn
+                  label="Textblock"
+                  :disabled="!!pagination.search"
+                  icon="text_snippet"
+                  unelevated
+                  outline
+                  @click="addNewTextblock()"
                 />
                 &nbsp;
                 <q-btn
@@ -2328,9 +2328,14 @@ export default {
 
   methods: {
 
+    minOptions: props => parseInt(props?.row?.min_options ?? 0) ?? null,
+    maxOptions: props => parseInt(props?.row?.max_options ?? 0) ?? null,
+
     onChangeMinMaxOptions (props) {
-      const min = props.row.min_options
-      const max = props.row.max_options
+      const min = parseInt(props.row.min_options)
+      const max = parseInt(props.row.max_options)
+
+      console.log(min,max)
 
       switch (true) {
         case min < 0:
@@ -2346,10 +2351,11 @@ export default {
           break
 
         default:
-          props.row.min_options = parseInt(min)
-          props.row.max_options = parseInt(max)
+          props.row.min_options = min
+          props.row.max_options = max
           break
       }
+
     },
 
     questionIsCommentOnly (question) {
