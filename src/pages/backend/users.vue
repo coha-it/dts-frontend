@@ -1121,6 +1121,7 @@
                     props.row.company && props.row.company.id == company.id
                   "
                 />
+                <option value="" label="Entfernen" @click="remove(props.row, location)" />
               </select>
             </q-td>
           </template>
@@ -1148,6 +1149,7 @@
                     props.row.department.id == department.id
                   "
                 />
+                <option value="" label="Entfernen" @click="remove(props.row, location)" />
               </select>
             </q-td>
           </template>
@@ -1174,6 +1176,7 @@
                     props.row.location && props.row.location.id == location.id
                   "
                 />
+                <option value="" label="Entfernen" @click="remove(props.row, location)" />
               </select>
             </q-td>
           </template>
@@ -1607,6 +1610,11 @@ export default {
   },
 
   methods: {
+
+    remove (e, val) {
+      this.$remove(e, val)
+    },
+
     getLastMailColorClass(date) {
       let sec = this.secondsSince(date);
 
