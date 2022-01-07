@@ -922,7 +922,7 @@
                                                 size="sm"
                                                 unelevated
                                                 color="grey"
-                                                @click="props.row.settings = null"
+                                                @click="setAdditionalSettings(props, null)"
                                               />
                                             </q-item>
                                           </template>
@@ -933,7 +933,7 @@
                                               size="sm"
                                               unelevated
                                               color="primary"
-                                              @click="props.row.settings = {}"
+                                              @click="setAdditionalSettings(props, {})"
                                             />
                                           </q-item>
                                         </div>
@@ -2332,6 +2332,11 @@ export default {
   },
 
   methods: {
+
+    setAdditionalSettings (props, newValue) {
+      this.$set(props.row, 'settings', newValue)
+    },
+
     log: () => console.log,
 
     minOptions: props => parseInt(props?.row?.min_options ?? 0) ?? null,
