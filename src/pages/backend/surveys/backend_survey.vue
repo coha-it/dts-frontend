@@ -1011,7 +1011,7 @@
                                         <q-item>
                                           <q-item-section>
                                             <div class="row">
-                                              <div class="col-12 col-md-6 col-lg-6">
+                                              <div class="col-12 col-md-5 col-lg-5">
                                                 <q-input
                                                   v-model="props.row.min_options"
                                                   :disable="surveyIsUneditable"
@@ -1034,7 +1034,7 @@
                                                   </template>
                                                 </q-input>
                                               </div>
-                                              <div class="col-12 col-md-6 col-lg-6">
+                                              <div class="col-12 col-md-5 col-lg-5 offset-md-1">
                                                 <q-input
                                                   v-model="props.row.max_options"
                                                   :disable="surveyIsUneditable"
@@ -2348,20 +2348,20 @@ export default {
 
       switch (true) {
         case min < 0:
-          props.row.min_options = 0
+          this.$set(props.row, 'min_options', 0)
           break
 
         case max < 0:
-          props.row.max_options = 0
+          this.$set(props.row, 'max_options', 0)
           break
 
         case min > max:
-          props.row.min_options = max
+          this.$set(props.row, 'min_options', max)
           break
 
         default:
-          props.row.min_options = min
-          props.row.max_options = max
+          this.$set(props.row, 'min_options', min)
+          this.$set(props.row, 'max_options', max)
           break
       }
 
