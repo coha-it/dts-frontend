@@ -13,11 +13,11 @@
     )
       q-btn(flat, no-caps, icon="menu", @click="toggleNavigation")
       q-route-tab(
-        v-for="item in bottomnav",
-        :key="item.title",
-        :to="item.route",
-        :name="item.title",
-        :label="$t(item.title)",
+        v-for="item in bottomnav"
+        :key="item.title"
+        :to="item.route"
+        :name="item.title"
+        :label="$t(item.title)"
         :icon="item.icon"
       )
 </template>

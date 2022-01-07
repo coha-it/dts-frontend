@@ -23,18 +23,26 @@ q-drawer(
               q-separator(spaced)
               q-item-label(header) {{ $t('management.header') }}
 
-            q-item(
-              v-for="item in cat.pages",
-              :key="item.title",
-              v-ripple,
-              color="red",
-              exact,
-              :to="item.route",
-              clickable
+            router-link(
+              v-for="item in cat.pages"
+              :key="item.title"
+              exact
+              :to="item.route"
+              v-slot="{ navigate, isExactActive, isActive }"
+              custom
             )
-              q-item-section(avatar)
-                q-icon(:name="item.icon")
-              q-item-section {{ $t(item.title) }}
+              q-item(
+                v-ripple
+                color="red"
+                exact
+                clickable
+                :class="{ 'q-router-link--exact-active q-router-link--active': isExactActive || isActive }"
+                @click="navigate"
+                @keypress.enter="navigate"
+              )
+                q-item-section(avatar)
+                  q-icon(:name="item.icon")
+                q-item-section {{ $t(item.title) }}
 
     // Bottom of Sidenav
     .q-pa-sm.bg-white(style="position: sticky; bottom: 0")
