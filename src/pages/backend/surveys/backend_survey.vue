@@ -82,7 +82,7 @@
           <!-- Basic Settings -->
           <q-tabs
             v-model="active_tab"
-            :disable="surveyIsUneditable()"
+            :disable="surveyIsUneditable"
             fixed-tabs
             icons-and-text
             align="justify"
@@ -115,7 +115,7 @@
                   <q-item-section>
                     <q-input
                       v-model="oSurvey.title"
-                      :disable="surveyIsUneditable()"
+                      :disable="surveyIsUneditable"
                       dense
                       persistent-hint
                       outlined
@@ -133,7 +133,7 @@
                   <q-item-section>
                     <q-input
                       v-model="oSurvey.author"
-                      :disable="surveyIsUneditable()"
+                      :disable="surveyIsUneditable"
                       dense
                       persistent-hint
                       outlined
@@ -150,7 +150,7 @@
                   <q-item-section>
                     <q-input
                       v-model="oSurvey.desc_short"
-                      :disable="surveyIsUneditable()"
+                      :disable="surveyIsUneditable"
                       dense
                       persistent-hint
                       outlined
@@ -167,7 +167,7 @@
                     <HtmlEditor
                       :model="oSurvey"
                       field="desc_long"
-                      :disable="surveyIsUneditable()"
+                      :disable="surveyIsUneditable"
                       :use-html="oSurvey.use_html"
                       placeholder="Bitte hier die Beschreibung der Umfrage einfügen"
                       label="Langbeschreibung der Umfrage"
@@ -183,7 +183,7 @@
                   <q-item-section side top>
                     <q-checkbox
                       v-model="oSurvey.active"
-                      :disable="surveyIsUneditable()"
+                      :disable="surveyIsUneditable"
                       color="primary"
                       :true-value="1"
                       :false-value="0"
@@ -203,7 +203,7 @@
                   <q-item-section side top>
                     <q-checkbox
                       v-model="oSurvey.only_editable_by_creator"
-                      :disable="surveyIsUneditable()"
+                      :disable="surveyIsUneditable"
                       color="primary"
                       :true-value="1"
                       :false-value="0"
@@ -223,7 +223,7 @@
                   <q-item-section side top>
                     <q-checkbox
                       v-model="oSurvey.is_public"
-                      :disable="surveyIsUneditable()"
+                      :disable="surveyIsUneditable"
                       color="red"
                       :true-value="1"
                       :false-value="0"
@@ -243,7 +243,7 @@
                   <q-item-section side top>
                     <q-checkbox
                       :value="oSurvey.use_html || 0"
-                      :disable="surveyIsUneditable()"
+                      :disable="surveyIsUneditable"
                       color="orange"
                       :true-value="1"
                       :false-value="0"
@@ -285,7 +285,7 @@
                           color="red"
                           :true-value="1"
                           :false-value="0"
-                          :disable="surveyIsUneditable()"
+                          :disable="surveyIsUneditable"
                         />
                       </q-item-section>
                       <q-item-section>
@@ -300,7 +300,7 @@
                       <q-item-section side top>
                         <q-checkbox
                           v-model="oSurvey.is_canceled"
-                          :disable="surveyIsUneditable()"
+                          :disable="surveyIsUneditable"
                           color="red"
                           :true-value="1"
                           :false-value="0"
@@ -348,7 +348,7 @@
                               :s-value="getDateFormat(oSurvey.start_datetime)"
 
                               :o-survey="oSurvey"
-                              :disable="surveyIsUneditable()"
+                              :disable="surveyIsUneditable"
                               :mask="datepicker_mask"
                             />
                           </div>
@@ -364,7 +364,7 @@
                               :s-value="getTimeFormat(oSurvey.start_datetime)"
 
                               :o-survey="oSurvey"
-                              :disable="surveyIsUneditable()"
+                              :disable="surveyIsUneditable"
                               :mask="datepicker_mask"
                             />
                           </div>
@@ -387,7 +387,7 @@
                               :XXXb-range="true"
 
                               :o-survey="oSurvey"
-                              :disable="surveyIsUneditable()"
+                              :disable="surveyIsUneditable"
                               :mask="datepicker_mask"
                             />
                           </div>
@@ -403,7 +403,7 @@
                               :s-value="getTimeFormat(oSurvey.end_datetime)"
 
                               :o-survey="oSurvey"
-                              :disable="surveyIsUneditable()"
+                              :disable="surveyIsUneditable"
                               :mask="datepicker_mask"
                             />
                           </div>
@@ -456,7 +456,7 @@
                     <HtmlEditor
                       :model="oSurvey"
                       field="desc_before_submit"
-                      :disable="surveyIsUneditable()"
+                      :disable="surveyIsUneditable"
                       :use-html="oSurvey.use_html"
                       placeholder="z.B.: `Ihre Daten werden stets anonym und vertraulich behandelt ...´ "
                       label="Beschreibung vor Abschluss der Umfrage"
@@ -470,7 +470,7 @@
                     <HtmlEditor
                       :model="oSurvey"
                       field="desc_after_submit"
-                      :disable="surveyIsUneditable()"
+                      :disable="surveyIsUneditable"
                       :use-html="oSurvey.use_html"
                       placeholder="z.B.: `Vielen Dank! Ihre Umfrageergebnisse wurden erfolgreich ausgefüllt´ "
                       label="Beschreibung nach Abschluss der Umfrage"
@@ -734,7 +734,7 @@
                                           <q-item-section>
                                             <q-input
                                               v-model="props.row.title"
-                                              :disable="surveyIsUneditable()"
+                                              :disable="surveyIsUneditable"
                                               dense
                                               persistent-hint
                                               outlined
@@ -757,7 +757,7 @@
                                           <q-item-section>
                                             <q-input
                                               v-model="props.row.subtitle"
-                                              :disable="surveyIsUneditable()"
+                                              :disable="surveyIsUneditable"
                                               dense
                                               persistent-hint
                                               outlined
@@ -781,7 +781,7 @@
                                             <HtmlEditor
                                               :model="props.row"
                                               field="description"
-                                              :disable="surveyIsUneditable()"
+                                              :disable="surveyIsUneditable"
                                               :use-html="oSurvey.use_html"
                                               placeholder="z.B.: 'Bewerten Sie diese Umfrage bitte mit 0 (negativ) bis 10 (positiv) Punkten' "
                                               label="Beschreibung der Frage"
@@ -801,7 +801,7 @@
                                           <q-item-section side top>
                                             <q-checkbox
                                               v-model="props.row.is_skippable"
-                                              :disable="surveyIsUneditable()"
+                                              :disable="surveyIsUneditable"
                                               color="primary"
                                               :true-value="1"
                                               :false-value="0"
@@ -821,7 +821,7 @@
                                           <q-item-section side top>
                                             <q-checkbox
                                               v-model="props.row.is_commentable"
-                                              :disable="surveyIsUneditable() || questionIsCommentOnly(props.row)"
+                                              :disable="surveyIsUneditable || questionIsCommentOnly(props.row)"
                                               color="primary"
                                               :true-value="1"
                                               :false-value="0"
@@ -839,7 +839,7 @@
                                             <q-item-section side top>
                                               <q-checkbox
                                                 v-model="props.row.comment_is_required"
-                                                :disable="(surveyIsUneditable() && props.row.is_commentable) ? true : false"
+                                                :disable="surveyIsUneditable && props.row.is_commentable"
                                                 color="primary"
                                                 :true-value="1"
                                                 :false-value="0"
@@ -855,7 +855,7 @@
                                             <q-item-section side top>
                                               <q-checkbox
                                                 v-model="props.row.comment_is_number"
-                                                :disable="surveyIsUneditable()"
+                                                :disable="surveyIsUneditable"
                                                 color="primary"
                                                 :true-value="1"
                                                 :false-value="0"
@@ -872,7 +872,7 @@
                                             <q-item-section>
                                               <q-input
                                                 v-model="props.row.comment_max_signs"
-                                                :disable="surveyIsUneditable()"
+                                                :disable="surveyIsUneditable"
                                                 dense
                                                 persistent-hint
                                                 outlined
@@ -898,49 +898,19 @@
                                           </q-item>
 
                                           <template v-if="props.row.settings">
-                                            <q-item>
+                                            <q-item v-for="setting in additionalSettings" :key="setting.id">
                                               <q-item-section>
                                                 <q-input
-                                                  v-model.lazy="props.row.settings.comment_add_text"
-                                                  :disable="surveyIsUneditable()"
+                                                  v-model.lazy="props.row.settings[setting.id]"
+                                                  :disable="surveyIsUneditable"
                                                   dense
                                                   persistent-hint
                                                   outlined
-                                                  label="Kommentar Hinzufügen Text"
-                                                  placeholder="Kommentar hinzufügen"
+                                                  :label="setting.label"
+                                                  :placeholder="setting.placeholder"
                                                 />
                                               </q-item-section>
                                             </q-item>
-
-                                            <q-item>
-                                              <q-item-section>
-                                                <q-input
-                                                  v-model.lazy="props.row.settings.comment_placeholder"
-                                                  :disable="surveyIsUneditable()"
-                                                  dense
-                                                  persistent-hint
-                                                  outlined
-                                                  label="Kommentar Platzhalter"
-                                                  placeholder="Ihr Kommentar"
-                                                />
-                                              </q-item-section>
-                                            </q-item>
-
-                                            <q-item>
-                                              <q-item-section>
-                                                <q-input
-                                                  v-model.lazy="props.row.settings.comment_remove_text"
-                                                  :disable="surveyIsUneditable()"
-                                                  dense
-                                                  persistent-hint
-                                                  outlined
-                                                  label="Kommentar Entfernungs-Text"
-                                                  placeholder="Kommentar entfernen"
-                                                />
-                                              </q-item-section>
-                                            </q-item>
-
-
 
                                             <!--
                                                v-if="!Object.values(props.row.settings).join('')"
@@ -957,7 +927,7 @@
                                             </q-item>
                                           </template>
 
-                                          <q-item v-else>
+                                          <q-item v-show="!props.row.settings">
                                             <q-btn
                                               label="Zusätzliche Kommentar-Einstellungen"
                                               size="sm"
@@ -1044,7 +1014,7 @@
                                               <div class="col-12 col-md-6 col-lg-6">
                                                 <q-input
                                                   v-model="props.row.min_options"
-                                                  :disable="surveyIsUneditable()"
+                                                  :disable="surveyIsUneditable"
                                                   dense
                                                   outlined
                                                   placeholder="1 - 255"
@@ -1067,7 +1037,7 @@
                                               <div class="col-12 col-md-6 col-lg-6">
                                                 <q-input
                                                   v-model="props.row.max_options"
-                                                  :disable="surveyIsUneditable()"
+                                                  :disable="surveyIsUneditable"
                                                   dense
                                                   outlined
                                                   placeholder="1 - 255"
@@ -1531,7 +1501,7 @@
                       stack-label
                       multiple
                       return-object
-                      :disable="surveyIsUneditable()"
+                      :disable="surveyIsUneditable"
                       @filter="filterGroups"
                     >
                       <template v-slot:option="scope">
@@ -1574,7 +1544,7 @@
               <Preview :o-survey="oSurvey" />
               &nbsp;
               <q-btn
-                v-if="surveyIsEditable()"
+                v-if="surveyIsEditable"
                 color="primary"
                 type="submit"
                 class="mr-4 white--text"
@@ -1590,15 +1560,17 @@
           <q-list>
             <q-item>
               <q-page-sticky position="bottom-right" :offset="[18, 18]" style="z-index: 999">
-                <q-btn
-                  v-show="isUnsaved()"
-                  :disable="surveyIsUneditable()"
-                  fab
-                  icon="mdi-content-save"
-                  color="green"
-                  size="md"
-                  @click="tryUpdateSurvey"
-                />
+                <span class="q-mr-sm">
+                  <q-btn
+                    v-show="isUnsaved()"
+                    :disable="surveyIsUneditable"
+                    fab
+                    icon="mdi-content-save"
+                    color="green"
+                    size="md"
+                    @click="tryUpdateSurvey"
+                  />
+                </span>
                 <q-fab
                   icon="arrow_drop_up"
                   direction="up"
@@ -1617,7 +1589,7 @@
                     @click="exportToFile"
                   />
                   <q-fab-action
-                    :disable="surveyIsUneditable()"
+                    :disable="surveyIsUneditable"
                     fab
                     dark
                     small
@@ -2020,7 +1992,7 @@ export default {
         sortBy: 'order',
         descending: false,
         page: 1,
-        rowsPerPage: 10,
+        rowsPerPage: 15,
         max_pages: 6,
         search: ''
       },
@@ -2244,11 +2216,39 @@ export default {
           title: 'Red',
           hex: '#D09786'
         }
-      ]
+      ],
+
+      // Additional Comment Settings
+      additionalSettings: [
+        {
+          id: 'comment_add_text',
+          placeholder: 'Kommentar Hinzufügen Text',
+          label: 'Kommentar hinzufügen',
+        },
+        {
+          id: 'comment_placeholder',
+          placeholder: 'Kommentar Platzhalter',
+          label: 'Ihr Kommentar',
+        },
+        {
+          id: 'comment_remove_text',
+          placeholder: 'Kommentar Entfernungs-Text',
+          label: 'Kommentar entfernen',
+        },
+      ],
     }
   },
 
   computed: {
+
+    surveyIsEditable: function () {
+      return (this.oSurvey.is_editable && this.bEdit) || this.bCreate || this.user.is_adminuser
+    },
+
+    surveyIsUneditable: function () {
+      return !this.surveyIsEditable
+    },
+
     ...mapGetters({
       user: 'auth/user',
       surveyAllowed: 'surveys/backendSurveyAllowed'
@@ -2332,6 +2332,7 @@ export default {
   },
 
   methods: {
+    log: () => console.log,
 
     minOptions: props => parseInt(props?.row?.min_options ?? 0) ?? null,
     maxOptions: props => parseInt(props?.row?.max_options ?? 0) ?? null,
@@ -3513,14 +3514,6 @@ export default {
       return !this.surveyIsValid()
     },
 
-    surveyIsEditable () {
-      return (this.oSurvey.is_editable && this.bEdit) || this.bCreate || this.user.is_adminuser
-    },
-
-    surveyIsUneditable () {
-      return !this.surveyIsEditable()
-    },
-
     getMaxEndDate (date) {
       return this.getMinMaxDate(date, 'end')
     },
@@ -3863,7 +3856,7 @@ export default {
         delay: 400
       })
 
-      // Update Users
+      // Update Survey
       this.$store
         .dispatch('surveys/updateSurvey', {
           survey: this.oSurvey,
