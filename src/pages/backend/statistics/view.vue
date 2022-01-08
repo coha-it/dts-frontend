@@ -2,9 +2,9 @@
 div
   h1 Statistics View
 
-  template(v-if="surveyIds")
-    | Wähle Statstiken für die Umfragen mit der ID: {{ surveyIds }}
-    br
+
+  | Wähle Statstiken für die Umfragen mit der ID: {{ surveyIds }}
+  br
 
   .q-gutter-md.row.items-start
     q-select(
