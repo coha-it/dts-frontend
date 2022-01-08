@@ -3,16 +3,18 @@
   template(v-if='questionHasComment()')
     .user_comment_wrapper
       .user_comment
-        textarea.input(
+        q-input.input(
           ref='user_comment'
           v-model='question.users_awnser.comment'
-          :type="question.comment_is_number ? 'number' : ''"
+          :type="question.comment_is_number ? 'number' : 'textarea'"
           :required="question.comment_is_required"
           :autofocus='true'
           :placeholder="getQuestionSetting('comment_placeholder', 'Ihr Kommentar')"
           tabindex='1'
+          borderless
           @focus='textFocus'
           @blur='textBlur'
+          style="line-height: 1.35;"
         )
     q-btn(
       :label="getQuestionSetting('comment_remove_text', 'Kommentar entfernen')"

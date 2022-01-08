@@ -92,8 +92,9 @@
                   :step="1"
                   label
                   :label-value="getSliderLabel(question)"
-                  :style="'color:'+getSliderColor()"
+                  :style="'color:'+sliderColor"
                   :label-text-color="getSliderTextColor(question)"
+                  :color="sliderColor"
                   class="coha--rating-slider"
                   label-always
                   markers
@@ -110,7 +111,8 @@
                   <div
                     :key="firstAwnser(question).subtitle"
                     class="selected-option coha"
-                    :style="'color:'+getSliderColor()"
+                    :style="'color:'+sliderColor"
+                    :color="sliderColor"
                   >
                     <div class="subtitle">
                       {{ firstAwnser(question).subtitle }}
@@ -135,7 +137,7 @@
                 :text-blur="textBlur"
               />
 
-              <div v-if="question.is_skippable" class="skippable-wrapper q-pa-md">
+              <div v-if="question.is_skippable && isNoInfoblock()" class="skippable-wrapper q-pa-md">
                 <q-btn
                   label="Frage überspringen"
                   icon="skip_next"
@@ -268,6 +270,12 @@ export default {
     return {
       textFocused: false
     }
+  },
+
+  computed: {
+    sliderColor: function () {
+      return this.firstAwnser(this.question)?.color ?? ''
+    },
   },
 
   mounted () {
@@ -505,10 +513,6 @@ export default {
     getSliderLabel (question) {
       let o = this.firstAwnser(question)
       return (o && o.title) ? o.title : null
-    },
-    getSliderColor () {
-      let o = this.firstAwnser(this.question)
-      return (o && o.color) ? o.color : ''
     },
     getSliderTextColor (question) {
       let o = this.firstAwnser(question)
