@@ -327,19 +327,20 @@ export default {
       this.showLoader();
 
       // Define IDs for Surveys and Statistic
-      const surveyIds = this.surveyIds
-      const statisticId = this.statsticId
+      const survey_ids = this.surveyIds
+      const statistic_id = this.statisticId
+      const filter = this.filterData
 
       // Ajax Call
       axios
         .post("/api/backend/surveys-statistics", {
-          type: statisticId,
-          ids: surveyIds,
-          filter: this.filterData
+          survey_ids,
+          statistic_id,
+          filter
         })
         .then((res) => {
-          this.stats = res.data;
-          this.currentStatisticId = statisticId;
+          this.stats = res.data
+          this.currentStatisticId = statistic_id
         })
         .catch((e) => {
           this.$q.notify({
