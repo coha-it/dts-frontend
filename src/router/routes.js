@@ -160,7 +160,7 @@ export default [
         },
       },
       {
-        path: "statistics/surveys/:survey_ids/statistic/:statistic_id?",
+        path: "statistics/surveys/:survey_ids/statistic/:statistic_id?/view/:view_id?",
         name: "backend.statistics.view",
         component: page("backend/statistics/view.vue"),
         props: true,

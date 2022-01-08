@@ -1,6 +1,5 @@
 <template lang="pug">
 div
-
   h1 Statistics View
 
   template(v-if="surveyIds")
@@ -13,7 +12,7 @@ div
       v-model="selectedStatistic"
       use-input
       input-debounce="0",
-      label="Select Statistic",
+      :label="$t('select_statistic_type')",
       :options="statistics",
       style="width: 250px",
       behavior="menu",
@@ -38,7 +37,7 @@ div
         q-icon.cursor-pointer(
           v-if="selectedStatistic !== null",
           name="clear",
-          @click.stop="selectedStatistic = null"
+          @click="selectedStatistic = null"
         )
     q-input(
       v-model="filterData.limit"
@@ -79,18 +78,39 @@ div
       :options="views",
       style="width: 250px",
       behavior="menu"
+      @input="viewChanged"
     )
+      // Options
+      template(v-slot:option="scope")
+        q-item(v-bind="scope.itemProps", v-on="scope.itemEvents")
+          q-item-section(avatar)
+            q-icon(:name="scope.opt.icon")
+          q-item-section
+            q-item-label(v-html="scope.opt.label")
+            q-item-label(caption) {{ scope.opt.description }}
+      // Nothing Selected
+      template(v-slot:no-option="")
+        q-item
+          q-item-section.text-grey
+            | No results
+      // Clear Button
+      template(v-slot:append)
+        q-icon.cursor-pointer(
+          v-if="selectedView !== null",
+          name="clear",
+          @click="selectedView = null"
+        )
 
-    template
+    template(v-if="selectedView")
       // Go Through Stats
-      div(v-if="selectedView.id === 1")
+      div(v-if="selectedView.id === 'charts'")
         span(v-for="head in stats.header") {{ head }};
         div(v-for="(tr, i) in stats.data")
           span {{ i }}
           span(v-for="td in tr") {{ td }};
 
       // If Stats-Survey
-      div(v-else-if="selectedView.id === 2")
+      div(v-else-if="selectedView.id === 'quasar_table'")
         template(v-if="stats.surveys")
           div(v-for="survey in stats.surveys")
             q-table(
@@ -99,7 +119,7 @@ div
               :pagination="pagination",
               dense
             )
-      div(v-else-if="selectedView.id === 3")
+      div(v-else-if="selectedView.id === 'markup_table'")
         q-markup-table(dense, cell)
           thead
             tr
@@ -110,7 +130,7 @@ div
               td {{ i }}
               td(v-for="td in tr") {{ td }}
         q-btn(color="primary" icon-right="archive" label="Export to csv" no-caps @click="exportTable(stats)")
-      div(v-else-if="selectedView.id === 4")
+      div(v-else-if="selectedView.id === 'json'")
         .code.c_code(style="max-height: unset") {{ stats }}
 </template>
 
@@ -142,39 +162,77 @@ function wrapCsvValue (val, formatFn) {
 
 const constStatistics = [
   {
-    id: 1,
-    label: "Statistic 1. BE",
+    id: 'questions',
+    label: "Questions",
+    value: "Loop through eacht question",
+    description: "Default statistic. each question / awnser",
+    icon: "data_usage",
+  },
+  {
+    id: 'csv_type',
+    label: "Blank Excel",
     value: "Blank Excel",
     description: "User1; User2; User 3; ... User47; etc",
     icon: "bar_chart",
   },
   {
-    id: 2,
-    label: "Statistic 2. UT",
+    id: 'user_table',
+    label: "User Table",
     value: "User Table",
     description: "Each Row one User",
     icon: "leaderboard",
   },
   {
-    id: 3,
-    label: "Statistic 3. FR",
+    id: 'sql_query',
+    label: "SQL Query",
     value: "For a full redundant SQL-Query",
     description: "Table format full Redundant Query",
     icon: "insights",
   },
   {
-    id: 4,
-    label: "Statistic 4. TT",
+    id: 'debug',
+    label: "Debugging",
     value: "Testing",
     description: "Only for Testing and Debug",
     icon: "analytics",
   },
   {
-    id: 99,
-    label: "Statistic 99. ER",
+    id: 'error',
+    label: "Error",
     value: "Error Stats - No Valid Data",
     description: "Should return an Error",
     icon: "error",
+  },
+];
+
+const constViews = [
+  {
+    id: 'charts',
+    label: "Chart View",
+    value: "Chart View",
+    description: "Chart View",
+    icon: "stacked_bar_chart",
+  },
+  {
+    id: 'markup_table',
+    label: "Markup-Table",
+    value: "View 3 - Markup Table",
+    description: "The Markup Table!",
+    icon: "table_rows",
+  },
+  {
+    id: 'quasar_table',
+    label: "Quasar-Table",
+    value: "View 3 - Quasar Table",
+    description: "The Quasar Table!",
+    icon: "table_rows",
+  },
+  {
+    id: 'json',
+    label: "JSON",
+    value: "Blank",
+    description: "Blank Json",
+    icon: "data_object",
   },
 ];
 
@@ -191,36 +249,9 @@ export default {
 
       // Statistic Options
       statistics: constStatistics,
-      views: [
-        {
-          id: 1,
-          label: "View 1",
-          value: "View 1",
-          description: "View 1",
-          icon: "insights",
-        },
-        {
-          id: 2,
-          label: "View 2",
-          value: "View 2",
-          description: "View 2",
-          icon: "insights",
-        },
-        {
-          id: 3,
-          label: "Markup-Table",
-          value: "View 3 - Markup Table",
-          description: "Markuptable!",
-          icon: "insights",
-        },
-        {
-          id: 4,
-          label: "Blank JSON",
-          value: "View 4",
-          description: "View 4 - Blank Json",
-          icon: "insights",
-        },
-      ],
+
+      // Views
+      views: constViews,
 
       // Filter Data
       filterData: {
@@ -239,7 +270,13 @@ export default {
   },
 
   mounted () {
-    this.selectedStatistic = this.statisticId
+    this.selectedStatistic = constStatistics.find(e => e.id == this.statisticId)
+
+    if(this.selectedStatistic) {
+      this.getSurveyStatistics()
+    }
+
+    this.selectedView = constViews.find(e => e.id == this.viewId)
   },
 
   computed: {
@@ -247,13 +284,20 @@ export default {
       return this.$route?.params?.survey_ids?.split(',')
     },
     statisticId() {
-      return this.$route?.params?.statistic_id?.split(',')
+      return this.$route?.params?.statistic_id
+    },
+    viewId() {
+      return this.$route?.params?.view_id
     },
   },
 
   methods: {
+
     statisticChanged (statistic) {
       this.$router.replace({ params: {statistic_id: statistic.id} })
+    },
+    viewChanged (view) {
+      this.$router.replace({ params: {view_id: view.id} })
     },
     showLoader () {
       this.$q.loading.show({

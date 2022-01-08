@@ -3737,15 +3737,15 @@ export default {
       return sDate ? sDate.substr(11, 5) + ' Uhr' : ''
     },
 
-    showSnackbarError (text) {
-      this.$q.notify({
-        message: this.$t(text),
-        color: 'red',
-        position: 'top-right',
-        actions: [{ icon: 'close', color: 'white' }],
-        timeout: 6000
-      })
-    },
+    // showSnackbarError (text) {
+    //   this.$q.notify({
+    //     message: this.$t(text),
+    //     color: 'red',
+    //     position: 'top-right',
+    //     actions: [{ icon: 'close', color: 'white' }],
+    //     timeout: 6000
+    //   })
+    // },
 
     showSnackbarSuccess (text) {
       this.$q.notify({
@@ -3893,14 +3893,14 @@ export default {
           // console.log(e.response.data)
           // console.log(e.response.data.errors)
           // Error
-          let errText = ''
-          if (e.response && e.response.data && e.response.data) {
-            let err = e.response.data.errors
-            for (var i in err) {
-              errText += ': ' + err[i]
-            }
-          }
-          this.showSnackbarError(this.$t('data_unsaved') + '\n' + errText)
+          // let errText = ''
+          // if (e.response && e.response.data && e.response.data) {
+          //   let err = e.response.data.errors
+          //   for (var i in err) {
+          //     errText += ': ' + err[i]
+          //   }
+          // }
+          // this.showSnackbarError(this.$t('data_unsaved') + '\n' + errText)
           this.$q.loading.hide()
         })
     }
