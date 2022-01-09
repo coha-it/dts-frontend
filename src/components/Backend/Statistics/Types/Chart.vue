@@ -12,7 +12,8 @@ export default {
   data() {
     return {
       // Data
-      filtered: {},
+      filteredCount: {},
+      // commentsCount: {},
 
       // Charts
       chartData: {},
@@ -47,11 +48,11 @@ export default {
 
   computed: {
     filteredValues () {
-      return this.filterNulls(Object.values(this.filtered))
+      return this.filterNulls(Object.values(this.filteredCount))
     },
 
     filteredKeys () {
-      return this.filterNulls(Object.keys(this.filtered))
+      return this.filterNulls(Object.keys(this.filteredCount))
     },
 
     filteredKeysColor () {
@@ -60,7 +61,10 @@ export default {
   },
 
   mounted() {
-    this.stats.map(e=>e.option_title).forEach(x => this.filtered[x] = (this.filtered[x] || 0)+1)
+    this.stats.map(e=>e.option_title).forEach(x => this.filteredCount[x] = (this.filteredCount[x] || 0)+1)
+
+    // this.stats.map(e=>e.awnser_comment).forEach(x => this.commentsCount[x] = (this.commentsCount[x] || 0)+1)
+
 
     this.chartData = {
       datasets: [

@@ -49,9 +49,7 @@ export default {
 
   },
 
-  mounted () {
-    console.log(this.question, this.enable)
-  },
+  // mounted () {},
 
 }
 </script>
