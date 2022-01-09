@@ -3890,6 +3890,7 @@ export default {
           this.$q.loading.hide()
         })
         .catch((e) => {
+          console.log(e)
           // console.log(e.response.data)
           // console.log(e.response.data.errors)
           // Error

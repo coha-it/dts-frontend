@@ -53,7 +53,7 @@ const constViews = [
     value: "Chart View",
     description: "Chart View",
     icon: "stacked_bar_chart",
-    component: () => import('@/components/Backend/Statistics/Types/Csv.vue'),
+    component: () => import('@/components/Backend/Statistics/Types/Charts.vue'),
   },
   {
     id: 'csv',
@@ -61,7 +61,7 @@ const constViews = [
     value: "CSV",
     description: "CSV like View with Comma , seperated",
     icon: "list",
-    component: () => import('@/components/Backend/Statistics/Types/Charts.vue'),
+    component: () => import('@/components/Backend/Statistics/Types/Csv.vue'),
   },
   {
     id: 'markup_table',
@@ -69,7 +69,7 @@ const constViews = [
     value: "View 3 - Markup Table",
     description: "The Markup Table!",
     icon: "table_rows",
-    component: () => import('@/components/Backend/Statistics/Types/QuasarTable.vue'),
+    component: () => import('@/components/Backend/Statistics/Types/MarkupTable.vue'),
   },
   {
     id: 'quasar_table',
@@ -77,7 +77,7 @@ const constViews = [
     value: "View 3 - Quasar Table",
     description: "The Quasar Table!",
     icon: "table_rows",
-    component: () => import('@/components/Backend/Statistics/Types/MarkupTable.vue'),
+    component: () => import('@/components/Backend/Statistics/Types/QuasarTable.vue'),
   },
   {
     id: 'json',
