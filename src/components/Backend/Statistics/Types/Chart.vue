@@ -1,8 +1,11 @@
 <template lang="pug">
-.chart(v-if="enable")
+.chart(v-if="loaded")
   h1 {{ question_title }}
 
-  keep-alive(v-for="type in chartTypes")
+  keep-alive(
+    v-if="enable"
+    v-for="type in chartTypes"
+  )
     component(
       :is="type"
       :stats="stats"
@@ -21,8 +24,8 @@ export default {
 
   data() {
     return {
-      // Disable first, then enable
-      enable: false,
+      // Disable first, then loaded
+      loaded: false,
 
       // Chart Types
       chartTypes: [
@@ -83,6 +86,10 @@ export default {
     question_title() {
       return this.question?.question_title;
     },
+
+    enable () {
+      return !["info_only", 'comment_only'].includes(this.question?.question_format)
+    },
   },
 
   mounted() {
@@ -109,7 +116,7 @@ export default {
     //   this.question_title, this.countKeys, this.countValues
     // )
 
-    this.enable = true
+    this.loaded = true
   },
 
   methods: {
