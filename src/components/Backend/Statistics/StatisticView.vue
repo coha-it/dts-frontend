@@ -91,12 +91,7 @@ const constViews = [
 
 export default {
 
-  props: {
-    stats: {
-      type: Object,
-      required: true,
-    }
-  },
+  props: ['stats'],
 
   data () {
     return {
