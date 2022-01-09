@@ -38,7 +38,7 @@
 
     keep-alive
       component(
-        :is="statisticComponent"
+        :is="selectedView.component"
         :stats="stats"
       )
 
@@ -53,6 +53,7 @@ const constViews = [
     value: "Chart View",
     description: "Chart View",
     icon: "stacked_bar_chart",
+    component: () => import('@/components/Backend/Statistics/Types/Csv.vue'),
   },
   {
     id: 'csv',
@@ -60,6 +61,7 @@ const constViews = [
     value: "CSV",
     description: "CSV like View with Comma , seperated",
     icon: "list",
+    component: () => import('@/components/Backend/Statistics/Types/Charts.vue'),
   },
   {
     id: 'markup_table',
@@ -67,6 +69,7 @@ const constViews = [
     value: "View 3 - Markup Table",
     description: "The Markup Table!",
     icon: "table_rows",
+    component: () => import('@/components/Backend/Statistics/Types/QuasarTable.vue'),
   },
   {
     id: 'quasar_table',
@@ -74,6 +77,7 @@ const constViews = [
     value: "View 3 - Quasar Table",
     description: "The Quasar Table!",
     icon: "table_rows",
+    component: () => import('@/components/Backend/Statistics/Types/MarkupTable.vue'),
   },
   {
     id: 'json',
@@ -81,6 +85,7 @@ const constViews = [
     value: "Blank",
     description: "Blank Json",
     icon: "data_object",
+    component: () => import('@/components/Backend/Statistics/Types/Json.vue'),
   },
 ];
 
@@ -100,29 +105,12 @@ export default {
 
       // Views
       views: constViews,
-
-      // components
-      components: {
-        'csv':            () => import('@/components/Backend/Statistics/Types/Csv.vue'),
-        'charts':         () => import('@/components/Backend/Statistics/Types/Charts.vue'),
-        'quasar_table':   () => import('@/components/Backend/Statistics/Types/QuasarTable.vue'),
-        'markup_table':   () => import('@/components/Backend/Statistics/Types/MarkupTable.vue'),
-        'json':           () => import('@/components/Backend/Statistics/Types/Json.vue'),
-      }
     }
   },
 
   computed: {
     viewId() {
       return this.$route?.params?.view_id
-    },
-    statisticComponent () {
-      const comp = this.components[this.viewId]
-
-      if(comp) {
-        return comp
-      }
-      return false;
     },
   },
 
