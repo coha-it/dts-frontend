@@ -2,7 +2,6 @@
 div
   h1 Statistics View
 
-
   | Wähle Statstiken für die Umfragen mit der ID: {{ surveyIds }}
   br
 
@@ -67,76 +66,16 @@ div
     @click="getSurveyStatistics"
   )
 
-  // If Stats
-  template(v-if="stats")
-    q-select(
-      filled
-      v-model="selectedView"
-      use-input
-      input-debounce="0",
-      label="Select View",
-      :options="views",
-      style="width: 250px",
-      behavior="menu"
-      @input="viewChanged"
-    )
-      // Options
-      template(v-slot:option="scope")
-        q-item(v-bind="scope.itemProps", v-on="scope.itemEvents")
-          q-item-section(avatar)
-            q-icon(:name="scope.opt.icon")
-          q-item-section
-            q-item-label(v-html="scope.opt.label")
-            q-item-label(caption) {{ scope.opt.description }}
-      // Nothing Selected
-      template(v-slot:no-option="")
-        q-item
-          q-item-section.text-grey
-            | No results
-      // Clear Button
-      template(v-slot:append)
-        q-icon.cursor-pointer(
-          v-if="selectedView !== null",
-          name="clear",
-          @click="selectedView = null"
-        )
-
-    template(v-if="selectedView")
-      // Go Through Stats
-      div(v-if="selectedView.id === 'charts'")
-        span(v-for="head in stats.header") {{ head }};
-        div(v-for="(tr, i) in stats.data")
-          span {{ i }}
-          span(v-for="td in tr") {{ td }};
-
-      // If Stats-Survey
-      div(v-else-if="selectedView.id === 'quasar_table'")
-        template(v-if="stats.surveys")
-          div(v-for="survey in stats.surveys")
-            q-table(
-              :columns="survey.questions",
-              :data="survey.awnsers",
-              :pagination="pagination",
-              dense
-            )
-      div(v-else-if="selectedView.id === 'markup_table'")
-        q-markup-table(dense, cell)
-          thead
-            tr
-              th
-              th(v-for="head in stats.header") {{ head }}
-          tbody
-            tr(v-for="(tr, i) in stats.data")
-              td {{ i }}
-              td(v-for="td in tr") {{ td }}
-        q-btn(color="primary" icon-right="archive" label="Export to csv" no-caps @click="exportTable(stats)")
-      div(v-else-if="selectedView.id === 'json'")
-        .code.c_code(style="max-height: unset") {{ stats }}
+  StatisticView(
+    v-if="stats"
+    :stats="stats"
+  )
 </template>
 
 <script>
 import axios from "axios"
 import { exportFile } from 'quasar'
+import StatisticView from '@/components/Backend/Statistics/StatisticView.vue'
 
 // import { mapGetters } from 'vuex'
 
@@ -205,38 +144,12 @@ const constStatistics = [
   },
 ];
 
-const constViews = [
-  {
-    id: 'charts',
-    label: "Chart View",
-    value: "Chart View",
-    description: "Chart View",
-    icon: "stacked_bar_chart",
-  },
-  {
-    id: 'markup_table',
-    label: "Markup-Table",
-    value: "View 3 - Markup Table",
-    description: "The Markup Table!",
-    icon: "table_rows",
-  },
-  {
-    id: 'quasar_table',
-    label: "Quasar-Table",
-    value: "View 3 - Quasar Table",
-    description: "The Quasar Table!",
-    icon: "table_rows",
-  },
-  {
-    id: 'json',
-    label: "JSON",
-    value: "Blank",
-    description: "Blank Json",
-    icon: "data_object",
-  },
-];
-
 export default {
+
+  components: {
+    StatisticView,
+  },
+
   data() {
     return {
       // IDs
@@ -245,13 +158,9 @@ export default {
       // Selected View
       selectedStatistic: null,
       currentStatisticId: null,
-      selectedView: 1,
 
       // Statistic Options
       statistics: constStatistics,
-
-      // Views
-      views: constViews,
 
       // Filter Data
       limit: null,
@@ -273,8 +182,6 @@ export default {
     if(this.selectedStatistic) {
       this.getSurveyStatistics()
     }
-
-    this.selectedView = constViews.find(e => e.id == this.viewId)
   },
 
   computed: {
@@ -284,9 +191,6 @@ export default {
     statisticId() {
       return this.$route?.params?.statistic_id
     },
-    viewId() {
-      return this.$route?.params?.view_id
-    },
   },
 
   methods: {
@@ -294,9 +198,7 @@ export default {
     statisticChanged (statistic) {
       this.$router.replace({ params: {statistic_id: statistic.id} })
     },
-    viewChanged (view) {
-      this.$router.replace({ params: {view_id: view.id} })
-    },
+
     showLoader () {
       this.$q.loading.show({
         delay: 0,
