@@ -1,45 +1,47 @@
 <template lang="pug">
-div
-  template(
-    v-for="id in q_ids"
+.charts
+  h1 {{ question_title }}
+  Chart(
+    :stats="stats"
+    :question="question"
+    :question_id="id"
+    :question_title="question_title"
   )
-    h1 {{ getQuestionTitle(id) }}
-    Chart(
-      :stats="filteredStats(id)"
-      :question="getQuestion(id)"
-      :question_id="id"
-      :question_title="getQuestionTitle(id)"
-    )
 </template>
 
 <script>
 import Chart from "@/components/Backend/Statistics/Types/Chart.vue";
 
 export default {
-  props: ["stats"],
+  props: [
+    "stats",
+    "question_id"
+  ],
 
   components: {
     Chart,
   },
 
+  data () {
+    return {
+      loaded: false,
+    }
+  },
+
   computed: {
-    q_ids () {
-      return this.stats.map(e => e.question_id)
+
+    id () {
+      return this.question_id
+    },
+
+    question () {
+      return this.stats.find(e => e.question_id == this.id)
+    },
+
+    question_title () {
+      return this.question?.question_title
     },
   },
 
-  methods: {
-    getQuestion (id) {
-      return this.stats.find(e => e.question_id == id)
-    },
-
-    getQuestionTitle (id) {
-      return this.getQuestion(id).question_title
-    },
-
-    filteredStats (id) {
-      return this.stats.filter(e => e.question_id === id)
-    },
-  }
-};
+}
 </script>

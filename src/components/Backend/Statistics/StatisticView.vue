@@ -53,7 +53,7 @@ const constViews = [
     value: "Chart View",
     description: "Chart View",
     icon: "stacked_bar_chart",
-    component: () => import('@/components/Backend/Statistics/Types/Charts.vue'),
+    component: () => import('@/components/Backend/Statistics/Types/ChartsWrapper.vue'),
   },
   {
     id: 'csv',
