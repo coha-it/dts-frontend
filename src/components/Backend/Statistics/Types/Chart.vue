@@ -1,22 +1,21 @@
 <template lang="pug">
 .chart(v-if="enable")
   h1 {{ question_title }}
-  BarChart(
-    :stats="stats",
-    :question_title="question_title",
-    :filteredCount="filteredCount",
-    :chartData="chartData",
-    :options="options",
-  )
+
+  keep-alive(v-for="type in chartTypes")
+    component(
+      :is="type"
+      :stats="stats"
+      :question_title="question_title"
+      :filteredCount="filteredCount"
+      :chartData="chartData"
+      :options="options"
+    )
+
 </template>
 
 <script>
-import BarChart from "@/components/Backend/Statistics/Types/Charts/BarChart.vue";
-
 export default {
-  components: {
-    BarChart,
-  },
 
   props: ["stats", "question", "question_id"],
 
@@ -24,6 +23,12 @@ export default {
     return {
       // Disable first, then enable
       enable: false,
+
+      // Chart Types
+      chartTypes: [
+        () => import('@/components/Backend/Statistics/Types/Charts/PieChart.vue'),
+        () => import('@/components/Backend/Statistics/Types/Charts/BarChart.vue'),
+      ],
 
       // Data
       filteredCount: {},
