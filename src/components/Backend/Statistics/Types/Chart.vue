@@ -2,7 +2,12 @@
 .chart(v-if="loaded")
   h1 {{ question_title }}
 
-  keep-alive(v-if="enable", v-for="type in chartTypes")
+  div(v-if="info_only")
+    .text-subtitle1 {{ question_subtitle }}
+    .text-overline Question-ID: \#{{ question_id }} Question Format: {{ question_format }}
+    .text-body1(v-html="question_description")
+
+  keep-alive(v-else, v-for="type in chartTypes")
     component(
       :is="type",
       :stats="stats",
@@ -14,6 +19,8 @@
 </template>
 
 <script>
+import { colors } from 'quasar'
+
 export default {
   props: ["stats", "question", "question_id"],
 
@@ -32,6 +39,11 @@ export default {
 
       // Filtering Data
       filteredCount: {},
+
+      // Default Colors
+      fallbackColors: 'primary secondary accent error negative info success green positive red orange warning background'.split(' ').map(
+        e => colors.getPaletteColor(e)
+      )
     };
   },
 
@@ -46,18 +58,35 @@ export default {
 
     filteredKeysColor () {
       return this.filteredKeys.map(
-        (e) => this.stats.find((x) => x.option_title === e)?.option_color
-      );
+        (e) => this.stats.find((x) => x.option_title === e)?.option_color || this.fallbackColors.shift()
+      )
     },
 
     question_title () {
       return this.question?.question_title;
     },
 
-    enable () {
-      return !["info_only", "comment_only"].includes(
-        this.question?.question_format
-      );
+    question_format () {
+      return this.question?.question_format;
+    },
+
+    question_subtitle () {
+      return this.question?.question_subtitle;
+    },
+
+    question_description () {
+      return this.question?.question_description;
+    },
+
+
+    // enable () {
+    //   return !["info_only"].includes(
+    //     this.question?.question_format
+    //   );
+    // },
+
+    info_only () {
+      return this.question?.question_format == 'info_only'
     },
 
     chartData () {
@@ -105,7 +134,7 @@ export default {
 
   mounted() {
     this.stats
-      .map((e) => e.option_title)
+      .map((e) => this.question?.question_format === 'comment_only' ? e.awnser_comment : e.option_title)
       .forEach(
         (x) => (this.filteredCount[x] = (this.filteredCount[x] || 0) + 1)
       );
