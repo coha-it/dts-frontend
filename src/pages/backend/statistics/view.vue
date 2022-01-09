@@ -40,7 +40,7 @@ div
           @click="selectedStatistic = null"
         )
     q-input(
-      v-model="filterData.limit"
+      v-model="limit"
       filled
       use-input
       type="number"
@@ -51,7 +51,7 @@ div
       clearable
       bottom-slots
       hint="Limitieren Sie die Ausgabe"
-      :error="!!filterData.limit"
+      :error="!!limit"
       error-message="Warning: ein Limit beschränkt die Ausgabe der Ergebnisse"
     )
 
@@ -254,9 +254,7 @@ export default {
       views: constViews,
 
       // Filter Data
-      filterData: {
-        limit: null
-      },
+      limit: null,
 
       // Pagination
       pagination: {
@@ -329,14 +327,14 @@ export default {
       // Define IDs for Surveys and Statistic
       const survey_ids = this.surveyIds
       const statistic_id = this.statisticId
-      const filter = this.filterData
+      const limit = this.limit
 
       // Ajax Call
       axios
         .post("/api/backend/surveys-statistics", {
           survey_ids,
           statistic_id,
-          filter
+          limit
         })
         .then((res) => {
           this.stats = res.data

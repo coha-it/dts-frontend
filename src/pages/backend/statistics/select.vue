@@ -103,7 +103,7 @@ export default {
   methods: {
     loadFilteredSurveys(val = "") {
       axios
-        .post("/api/backend/surveys-allowed-filtered", {
+        .post("/api/backend/surveys-filtered", {
           search: val.toLowerCase(),
         })
         .then((res) => {
