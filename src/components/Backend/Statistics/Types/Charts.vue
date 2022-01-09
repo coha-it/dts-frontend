@@ -2,6 +2,7 @@
 .charts
   h1 {{ question_title }}
   Chart(
+    v-if="enable"
     :stats="stats"
     :question="question"
     :question_id="id"
@@ -41,6 +42,15 @@ export default {
     question_title () {
       return this.question?.question_title
     },
+
+    enable () {
+      return !["info_only", 'comment_only'].includes(this.question?.question_format)
+    },
+
+  },
+
+  mounted () {
+    console.log(this.question, this.enable)
   },
 
 }
