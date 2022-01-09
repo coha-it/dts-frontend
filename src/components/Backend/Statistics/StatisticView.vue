@@ -36,35 +36,15 @@
   template(v-if="selectedView")
     // Go Through Stats
 
-    Csv(
-      v-if="viewId === 'csv'"
-      :stats="stats"
-    )
-    Charts(
-      v-else-if="viewId === 'charts'"
-      :stats="stats"
-    )
-    QuasarTable(
-      v-else-if="selectedView.id === 'quasar_table'"
-      :stats="stats"
-    )
-    MarkupTable(
-      v-else-if="selectedView.id === 'markup_table'"
-      :stats="stats"
-    )
-    Json(
-      v-else-if="selectedView.id === 'json'"
-      :stats="stats"
-    )
+    keep-alive
+      component(
+        :is="statisticComponent"
+        :stats="stats"
+      )
+
 </template>
 
 <script>
-
-import Csv from '@/components/Backend/Statistics/Types/Csv.vue'
-import Charts from '@/components/Backend/Statistics/Types/Charts.vue'
-import QuasarTable from '@/components/Backend/Statistics/Types/QuasarTable.vue'
-import MarkupTable from '@/components/Backend/Statistics/Types/MarkupTable.vue'
-import Json from '@/components/Backend/Statistics/Types/Json.vue'
 
 const constViews = [
   {
@@ -113,14 +93,6 @@ export default {
     }
   },
 
-  components: {
-    Csv,
-    Charts,
-    QuasarTable,
-    MarkupTable,
-    Json,
-  },
-
   data () {
     return {
       // Selected View
@@ -128,12 +100,29 @@ export default {
 
       // Views
       views: constViews,
+
+      // components
+      components: {
+        'csv':            () => import('@/components/Backend/Statistics/Types/Csv.vue'),
+        'charts':         () => import('@/components/Backend/Statistics/Types/Charts.vue'),
+        'quasar_table':   () => import('@/components/Backend/Statistics/Types/QuasarTable.vue'),
+        'markup_table':   () => import('@/components/Backend/Statistics/Types/MarkupTable.vue'),
+        'json':           () => import('@/components/Backend/Statistics/Types/Json.vue'),
+      }
     }
   },
 
   computed: {
     viewId() {
       return this.$route?.params?.view_id
+    },
+    statisticComponent () {
+      const comp = this.components[this.viewId]
+
+      if(comp) {
+        return comp
+      }
+      return false;
     },
   },
 
