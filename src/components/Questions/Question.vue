@@ -84,7 +84,6 @@
 
             <!-- if dropdown -->
             <template v-if="question.format == 'dropdown'">
-                        
               <div style="text-align: center;">
                 <q-btn-dropdown
                   color="primary"
