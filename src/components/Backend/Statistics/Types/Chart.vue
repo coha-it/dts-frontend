@@ -17,7 +17,7 @@
     .code(v-if="highestComment") Höchster Kommentarswert: {{ highestComment }}
 
     .row
-      keep-alive.col-6(v-for="chart in chartTypes", :key="key")
+      keep-alive.col-6(v-for="(chart, key) in chartTypes", :key="key")
         component(
           :is="chart.component",
           :stats="stats",

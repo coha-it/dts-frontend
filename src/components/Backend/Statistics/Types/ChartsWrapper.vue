@@ -1,8 +1,8 @@
 <template lang="pug">
 .charts-wrapper
   Charts(
-    v-for="id in q_ids"
-    :key="id"
+    v-for="(id, key) in q_ids"
+    :key="key"
     :question_id="id"
     :stats="stats.filter(e => e.question_id === id)"
   )
@@ -22,8 +22,9 @@ export default {
 
   computed: {
     q_ids () {
-      console.log('q_ids', this.stats.map(e => e.question_id))
-      return this.stats.map(e => e.question_id)
+      return this.stats
+        .map(e => e.question_id)
+        .filter((value, index, array) => array.indexOf(value) === index)
     },
   },
 };
