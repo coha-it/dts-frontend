@@ -82,6 +82,44 @@
               </q-item>
             </template>
 
+            <!-- if dropdown -->
+            <template v-if="question.format == 'dropdown'">
+                        
+              <div style="text-align: center;">
+                <q-btn-dropdown
+                  color="primary"
+                  :label="dropdownLabel"
+                  unelevated
+                >
+                  <q-list>
+                    <q-item
+                      v-for="option in question.options"
+                      :key="option.id"
+                      clickable
+                      v-close-popup
+                      @click.native="toggleAnswerOption(question, option)"
+                    >
+                      <q-item-section>
+                        <q-item-label>{{ option.title }}</q-item-label>
+                      </q-item-section>
+                    </q-item>
+                  </q-list>
+                </q-btn-dropdown>
+              </div>
+
+              <!-- {{ question.options }}
+              {{ question }}
+              <q-select
+                :value="getAwnserOptions"
+                :options="question.options"
+                label="Standard"
+                option-value="id"
+                option-label="title"
+                @input="dropdownSelect"
+              /> -->
+
+            </template>
+
             <!-- If Else Slider -->
             <template v-else-if="question.format.indexOf('slider') !== -1">
               <div class="slider-wrapper">
@@ -276,6 +314,14 @@ export default {
     sliderColor: function () {
       return this.firstAnswer(this.question)?.color ?? ''
     },
+
+    dropdownLabel () {
+      return this.getAwnserOptions?.join(', ') ?? 'Bitte auswählen'
+    },
+
+    getAwnserOptions () {
+      return this.question?.users_answer?.answer_options?.map(e => e.title)
+    },
   },
 
   mounted () {
@@ -334,6 +380,10 @@ export default {
           q.users_answer.answer_options.length > 0 || q.users_answer.comment
         )
       )
+    },
+
+    dropdownSelect (option) {
+      this.toggleAnswerOption(this.question, option)
     },
 
     toggleAnswerOption (oQuestion, oOption) {
@@ -532,11 +582,7 @@ export default {
     },
     toggleAnswerOptionSingle (question, option) {
       // Delete all Answer Options
-      if (
-        question &&
-        question.users_answer &&
-        question.users_answer.answer_options
-      ) {
+      if (question?.users_answer?.answer_options) {
         question.users_answer.answer_options = []
       }
 
