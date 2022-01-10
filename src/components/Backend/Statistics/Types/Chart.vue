@@ -16,9 +16,8 @@
     .code(v-if="averageComment") Durchschnittlicher Kommentarswert: {{ averageComment }}
     .code(v-if="highestComment") Höchster Kommentarswert: {{ highestComment }}
 
-    keep-alive(v-for="(type, key) in chartTypes")
+    keep-alive(v-for="(type, key) in chartTypes" :key="key")
       component(
-        :key="key"
         :is="type",
         :stats="stats",
         :question_title="question_title",
