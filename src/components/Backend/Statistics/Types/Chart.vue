@@ -17,19 +17,19 @@
     .code(v-if="highestComment") Höchster Kommentarswert: {{ highestComment }}
 
     .row
-      keep-alive.col-6(v-for="(type, key) in chartTypes" :key="key")
+      keep-alive.col-6(v-for="chart in chartTypes", :key="key")
         component(
-          :is="type",
+          :is="chart.component",
           :stats="stats",
           :question_title="question_title",
           :filteredCount="filteredCount",
           :chartData="chartData",
-          :options="options"
+          :options="chart.options"
         )
 </template>
 
 <script>
-import { colors } from 'quasar'
+import { colors } from "quasar";
 
 export default {
   props: ["stats", "question", "question_id"],
@@ -41,78 +41,112 @@ export default {
 
       // Chart Types
       chartTypes: [
-        () =>
-          import("@/components/Backend/Statistics/Types/Charts/PieChart.vue"),
-        () =>
-          import("@/components/Backend/Statistics/Types/Charts/BarChart.vue"),
+        {
+          type: "Pie",
+          options: {},
+          component: () =>
+            import("@/components/Backend/Statistics/Types/Charts/PieChart.vue"),
+        },
+        {
+          type: "Bar",
+          options: {
+            scales: {
+              yAxes: [
+                {
+                  ticks: {
+                    beginAtZero: true,
+                  },
+                  gridLines: {
+                    display: true,
+                  },
+                },
+              ],
+              xAxes: [
+                {
+                  gridLines: {
+                    display: false,
+                  },
+                },
+              ],
+            },
+            legend: {
+              display: true,
+            },
+            responsive: true,
+            maintainAspectRatio: false,
+          },
+          component: () =>
+            import("@/components/Backend/Statistics/Types/Charts/BarChart.vue"),
+        },
       ],
 
       // Filtering Data
       filteredCount: {},
 
       // Default Colors
-      fallbackColors: 'primary secondary accent error negative info success green positive red orange warning background'.split(' ').map(
-        e => colors.getPaletteColor(e)
-      )
+      fallbackColors:
+        "primary secondary accent error negative info success green positive red orange warning background"
+          .split(" ")
+          .map((e) => colors.getPaletteColor(e)),
     };
   },
 
   computed: {
-
-    lowestOptionValue () {
-      return this.calcLowest('option_value')
+    lowestOptionValue() {
+      return this.calcLowest("option_value");
     },
 
-    lowestComment () {
-      return this.calcLowest('answer_comment')
+    lowestComment() {
+      return this.calcLowest("answer_comment");
     },
 
-    highestOptionValue () {
-      return this.calcHighest('option_value')
+    highestOptionValue() {
+      return this.calcHighest("option_value");
     },
 
-    highestComment () {
-      return this.calcHighest('answer_comment')
+    highestComment() {
+      return this.calcHighest("answer_comment");
     },
 
-    averageOptionValue () {
-      return this.calcAverage('option_value');
+    averageOptionValue() {
+      return this.calcAverage("option_value");
     },
 
-    averageComment () {
-      return this.calcAverage('answer_comment');
+    averageComment() {
+      return this.calcAverage("answer_comment");
     },
 
-    filteredValues () {
+    filteredValues() {
       return this.filterNulls(Object.values(this.filteredCount));
     },
 
-    filteredKeys () {
+    filteredKeys() {
       return this.filterNulls(Object.keys(this.filteredCount));
     },
 
-    filteredKeysColor () {
+    filteredKeysColor() {
       return this.filteredKeys.map(
-        (e) => this.stats.find((x) => x.option_title === e)?.option_color || this.fallbackColors.shift()
-      )
+        (e) =>
+          this.stats.find((x) => x.option_title === e)?.option_color ||
+          this.fallbackColors.shift()
+      );
     },
 
-    question_title () {
+    question_title() {
       return this.question?.question_title;
     },
 
-    question_format () {
+    question_format() {
       return this.question?.question_format;
     },
 
-    question_subtitle () {
+    question_subtitle() {
       return this.question?.question_subtitle;
     },
 
-    question_description () {
+    question_description() {
       return this.question?.question_description;
     },
-
 
     // enable () {
     //   return !["info_only"].includes(
@@ -120,11 +154,11 @@ export default {
     //   );
     // },
 
-    info_only () {
-      return this.question?.question_format == 'info_only'
+    info_only() {
+      return this.question?.question_format == "info_only";
     },
 
-    chartData () {
+    chartData() {
       return {
         datasets: [
           {
@@ -136,40 +170,15 @@ export default {
         labels: this.filteredKeys,
       };
     },
-
-    options () {
-      return {
-        // scales: {
-        //   yAxes: [
-        //     {
-        //       ticks: {
-        //         beginAtZero: true,
-        //       },
-        //       gridLines: {
-        //         display: true,
-        //       },
-        //     },
-        //   ],
-        //   xAxes: [
-        //     {
-        //       gridLines: {
-        //         display: false,
-        //       },
-        //     },
-        //   ],
-        // },
-        legend: {
-          display: true,
-        },
-        responsive: true,
-        maintainAspectRatio: false,
-      }
-    },
   },
 
   mounted() {
     this.stats
-      .map((e) => this.question?.question_format === 'comment_only' ? e.answer_comment : e.option_title)
+      .map((e) =>
+        this.question?.question_format === "comment_only"
+          ? e.answer_comment
+          : e.option_title
+      )
       .forEach(
         (x) => (this.filteredCount[x] = (this.filteredCount[x] || 0) + 1)
       );
@@ -184,34 +193,35 @@ export default {
   },
 
   methods: {
-
-    calcHighest (key) {
-      let arr = this.calc(key)
+    calcHighest(key) {
+      let arr = this.calc(key);
       if (arr.length) {
-        return arr.reduce((a,b) => (a > b) ? a : b)
+        return arr.reduce((a, b) => (a > b ? a : b));
       }
       return false;
     },
 
-    calcLowest (key) {
-      let arr = this.calc(key)
+    calcLowest(key) {
+      let arr = this.calc(key);
       if (arr.length) {
-        return arr.reduce((a,b) => (a < b) ? a : b)
+        return arr.reduce((a, b) => (a < b ? a : b));
       }
       return false;
     },
- 
-    calcAverage (key) {
+
+    calcAverage(key) {
       // return this.stats.map(e=>e.option_value)
-      let arr = this.calc(key)
-      if(arr.length > 0) {
-        return (arr?.reduce((a, b) => a + b) / arr?.length).toFixed(2)
+      let arr = this.calc(key);
+      if (arr.length > 0) {
+        return (arr?.reduce((a, b) => a + b) / arr?.length).toFixed(2);
       }
-      return false
+      return false;
     },
 
-    calc (key) {
-      return this.stats?.map(e=>parseFloat(e[key])).filter(e => !isNaN(e))
+    calc(key) {
+      return this.stats
+        ?.map((e) => parseFloat(e[key]))
+        .filter((e) => !isNaN(e));
     },
 
     filterNulls(arr) {
