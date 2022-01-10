@@ -16,15 +16,16 @@
     .code(v-if="averageComment") Durchschnittlicher Kommentarswert: {{ averageComment }}
     .code(v-if="highestComment") Höchster Kommentarswert: {{ highestComment }}
 
-    keep-alive(v-for="(type, key) in chartTypes" :key="key")
-      component(
-        :is="type",
-        :stats="stats",
-        :question_title="question_title",
-        :filteredCount="filteredCount",
-        :chartData="chartData",
-        :options="options"
-      )
+    .row
+      keep-alive.col-6(v-for="(type, key) in chartTypes" :key="key")
+        component(
+          :is="type",
+          :stats="stats",
+          :question_title="question_title",
+          :filteredCount="filteredCount",
+          :chartData="chartData",
+          :options="options"
+        )
 </template>
 
 <script>
@@ -138,25 +139,25 @@ export default {
 
     options () {
       return {
-        scales: {
-          yAxes: [
-            {
-              ticks: {
-                beginAtZero: true,
-              },
-              gridLines: {
-                display: true,
-              },
-            },
-          ],
-          xAxes: [
-            {
-              gridLines: {
-                display: false,
-              },
-            },
-          ],
-        },
+        // scales: {
+        //   yAxes: [
+        //     {
+        //       ticks: {
+        //         beginAtZero: true,
+        //       },
+        //       gridLines: {
+        //         display: true,
+        //       },
+        //     },
+        //   ],
+        //   xAxes: [
+        //     {
+        //       gridLines: {
+        //         display: false,
+        //       },
+        //     },
+        //   ],
+        // },
         legend: {
           display: true,
         },
