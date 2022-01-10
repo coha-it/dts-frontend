@@ -11,6 +11,7 @@
         icon-right="mdi-account-plus"
         @click="bCreateUsersDialog = true"
       />
+      &nbsp;
       <q-dialog
         v-model="bCreateUsersDialog"
         :maximized="maximizedToggle"
@@ -182,6 +183,8 @@
         ]"
       />
 
+      &nbsp;
+
       <UserDataModal
         s-icon="apartment"
         s-edit-text="Firmen bearbeiten"
@@ -190,6 +193,8 @@
         s-parent-model="company"
         :a-parent-models="user.companies"
       />
+
+      &nbsp;
 
       <UserDataModal
         s-icon="work"
@@ -200,6 +205,8 @@
         :a-parent-models="user.departments"
       />
 
+      &nbsp;
+
       <UserDataModal
         s-icon="location_on"
         s-edit-text="Orte Bearbeiten"
@@ -208,6 +215,7 @@
         s-parent-model="location"
         :a-parent-models="user.locations"
       />
+
     </p>
 
     <br />
@@ -1113,6 +1121,7 @@
                     props.row.company && props.row.company.id == company.id
                   "
                 />
+                <option value="" label="Entfernen" @click="remove(props.row, location)" />
               </select>
             </q-td>
           </template>
@@ -1140,6 +1149,7 @@
                     props.row.department.id == department.id
                   "
                 />
+                <option value="" label="Entfernen" @click="remove(props.row, location)" />
               </select>
             </q-td>
           </template>
@@ -1166,6 +1176,7 @@
                     props.row.location && props.row.location.id == location.id
                   "
                 />
+                <option value="" label="Entfernen" @click="remove(props.row, location)" />
               </select>
             </q-td>
           </template>
@@ -1599,6 +1610,11 @@ export default {
   },
 
   methods: {
+
+    remove (e, val) {
+      this.$remove(e, val)
+    },
+
     getLastMailColorClass(date) {
       let sec = this.secondsSince(date);
 

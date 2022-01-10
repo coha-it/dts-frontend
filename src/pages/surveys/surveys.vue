@@ -1,8 +1,7 @@
-<template>
-  <div>
-    <h1>{{ $t('surveys') }}</h1>
-    <SurveysList />
-  </div>
+<template lang="pug">
+.surveys
+  h1 {{ $t('surveys') }}
+  SurveysList
 </template>
 
 <script>

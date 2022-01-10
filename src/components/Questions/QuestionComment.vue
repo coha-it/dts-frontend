@@ -3,16 +3,18 @@
   template(v-if='questionHasComment()')
     .user_comment_wrapper
       .user_comment
-        textarea.input(
+        q-input.input(
           ref='user_comment'
-          v-model='question.users_awnser.comment'
-          :type="question.comment_is_number ? 'number' : ''"
+          v-model='question.users_answer.comment'
+          :type="question.comment_is_number ? 'number' : 'textarea'"
           :required="question.comment_is_required"
           :autofocus='true'
           :placeholder="getQuestionSetting('comment_placeholder', 'Ihr Kommentar')"
           tabindex='1'
+          borderless
           @focus='textFocus'
           @blur='textBlur'
+          style="line-height: 1.35;"
         )
     q-btn(
       :label="getQuestionSetting('comment_remove_text', 'Kommentar entfernen')"
@@ -50,11 +52,11 @@ export default {
       type: Function,
       required: true
     },
-    findOrCreateAwnser: {
+    findOrCreateAnswer: {
       type: Function,
       required: true
     },
-    getUserAwnseres: {
+    getUserAnsweres: {
       type: Function,
       required: true
     },
@@ -85,24 +87,24 @@ export default {
       // Is NOT commentable
       if (!question.is_commentable) return false
 
-      // If Users-Awnser is hiding the comment
-      if (this.getUserAwnseres(question).some(e => { return !!(e.settings && e.settings.hide_comment) })) return false
+      // If Users-Answer is hiding the comment
+      if (this.getUserAnsweres(question).some(e => { return !!(e.settings && e.settings.hide_comment) })) return false
 
       return true
     },
 
     questionHasComment () {
       const q = this.question
-      return q.users_awnser && typeof q.users_awnser.comment === 'string'
+      return q.users_answer && typeof q.users_answer.comment === 'string'
     },
 
     createComment (question) {
-      let awnser = this.findOrCreateAwnser(question)
+      let answer = this.findOrCreateAnswer(question)
 
       // If Comment isnt a string
-      if (typeof awnser.comment !== 'string') {
+      if (typeof answer.comment !== 'string') {
         // Set as a string
-        awnser.comment = ''
+        answer.comment = ''
       }
 
       if (this.$refs.user_comment) this.focusCommentInput()
@@ -116,14 +118,14 @@ export default {
       }, 5)
     },
 
-    getAwnser () {
+    getAnswer () {
       const question = this.question
-      return question && question.users_awnser ? question.users_awnser : {}
+      return question && question.users_answer ? question.users_answer : {}
     },
 
     getComment () {
-      const awnser = this.getAwnser()
-      return awnser && awnser.comment ? awnser.comment : ''
+      const answer = this.getAnswer()
+      return answer && answer.comment ? answer.comment : ''
     },
 
     tryDeleteComment () {
@@ -140,7 +142,7 @@ export default {
           unelevated: true
         }
       }).onOk(() => {
-        this.question.users_awnser.comment = null
+        this.question.users_answer.comment = null
       }).onCancel(() => {
         // console.log('>>>> Cancel')
       }).onDismiss(() => {

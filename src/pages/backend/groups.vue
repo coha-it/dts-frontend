@@ -1,6 +1,7 @@
 <template lang="pug">
 div
   h1 {{ $t('Groups') }}
+  p Bearbeite Gruppen oder erstelle eine Neue:
   UserGroups
 </template>
 

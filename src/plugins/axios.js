@@ -55,18 +55,16 @@ axios.interceptors.response.use(response => response, error => {
     })
   } else {
     const data = error?.response?.data
-    let message = data?.message
+    let message = i18n.t(data?.message?.trim().replace(/\.$/, '') || 'Error')
     let caption = ''
     
     // Get Caption Alias Errors
     if(data?.errors) {
       const errors = data.errors
       Object.keys(errors).map(key => {
-        caption += `<div>${key}: ${errors[key]}</div>`
+        caption += `<div>${i18n.t(key)}: ${i18n.t(errors[key])}</div>`
       });
     }
-
-    console.log('sollte sehen')
 
     Notify.create({
       type: 'warning',

@@ -1,15 +1,25 @@
 
 h1 {
   font-size: 4rem;
+  font-size: clamp(16px, 12vw, 64px);
   line-height: 4rem;
   margin-top: 0.25em;
   margin-bottom: 0.25em;
 }
 
+
 a {
   text-decoration: none;
   color: black;
   color: var(--q-color-black);
+}
+
+html a {
+
+  &:not(.q-item,.q-btn) {
+    color: #438a9a;
+    font-weight: 900;
+  }
 }
 
 .q-field {
@@ -26,4 +36,9 @@ a {
   overflow: scroll;
 }
 
+button {
 
+  &.close {
+    cursor: pointer;
+  }
+}

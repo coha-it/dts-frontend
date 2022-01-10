@@ -22,10 +22,10 @@ q-layout(view='hHr lpr fFr')
               q-item-section
                 q-item-label {{ question.title }}
                 q-item-label(caption lines='2') {{ question.subtitle || question.description }}
-                q-item-label.users_awnser(v-if="true || allQuestionsAwnsered()" caption)
-                  | {{ getUsersAwnser(question) }}
+                q-item-label.users_answer(v-if="true || allQuestionsAnswered()" caption)
+                  | {{ getUsersAnswer(question) }}
               q-item-section(side='' top='')
-                template(v-if='question.users_awnser')
+                template(v-if='question.users_answer')
                   template(v-if='!questionIsSkipped(question)')
                     q-item-label(caption) Beantwortet
                     q-icon(name="check" color="green")
@@ -41,7 +41,7 @@ q-layout(view='hHr lpr fFr')
   q-footer.bg-white.text-primary(bordered='')
     q-toolbar.row.justify-between.q-pa-xs
       q-btn.q-px-sm.my-stack-btn(label='Zurück' stack flat='' icon='keyboard_arrow_down' :to="'/'")
-      q-btn.full-width(v-if='notAllQuestionsAwnsered()' :label="noQuestionsAwnsered() ? 'Umfrage Beginnen' : 'Umfrage fortsetzen'" color='primary' :to='getSelectableQuestionHash()' @click='getSelectableQuestion()')
+      q-btn.full-width(v-if='notAllQuestionsAnswered()' :label="noQuestionsAnswered() ? 'Umfrage Beginnen' : 'Umfrage fortsetzen'" color='primary' :to='getSelectableQuestionHash()' @click='getSelectableQuestion()')
       q-btn.full-width(v-else-if='!oSurvey.user_finished' label='Umfrage abschließen' color='primary' @click='bTryFinishDialog = true')
       q-btn.q-px-sm(flat='' icon='help_outline' disable _click='$router.back()')
       q-dialog(v-model='bTryFinishDialog')
@@ -137,15 +137,15 @@ export default {
       this.$router.push({ name: 'welcome' })
     },
 
-    getUsersAwnser (question) {
-      // Check if User has awnsered
-      if (!question.users_awnser) return
+    getUsersAnswer (question) {
+      // Check if User has answered
+      if (!question.users_answer) return
 
       // Constants
       const sep = ' | '
-      const awnser = question.users_awnser
-      const comment = awnser.comment
-      const options = awnser.awnser_options
+      const answer = question.users_answer
+      const comment = answer.comment
+      const options = answer.answer_options
       const sOption = options.map(e =>
         (e.title ? e.title : '') +
         (e.subtitle ? sep + e.subtitle : '') +
@@ -179,7 +179,7 @@ export default {
 
     getDescription (survey = this.oSurvey) {
       switch (true) {
-        case this.allQuestionsAwnsered() && !!survey.desc_before_submit && survey.desc_before_submit !== '<br>':
+        case this.allQuestionsAnswered() && !!survey.desc_before_submit && survey.desc_before_submit !== '<br>':
           return survey.desc_before_submit
 
         case !!survey.desc_long:
@@ -204,9 +204,9 @@ export default {
     },
 
     getSelectableQuestion: function () {
-      var order = this.getLastAwnseredQuestion().order + 1
+      var order = this.getLastAnsweredQuestion().order + 1
       var selectableQ = this.oSurvey.questions.find(e => e.order === order)
-      if (this.noQuestionsAwnsered()) {
+      if (this.noQuestionsAnswered()) {
         return this.getFirstQuestion()
       }
       return selectableQ
@@ -216,36 +216,36 @@ export default {
       return this.oSurvey.questions[0]
     },
 
-    getLastAwnseredQuestion: function () {
-      var arr = this.oSurvey.questions.filter(e => e.users_awnser)
+    getLastAnsweredQuestion: function () {
+      var arr = this.oSurvey.questions.filter(e => e.users_answer)
       if (arr.length) {
         return arr[arr.length - 1]
       }
       return this.getFirstQuestion()
     },
     questionIsSelectable: function (question) {
-      if (this.noQuestionsAwnsered()) {
+      if (this.noQuestionsAnswered()) {
         return this.getFirstQuestion().order === question.order
       }
-      return question.order <= this.getLastAwnseredQuestion().order + 1
+      return question.order <= this.getLastAnsweredQuestion().order + 1
     },
     questionIsUnselectable: function (question) {
       return !this.questionIsSelectable(question)
     },
-    countAwnseredQuestions: function () {
-      return this.oSurvey.questions.filter(e => e.users_awnser).length
+    countAnsweredQuestions: function () {
+      return this.oSurvey.questions.filter(e => e.users_answer).length
     },
-    allQuestionsAwnsered: function () {
-      return this.countAwnseredQuestions() === this.oSurvey.question_count
+    allQuestionsAnswered: function () {
+      return this.countAnsweredQuestions() === this.oSurvey.question_count
     },
-    notAllQuestionsAwnsered: function () {
-      return !this.allQuestionsAwnsered()
+    notAllQuestionsAnswered: function () {
+      return !this.allQuestionsAnswered()
     },
-    noQuestionsAwnsered: function () {
-      return this.countAwnseredQuestions() === 0
+    noQuestionsAnswered: function () {
+      return this.countAnsweredQuestions() === 0
     },
     questionIsSkipped (q) {
-      return q.users_awnser && q.users_awnser.skipped
+      return q.users_answer && q.users_answer.skipped
     },
     getQuestionClasses (q) {
       const yellow = 'bg-yellow-1'
@@ -258,7 +258,7 @@ export default {
         case this.questionIsSkipped(q) === 1:
           sClass = yellow
           break
-        case q.users_awnser !== null:
+        case q.users_answer !== null:
           sClass = green
           break
       }
@@ -337,7 +337,7 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
-.users_awnser
+.users_answer
   white-space: pre-line
   line-height: 1.5 !important
   padding-left: 7px

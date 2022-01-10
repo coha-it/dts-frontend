@@ -1,8 +1,9 @@
 <template lang="pug">
 div
-  template(v-if="getSurveyIds()")
-    | Wähle Statstiken für die Umfragen mit der ID: {{ getSurveyIds() }}
-    br
+  h1 Statistics View
+
+  | Wähle Statstiken für die Umfragen mit der ID: {{ surveyIds }}
+  br
 
   .q-gutter-md.row.items-start
     q-select(
@@ -10,11 +11,12 @@ div
       v-model="selectedStatistic"
       use-input
       input-debounce="0",
-      label="Select Statistic",
+      :label="$t('select_statistic_type')",
       :options="statistics",
       style="width: 250px",
       behavior="menu",
       @filter="filterFn"
+      @input="statisticChanged"
     )
       // Options
       template(v-slot:option="scope")
@@ -34,10 +36,10 @@ div
         q-icon.cursor-pointer(
           v-if="selectedStatistic !== null",
           name="clear",
-          @click.stop="selectedStatistic = null"
+          @click="selectedStatistic = null"
         )
     q-input(
-      v-model="filterData.limit"
+      v-model="limit"
       filled
       use-input
       type="number"
@@ -48,10 +50,9 @@ div
       clearable
       bottom-slots
       hint="Limitieren Sie die Ausgabe"
-      :error="!!filterData.limit"
+      :error="!!limit"
       error-message="Warning: ein Limit beschränkt die Ausgabe der Ergebnisse"
     )
-
 
   // Load Statitics Button
   br
@@ -65,56 +66,16 @@ div
     @click="getSurveyStatistics"
   )
 
-  // If Stats
-  template(v-if="stats")
-
-    q-select(
-      filled
-      v-model="selectedView"
-      use-input
-      input-debounce="0",
-      label="Select View",
-      :options="views",
-      style="width: 250px",
-      behavior="menu"
-    )
-
-    template
-      // Go Through Stats
-      div(v-if="selectedView.id === 1")
-        span(v-for="head in stats.header") {{ head }};
-        div(v-for="(tr, i) in stats.data")
-          span {{ i }}
-          span(v-for="td in tr") {{ td }};
-
-      // If Stats-Survey
-      div(v-else-if="selectedView.id === 2")
-        template(v-if="stats.surveys")
-          div(v-for="survey in stats.surveys")
-            q-table(
-              :columns="survey.questions",
-              :data="survey.awnsers",
-              :pagination="pagination",
-              dense
-            )
-      div(v-else-if="selectedView.id === 3")
-        q-markup-table(dense, cell)
-          thead
-            tr
-              th
-              th(v-for="head in stats.header") {{ head }}
-          tbody
-            tr(v-for="(tr, i) in stats.data")
-              td {{ i }}
-              td(v-for="td in tr") {{ td }}
-        q-btn(color="primary" icon-right="archive" label="Export to csv" no-caps @click="exportTable(stats)")
-      div(v-else-if="selectedView.id === 4")
-        .code.c_code(style="max-height: unset") {{ stats }}
+  StatisticView(
+    v-if="stats"
+    :stats="stats"
+  )
 </template>
 
 <script>
 import axios from "axios"
 import { exportFile } from 'quasar'
+import StatisticView from '@/components/Backend/Statistics/StatisticView.vue'
 
 // import { mapGetters } from 'vuex'
 
@@ -140,36 +101,43 @@ function wrapCsvValue (val, formatFn) {
 
 const constStatistics = [
   {
-    id: 1,
-    label: "Statistic 1. BE",
+    id: 'answer_options',
+    label: "Answer Options",
+    value: "Get all selected Answer Options",
+    description: "Default statistic. each answer-option",
+    icon: "data_usage",
+  },
+  {
+    id: 'csv_type',
+    label: "Blank Excel",
     value: "Blank Excel",
     description: "User1; User2; User 3; ... User47; etc",
     icon: "bar_chart",
   },
   {
-    id: 2,
-    label: "Statistic 2. UT",
+    id: 'user_table',
+    label: "User Table",
     value: "User Table",
     description: "Each Row one User",
     icon: "leaderboard",
   },
   {
-    id: 3,
-    label: "Statistic 3. FR",
+    id: 'sql_query',
+    label: "SQL Query",
     value: "For a full redundant SQL-Query",
     description: "Table format full Redundant Query",
     icon: "insights",
   },
   {
-    id: 4,
-    label: "Statistic 4. TT",
+    id: 'debug',
+    label: "Debugging",
     value: "Testing",
     description: "Only for Testing and Debug",
     icon: "analytics",
   },
   {
-    id: 99,
-    label: "Statistic 99. ER",
+    id: 'error',
+    label: "Error",
     value: "Error Stats - No Valid Data",
     description: "Should return an Error",
     icon: "error",
@@ -177,11 +145,9 @@ const constStatistics = [
 ];
 
 export default {
-  props: {
-    initUrlQuerys: {
-      type: Function,
-      required: true
-    }
+
+  components: {
+    StatisticView,
   },
 
   data() {
@@ -192,45 +158,12 @@ export default {
       // Selected View
       selectedStatistic: null,
       currentStatisticId: null,
-      selectedView: 1,
 
       // Statistic Options
       statistics: constStatistics,
-      views: [
-        {
-          id: 1,
-          label: "View 1",
-          value: "View 1",
-          description: "View 1",
-          icon: "insights",
-        },
-        {
-          id: 2,
-          label: "View 2",
-          value: "View 2",
-          description: "View 2",
-          icon: "insights",
-        },
-        {
-          id: 3,
-          label: "Markup-Table",
-          value: "View 3 - Markup Table",
-          description: "Markuptable!",
-          icon: "insights",
-        },
-        {
-          id: 4,
-          label: "Blank JSON",
-          value: "View 4",
-          description: "View 4 - Blank Json",
-          icon: "insights",
-        },
-      ],
 
       // Filter Data
-      filterData: {
-        limit: null
-      },
+      limit: null,
 
       // Pagination
       pagination: {
@@ -243,55 +176,41 @@ export default {
     };
   },
 
-  watch: {
-    selectedStatistic: {
-      handler(statistic) {
-        // Build Query
-        let query = {
-          ids: this.$route.query.ids,
-        };
+  mounted () {
+    this.selectedStatistic = constStatistics.find(e => e.id == this.statisticId)
 
-        // If Statistic is Selected
-        if (statistic && statistic.id) {
-          query.statistic = String(statistic.id);
-        }
+    if(this.selectedStatistic) {
+      this.getSurveyStatistics()
+    }
+  },
 
-        // If unequal Route
-        if (!this.sameObjects(query, this.$route.query)) {
-          // Push to Router
-          this.$router.push({
-            name: "backend.statistics",
-            query: query,
-          });
-        }
-      },
+  computed: {
+    surveyIds() {
+      return this.$route?.params?.survey_ids?.split(',')
+    },
+    statisticId() {
+      return this.$route?.params?.statistic_id
     },
   },
 
-  mounted: function () {
-    this.initUrlQuerys()
-  },
-
   methods: {
-    showLoader() {
+
+    statisticChanged (statistic) {
+      this.$router.replace({ params: {statistic_id: statistic.id} })
+    },
+
+    showLoader () {
       this.$q.loading.show({
         delay: 0,
         message: this.$t("loading.statistics"),
       });
     },
 
-    hideLoader() {
+    hideLoader () {
       this.$q.loading.hide();
     },
 
-    getSurveyIds () {
-      return this.$route?.query?.ids
-    },
-
-    getSurveyStatistics() {
-      // Reinit Query URLS
-      this.initUrlQuerys()
-
+    getSurveyStatistics () {
       // If there is no Selected Statistic
       if (!this.selectedStatistic) {
         return this.$q.notify({
@@ -308,19 +227,20 @@ export default {
       this.showLoader();
 
       // Define IDs for Surveys and Statistic
-      const surveyIds = this.$route.query.ids
-      const statisticId = this.$route.query.statistic
+      const survey_ids = this.surveyIds
+      const statistic_id = this.statisticId
+      const limit = this.limit
 
       // Ajax Call
       axios
         .post("/api/backend/surveys-statistics", {
-          type: statisticId,
-          ids: surveyIds,
-          filter: this.filterData
+          survey_ids,
+          statistic_id,
+          limit
         })
         .then((res) => {
-          this.stats = res.data;
-          this.currentStatisticId = statisticId;
+          this.stats = res.data
+          this.currentStatisticId = statistic_id
         })
         .catch((e) => {
           this.$q.notify({

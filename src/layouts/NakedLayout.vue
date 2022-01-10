@@ -1,5 +1,5 @@
-<template>
-  <child />
+<template lang="pug">
+child
 </template>
 
 <script>

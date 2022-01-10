@@ -5,11 +5,11 @@ span
     q-card
       q-bar
         q-space
-        q-btn(dense='', flat='', icon='minimize', @click='max = false', :disable='!max')
+        q-btn(dense flat icon='minimize', @click='max = false', :disable='!max')
           q-tooltip(v-if='max', content-class='bg-white text-primary') Minimize
-        q-btn(dense='', flat='', icon='crop_square', @click='max = true', :disable='max')
+        q-btn(dense flat icon='crop_square', @click='max = true', :disable='max')
           q-tooltip(v-if='!max', content-class='bg-white text-primary') Maximize
-        q-btn(dense='', flat='', icon='close', v-close-popup, @click="closeDialog")
+        q-btn(dense flat icon='close', v-close-popup, @click="closeDialog")
           q-tooltip(content-class='bg-white text-primary') Close
       q-card-section
         .text-h6 Vorschaumodus

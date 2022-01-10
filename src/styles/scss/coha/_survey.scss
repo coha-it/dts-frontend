@@ -51,15 +51,15 @@
 
 .slider-wrapper {
   padding: 24px 0 12px;
+  text-align: center;
 }
 
 .coha--rating-slider {
-
   margin: 0 auto;
 
   .q-slider__track-container {
     margin-top: -3px;
-    background: rgba(0, 0, 0, 0.12);
+    // background: rgba(0, 0, 0, 0.12);
     border-radius: 5px;
   }
 
@@ -220,12 +220,12 @@
     align-self: center;
     transition: 200ms;
 
-    &:not(.unawnsered) {
+    &:not(.unanswered) {
         cursor: pointer;
     }
 
-    // Only Awnsered and passed Infoblocks
-    &.awnsered .inner {
+    // Only Answered and passed Infoblocks
+    &.answered .inner {
       background-color: var(--q-color-positive);
     }
 
@@ -244,7 +244,7 @@
       }
     }
 
-    // Skipped Awnseres
+    // Skipped Answeres
     &.skipped .inner {
       background: #bbbd5e;
     }
@@ -253,7 +253,7 @@
       .inner {
         opacity: .3;
       }
-      &.unawnsered {
+      &.unanswered {
         pointer-events: none;
       }
     }

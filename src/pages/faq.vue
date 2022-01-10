@@ -1,43 +1,25 @@
-<template>
-  <div class="q-pa-md" style="max-width: 770px">
-    <h1>FAQ</h1>
-    <p>Frequently asked questions</p>
-
-    <q-toolbar class="rounded-borders">
-      <q-space />
-      <q-input
-        v-model="search"
-        input-class="text-right"
-        type="text"
-        placeholder="Filter"
-        :autofocus="true"
-        borderless
-      >
-        <template v-slot:append>
-          <q-icon v-if="search === ''" name="search" />
-          <q-icon v-else name="clear" class="cursor-pointer" @click="search = ''" />
-        </template>
-      </q-input>
-    </q-toolbar>
-
-    <q-list bordered>
-      <template>
-        <template v-for="(item) in filteredList">
-          <div :key="item.title">
-            <Item :item="item" />
-            <q-separator />
-          </div>
-        </template>
-
-        <template v-for="(item) in unfilteredList">
-          <div :key="item.title">
-            <Item :item="item" :disable="true" />
-            <q-separator />
-          </div>
-        </template>
-      </template>
-    </q-list>
-  </div>
+<template lang="pug">
+.q-pa-sm(style="max-width: 770px")
+  h1 {{ $t('faq.title') }}
+  h5(style="margin-top:0") {{ $t('faq.subtitle') }}
+  p(v-html="$t('faq.text', { email: 'it@corporate-happiness.de'})")
+  //- q-toolbar.rounded-borders
+  //-   q-space
+  //-   q-input(v-model="search" input-class="text-right" type="text" placeholder="Filter" :autofocus="true" borderless)
+  //-     template(v-slot:append)
+  //-       q-icon(v-if="!search" name="search")
+  //-       q-icon(v-else name="clear" class="cursor-pointer" @click="search = ''")
+  //- q-list(bordered)
+  //-   template
+  //-     template(v-for="(item) in filteredList")
+  //-       div(:key="item.title")
+  //-         Item(:item="item")
+  //-         q-separator
+                
+  //-     template(v-for="(item) in unfilteredList")
+  //-       div(:key="item.title")
+  //-         Item(:item="item" :disable="true")
+  //-         q-separator
 </template>
 
 <script>

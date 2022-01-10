@@ -1,4 +1,4 @@
 module.export = {
-    NODE_ENV: "ALTER",
+    NODE_ENV: "LOCAL",
     API_URL: JSON.stringify(process.env.apiUrl)
 }

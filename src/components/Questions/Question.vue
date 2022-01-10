@@ -13,7 +13,7 @@
               <span class="inner">&nbsp;</span>
             </span>
             <!-- :to="getQuestionHash(q)" -->
-            <!-- q.users_awnser -->
+            <!-- q.users_answer -->
           </template>
         </div>
       </q-toolbar>
@@ -60,7 +60,7 @@
                     v-if="question.max_options > 1"
                     :value="findSelectedOption(question, option) ? true : false"
                     :style="'--option-color: '+ option.color + ';'"
-                    @click.native="toggleAwnserOption(question, option)"
+                    @click.native="toggleAnswerOption(question, option)"
                   />
                   <!-- Single -->
                   <q-radio
@@ -69,7 +69,7 @@
                     :val="option.id"
                     selected
                     :style="'--option-color: '+ option.color + ';'"
-                    @click.native="toggleAwnserOptionSingle(question, option)"
+                    @click.native="toggleAnswerOptionSingle(question, option)"
                   />
                 </q-item-section>
                 <q-item-section>
@@ -82,6 +82,43 @@
               </q-item>
             </template>
 
+            <!-- if dropdown -->
+            <template v-if="question.format == 'dropdown'">
+              <div style="text-align: center;">
+                <q-btn-dropdown
+                  color="primary"
+                  :label="dropdownLabel"
+                  unelevated
+                >
+                  <q-list>
+                    <q-item
+                      v-for="option in question.options"
+                      :key="option.id"
+                      clickable
+                      v-close-popup
+                      @click.native="toggleAnswerOption(question, option)"
+                    >
+                      <q-item-section>
+                        <q-item-label>{{ option.title }}</q-item-label>
+                      </q-item-section>
+                    </q-item>
+                  </q-list>
+                </q-btn-dropdown>
+              </div>
+
+              <!-- {{ question.options }}
+              {{ question }}
+              <q-select
+                :value="getAwnserOptions"
+                :options="question.options"
+                label="Standard"
+                option-value="id"
+                option-label="title"
+                @input="dropdownSelect"
+              /> -->
+
+            </template>
+
             <!-- If Else Slider -->
             <template v-else-if="question.format.indexOf('slider') !== -1">
               <div class="slider-wrapper">
@@ -92,8 +129,9 @@
                   :step="1"
                   label
                   :label-value="getSliderLabel(question)"
-                  :style="'color:'+getSliderColor()"
+                  :style="'color:'+sliderColor"
                   :label-text-color="getSliderTextColor(question)"
+                  :color="sliderColor"
                   class="coha--rating-slider"
                   label-always
                   markers
@@ -105,20 +143,21 @@
                   @input="sliderChange"
                 />
               </div>
-              <template v-if="questionHasAwnsers(question)">
+              <template v-if="questionHasAnswers(question)">
                 <transition name="fade" mode="out-in">
                   <div
-                    :key="firstAwnser(question).subtitle"
+                    :key="firstAnswer(question).subtitle"
                     class="selected-option coha"
-                    :style="'color:'+getSliderColor()"
+                    :style="'color:'+sliderColor"
+                    :color="sliderColor"
                   >
                     <div class="subtitle">
-                      {{ firstAwnser(question).subtitle }}
+                      {{ firstAnswer(question).subtitle }}
                     </div>
                     <div class="description">
-                      {{ firstAwnser(question).description }}
+                      {{ firstAnswer(question).description }}
                     </div>
-                  <!-- {{ firstAwnser(question) }} -->
+                  <!-- {{ firstAnswer(question) }} -->
                   </div>
                 </transition>
               </template>
@@ -129,13 +168,13 @@
                 :question="question"
                 :is-no-infoblock="isNoInfoblock"
                 :is-infoblock="isInfoblock"
-                :find-or-create-awnser="findOrCreateAwnser"
-                :get-user-awnseres="getUserAwnseres"
+                :find-or-create-answer="findOrCreateAnswer"
+                :get-user-answeres="getUserAnsweres"
                 :text-focus="textFocus"
                 :text-blur="textBlur"
               />
 
-              <div v-if="question.is_skippable" class="skippable-wrapper q-pa-md">
+              <div v-if="question.is_skippable && isNoInfoblock()" class="skippable-wrapper q-pa-md">
                 <q-btn
                   label="Frage überspringen"
                   icon="skip_next"
@@ -156,7 +195,7 @@
       <q-toolbar>
         <q-btn flat icon="keyboard_arrow_down" :to="hashes.overview" />
         <template v-if="question">
-          <template v-if="questionIsSkippable(question) && !hasAwnser(question)">
+          <template v-if="questionIsSkippable(question) && !hasAnswer(question)">
             <q-btn
               :label="isInfoblock() ? 'Weiter' : 'Frage überspringen'"
               color="primary"
@@ -174,7 +213,7 @@
               color="primary"
               class="full-width"
               tabindex="2"
-              @click="updateOrCreateAwnser(question, true)"
+              @click="updateOrCreateAnswer(question, true)"
             />
           </template>
         </template>
@@ -270,6 +309,20 @@ export default {
     }
   },
 
+  computed: {
+    sliderColor: function () {
+      return this.firstAnswer(this.question)?.color ?? ''
+    },
+
+    dropdownLabel () {
+      return this.getAwnserOptions?.join(', ') ?? 'Bitte auswählen'
+    },
+
+    getAwnserOptions () {
+      return this.question?.users_answer?.answer_options?.map(e => e.title)
+    },
+  },
+
   mounted () {
     document.addEventListener('keypress', (e) => {
       if (e.key === 'Enter' && (!this.textFocused || (e.ctrlKey || e.metaKey))) {
@@ -304,8 +357,8 @@ export default {
         return true
       } else {
         // Update Current Question
-        if (currQ.users_awnser) {
-          this.updateOrCreateAwnser(this.question, false)
+        if (currQ.users_answer) {
+          this.updateOrCreateAnswer(this.question, false)
         }
 
         // Route to new clicked Question
@@ -315,22 +368,26 @@ export default {
     },
 
     isSkipped (question) {
-      return question.users_awnser && question.users_awnser.skipped && this.isNoInfoblock(question)
+      return question.users_answer && question.users_answer.skipped && this.isNoInfoblock(question)
     },
 
-    hasAwnser (q) {
+    hasAnswer (q) {
       return (
         q &&
-        q.users_awnser &&
+        q.users_answer &&
         (
-          q.users_awnser.awnser_options.length > 0 || q.users_awnser.comment
+          q.users_answer.answer_options.length > 0 || q.users_answer.comment
         )
       )
     },
 
-    toggleAwnserOption (oQuestion, oOption) {
-      var oAwnser = this.findOrCreateAwnser(oQuestion)
-      var aAwOpts = oAwnser.awnser_options
+    dropdownSelect (option) {
+      this.toggleAnswerOption(this.question, option)
+    },
+
+    toggleAnswerOption (oQuestion, oOption) {
+      var oAnswer = this.findOrCreateAnswer(oQuestion)
+      var aAwOpts = oAnswer.answer_options
       var oSelOpt = this.findSelectedOption(oQuestion, oOption)
 
       // Already Selected
@@ -355,22 +412,22 @@ export default {
     questionUnsubmittable (q) {
       return !this.questionSubmittable(q)
     },
-    getUserAwnseres (question = this.question) {
+    getUserAnsweres (question = this.question) {
       if (
         question &&
-        question.users_awnser &&
-        question.users_awnser.awnser_options
+        question.users_answer &&
+        question.users_answer.answer_options
       ) {
-        return question.users_awnser.awnser_options
+        return question.users_answer.answer_options
       }
       return []
     },
-    usersAwnserRequiresComment (question = this.question) {
+    usersAnswerRequiresComment (question = this.question) {
       return !!(
         question &&
-        question.users_awnser &&
-        question.users_awnser.awnser_options &&
-        this.getUserAwnseres(question).some(e => { return !!(e.settings && e.settings.comment_required) })
+        question.users_answer &&
+        question.users_answer.answer_options &&
+        this.getUserAnsweres(question).some(e => { return !!(e.settings && e.settings.comment_required) })
       )
     },
     questionSubmittable (q) {
@@ -378,15 +435,15 @@ export default {
       if (q.is_skippable) return true
 
       // If Comment Required
-      if (this.usersAwnserRequiresComment(q) && !q.users_awnser.comment) return false
+      if (this.usersAnswerRequiresComment(q) && !q.users_answer.comment) return false
 
       // If Comment-only
-      if (q.format === 'comment_only' && q.users_awnser && q.users_awnser.comment) return true
+      if (q.format === 'comment_only' && q.users_answer && q.users_answer.comment) return true
 
       // Options Available
-      if (q && q.users_awnser && q.users_awnser.awnser_options) {
+      if (q && q.users_answer && q.users_answer.answer_options) {
         // Not Skippable
-        const len = q.users_awnser.awnser_options.length
+        const len = q.users_answer.answer_options.length
         const min = q.min_options <= len
         const max = q.max_options >= len
 
@@ -402,13 +459,13 @@ export default {
       var eNew = qs[iNewPos]
       if (eNew) return eNew
     },
-    firstAwnser (question) {
+    firstAnswer (question) {
       if (
         question &&
-        question.users_awnser &&
-        question.users_awnser.awnser_options
+        question.users_answer &&
+        question.users_answer.answer_options
       ) {
-        return question.users_awnser.awnser_options[0]
+        return question.users_answer.answer_options[0]
       }
       return {}
     },
@@ -432,12 +489,12 @@ export default {
     goToOverview () {
       this.goTo(this.getOverviewHash())
     },
-    nextUnawnseredQuestion (q) {
-      // Get next Unawnsered Questions
+    nextUnansweredQuestion (q) {
+      // Get next Unanswered Questions
       const nextUaQuestions = this.oSurvey.questions.filter(e =>
-        // Where already Awnsered And
+        // Where already Answered And
         (
-          !e.users_awnser ||
+          !e.users_answer ||
           this.isSkipped(e) ||
           !this.questionSubmittable(e)
         ) &&
@@ -478,19 +535,19 @@ export default {
           r.push('skipped')
           break
 
-        case question.users_awnser && this.questionSubmittable(question):
-          r.push('awnsered')
+        case question.users_answer && this.questionSubmittable(question):
+          r.push('answered')
           break
 
         default:
-          r.push('unawnsered')
+          r.push('unanswered')
           break
       }
 
       return r.join(' ')
     },
     getSelectedSliderOptionOrder (question) {
-      let o = this.firstAwnser(question)
+      let o = this.firstAnswer(question)
       return (o && o.order) ? o.order : null
     },
     getFirstQuestionOption (question) {
@@ -499,19 +556,15 @@ export default {
     getLastQuestionOption (question) {
       return Math.max.apply(Math, question.options.map(option => option.order))
     },
-    questionHasAwnsers (question) {
-      return !!this.firstAwnser(question)
+    questionHasAnswers (question) {
+      return !!this.firstAnswer(question)
     },
     getSliderLabel (question) {
-      let o = this.firstAwnser(question)
+      let o = this.firstAnswer(question)
       return (o && o.title) ? o.title : null
     },
-    getSliderColor () {
-      let o = this.firstAwnser(this.question)
-      return (o && o.color) ? o.color : ''
-    },
     getSliderTextColor (question) {
-      let o = this.firstAwnser(question)
+      let o = this.firstAnswer(question)
       return (o && o.color && this.isLight(o.color)) ? 'black' : 'white'
     },
     sliderInput () {
@@ -524,36 +577,32 @@ export default {
       var question = this.getViewedQuestion(this.oSurvey)
       var option = this.findByKey(question.options, order, 'order')
 
-      this.toggleAwnserOptionSingle(question, option)
+      this.toggleAnswerOptionSingle(question, option)
     },
-    toggleAwnserOptionSingle (question, option) {
-      // Delete all Awnser Options
-      if (
-        question &&
-        question.users_awnser &&
-        question.users_awnser.awnser_options
-      ) {
-        question.users_awnser.awnser_options = []
+    toggleAnswerOptionSingle (question, option) {
+      // Delete all Answer Options
+      if (question?.users_answer?.answer_options) {
+        question.users_answer.answer_options = []
       }
 
       // Select
-      this.toggleAwnserOption(question, option)
+      this.toggleAnswerOption(question, option)
     },
 
-    findOrCreateAwnser (oQuestion) {
-      if (!oQuestion.users_awnser) {
-        oQuestion.users_awnser = {
+    findOrCreateAnswer (oQuestion) {
+      if (!oQuestion.users_answer) {
+        oQuestion.users_answer = {
           question_id: oQuestion.id,
-          awnser_options: [],
+          answer_options: [],
           comment: null
         }
       }
-      return oQuestion.users_awnser
+      return oQuestion.users_answer
     },
     findSelectedOption (question, option) {
-      if (question && question.users_awnser && question.users_awnser.awnser_options) {
+      if (question && question.users_answer && question.users_answer.answer_options) {
         return this.findByKey(
-          question.users_awnser.awnser_options,
+          question.users_answer.answer_options,
           option.id,
           'id'
         )
@@ -566,32 +615,32 @@ export default {
     },
 
     skipQuestion (q) {
-      if (!q.users_awnser) {
-        q.users_awnser = {}
+      if (!q.users_answer) {
+        q.users_answer = {}
       }
-      q.users_awnser.awnser_options = [{}]
-      q.users_awnser.comment = null
-      q.users_awnser.skipped = 1
-      this.sendAwnser(q, true)
+      q.users_answer.answer_options = [{}]
+      q.users_answer.comment = null
+      q.users_answer.skipped = 1
+      this.sendAnswer(q, true)
     },
 
-    updateOrCreateAwnser (q, bNextQ) {
-      q.users_awnser.skipped = 0
-      this.sendAwnser(q, bNextQ)
+    updateOrCreateAnswer (q, bNextQ) {
+      q.users_answer.skipped = 0
+      this.sendAnswer(q, bNextQ)
     },
 
-    sendAwnser (question, bNextQ) {
+    sendAnswer (question, bNextQ) {
       if (this.bPreview) {
         // Next Question
         if (bNextQ) {
-          this.nextUnawnseredQuestion(question)
+          this.nextUnansweredQuestion(question)
         }
       } else {
         this.$store
-          .dispatch('surveys/updateOrCreateAwnser', {
+          .dispatch('surveys/updateOrCreateAnswer', {
             survey_id: question.survey_id,
             question_id: question.id,
-            awnser: question.users_awnser
+            answer: question.users_answer
           })
           .then((e) => {
             // Success
@@ -599,11 +648,11 @@ export default {
               // _t.showSnackbarSuccess(_t.$t('data_saved'))
 
               // Update in Model
-              question.users_awnser = this.copyObject(e.data)
+              question.users_answer = this.copyObject(e.data)
 
               // Next Question
               if (bNextQ) {
-                this.nextUnawnseredQuestion(question)
+                this.nextUnansweredQuestion(question)
               }
             }
           })
