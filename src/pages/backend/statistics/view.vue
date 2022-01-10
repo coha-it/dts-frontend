@@ -101,10 +101,10 @@ function wrapCsvValue (val, formatFn) {
 
 const constStatistics = [
   {
-    id: 'awnser_options',
-    label: "Awnser Options",
-    value: "Get all selected Awnser Options",
-    description: "Default statistic. each awnser-option",
+    id: 'answer_options',
+    label: "Answer Options",
+    value: "Get all selected Answer Options",
+    description: "Default statistic. each answer-option",
     icon: "data_usage",
   },
   {

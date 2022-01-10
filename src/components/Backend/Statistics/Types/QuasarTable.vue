@@ -4,7 +4,7 @@
     div(v-for="survey in stats.surveys")
       q-table(
         :columns="survey.questions",
-        :data="survey.awnsers",
+        :data="survey.answers",
         :pagination="pagination",
         dense
       )

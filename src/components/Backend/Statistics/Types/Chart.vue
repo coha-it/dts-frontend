@@ -134,12 +134,12 @@ export default {
 
   mounted() {
     this.stats
-      .map((e) => this.question?.question_format === 'comment_only' ? e.awnser_comment : e.option_title)
+      .map((e) => this.question?.question_format === 'comment_only' ? e.answer_comment : e.option_title)
       .forEach(
         (x) => (this.filteredCount[x] = (this.filteredCount[x] || 0) + 1)
       );
 
-    // this.stats.map(e=>e.awnser_comment).forEach(x => this.commentsCount[x] = (this.commentsCount[x] || 0)+1)
+    // this.stats.map(e=>e.answer_comment).forEach(x => this.commentsCount[x] = (this.commentsCount[x] || 0)+1)
 
     // console.log(
     //   this.question_title, this.countKeys, this.countValues

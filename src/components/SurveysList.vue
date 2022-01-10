@@ -37,12 +37,12 @@ div
                 q-linear-progress(
                   rounded,
                   size="8px",
-                  :value="oSurvey.awnser_count / oSurvey.question_count",
+                  :value="oSurvey.answer_count / oSurvey.question_count",
                   color="green"
                 )
 
               .col.col-8.text-left.q-pl-sm
-                small.text-caption {{ oSurvey.awnser_count + ' von ' + oSurvey.question_count + ' Fragen beantwortet' }}
+                small.text-caption {{ oSurvey.answer_count + ' von ' + oSurvey.question_count + ' Fragen beantwortet' }}
 
             .q-mt-smxxx {{ oSurvey.desc_short }}
 
