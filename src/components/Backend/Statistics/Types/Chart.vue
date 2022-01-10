@@ -7,15 +7,25 @@
     .text-overline Question-ID: \#{{ question_id }} Question Format: {{ question_format }}
     .text-body1(v-html="question_description")
 
-  keep-alive(v-else, v-for="type in chartTypes")
-    component(
-      :is="type",
-      :stats="stats",
-      :question_title="question_title",
-      :filteredCount="filteredCount",
-      :chartData="chartData",
-      :options="options"
-    )
+  template(v-else)
+    .code(v-if="lowestOptionValue") Niedrigster Optionswert: {{ lowestOptionValue }}
+    .code(v-if="averageOptionValue") Durchschnittlicher Optionswert: {{ averageOptionValue }}
+    .code(v-if="highestOptionValue") Höchster Optionswert: {{ highestOptionValue }}
+
+    .code(v-if="lowestComment") Niedrigster Kommentarswert: {{ lowestComment }}
+    .code(v-if="averageComment") Durchschnittlicher Kommentarswert: {{ averageComment }}
+    .code(v-if="highestComment") Höchster Kommentarswert: {{ highestComment }}
+
+    keep-alive(v-for="(type, key) in chartTypes")
+      component(
+        :key="key"
+        :is="type",
+        :stats="stats",
+        :question_title="question_title",
+        :filteredCount="filteredCount",
+        :chartData="chartData",
+        :options="options"
+      )
 </template>
 
 <script>
@@ -48,6 +58,31 @@ export default {
   },
 
   computed: {
+
+    lowestOptionValue () {
+      return this.calcLowest('option_value')
+    },
+
+    lowestComment () {
+      return this.calcLowest('answer_comment')
+    },
+
+    highestOptionValue () {
+      return this.calcHighest('option_value')
+    },
+
+    highestComment () {
+      return this.calcHighest('answer_comment')
+    },
+
+    averageOptionValue () {
+      return this.calcAverage('option_value');
+    },
+
+    averageComment () {
+      return this.calcAverage('answer_comment');
+    },
+
     filteredValues () {
       return this.filterNulls(Object.values(this.filteredCount));
     },
@@ -104,25 +139,25 @@ export default {
 
     options () {
       return {
-        // scales: {
-        //   yAxes: [
-        //     {
-        //       ticks: {
-        //         beginAtZero: true,
-        //       },
-        //       gridLines: {
-        //         display: true,
-        //       },
-        //     },
-        //   ],
-        //   xAxes: [
-        //     {
-        //       gridLines: {
-        //         display: false,
-        //       },
-        //     },
-        //   ],
-        // },
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true,
+              },
+              gridLines: {
+                display: true,
+              },
+            },
+          ],
+          xAxes: [
+            {
+              gridLines: {
+                display: false,
+              },
+            },
+          ],
+        },
         legend: {
           display: true,
         },
@@ -149,6 +184,36 @@ export default {
   },
 
   methods: {
+
+    calcHighest (key) {
+      let arr = this.calc(key)
+      if (arr.length) {
+        return arr.reduce((a,b) => (a > b) ? a : b)
+      }
+      return false;
+    },
+
+    calcLowest (key) {
+      let arr = this.calc(key)
+      if (arr.length) {
+        return arr.reduce((a,b) => (a < b) ? a : b)
+      }
+      return false;
+    },
+ 
+    calcAverage (key) {
+      // return this.stats.map(e=>e.option_value)
+      let arr = this.calc(key)
+      if(arr.length > 0) {
+        return (arr?.reduce((a, b) => a + b) / arr?.length).toFixed(2)
+      }
+      return false
+    },
+
+    calc (key) {
+      return this.stats?.map(e=>parseFloat(e[key])).filter(e => !isNaN(e))
+    },
+
     filterNulls(arr) {
       return arr;
       // return arr.filter(el => el != null && el != 'null')
