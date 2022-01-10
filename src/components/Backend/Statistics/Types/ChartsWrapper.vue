@@ -22,6 +22,7 @@ export default {
 
   computed: {
     q_ids () {
+      console.log('q_ids', this.stats.map(e => e.question_id))
       return this.stats.map(e => e.question_id)
     },
   },
