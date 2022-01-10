@@ -2,6 +2,7 @@
 .charts-wrapper
   Charts(
     v-for="id in q_ids"
+    :key="id"
     :question_id="id"
     :stats="stats.filter(e => e.question_id === id)"
   )
