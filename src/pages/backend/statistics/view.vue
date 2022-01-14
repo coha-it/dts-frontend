@@ -57,18 +57,18 @@ div
   // Load Statitics Button
   br
   q-btn(
-    :label="(stats ? 'Reload' : 'Load') + ' Statistics'",
+    :label="(data ? 'Reload' : 'Load') + ' Statistics'",
     outline,
     unelevated,
     no-caps,
-    :icon="stats ? 'cached' : 'download'",
+    :icon="data ? 'cached' : 'download'",
     :disable="!selectedStatistic || $q.loading.isActive",
     @click="getSurveyStatistics"
   )
 
   StatisticView(
-    v-if="stats"
-    :stats="stats"
+    v-if="data"
+    :data="data"
   )
 </template>
 
@@ -153,7 +153,7 @@ export default {
   data() {
     return {
       // IDs
-      stats: null,
+      data: null,
 
       // Selected View
       selectedStatistic: null,
@@ -239,7 +239,7 @@ export default {
           limit
         })
         .then((res) => {
-          this.stats = res.data
+          this.data = res.data
           this.currentStatisticId = statistic_id
         })
         .catch((e) => {
@@ -287,11 +287,11 @@ export default {
     },
 
     // Export Table
-    exportTable (stats = this.stats) {
+    exportTable (data = this.data) {
 
       // naive encoding to csv format
-      const content = [ stats.header.map(col => wrapCsvValue(col)).join(';') ].concat(
-        stats.data.map(row => stats.header.map(col => wrapCsvValue(
+      const content = [ data.header.map(col => wrapCsvValue(col)).join(';') ].concat(
+        data.data.map(row => data.header.map(col => wrapCsvValue(
           typeof col.field === 'function'
             ? col.field(row)
             : row[col === void 0 ? col : col],

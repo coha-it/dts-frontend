@@ -3,16 +3,18 @@ import Vue from 'vue'
 import store from '@/store'
 import router from '@/router'
 import i18n from '@/plugins/i18n'
-import App from './App'
+import App from '@/App'
 import MyQuasar from '@/plugins/quasar'
 import VueMoment from 'vue-moment'
+import underscore from 'vue-underscore';
 
 // Import Additionals
 import '@/plugins'
 import '@/components'
 
 // Import Mixins
-import VueMixins from './plugins/mixins'
+import VueMixins from '@/plugins/mixins'
+
 
 // Import Styling
 import '@/styles/scss/app.scss'
@@ -25,6 +27,9 @@ Vue.mixin(VueMixins)
 
 // Vue Moment
 Vue.use(VueMoment)
+
+// Use  Underscore
+Vue.use(underscore);
 
 /* eslint-disable no-new */
 new Vue({

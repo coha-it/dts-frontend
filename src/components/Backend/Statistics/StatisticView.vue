@@ -1,5 +1,5 @@
 <template lang="pug">
-// If Stats
+// If
 .statistics
   q-select(
     filled
@@ -34,12 +34,10 @@
       )
 
   template(v-if="selectedView")
-    // Go Through Stats
-
     keep-alive
       component(
         :is="selectedView.component"
-        :stats="stats"
+        :data="data"
       )
 
 </template>
@@ -91,7 +89,7 @@ const constViews = [
 
 export default {
 
-  props: ['stats'],
+  props: ['data'],
 
   data () {
     return {
