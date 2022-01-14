@@ -30,6 +30,7 @@
 
 <script>
 import { colors } from "quasar";
+import {_} from 'vue-underscore';
 
 export default {
   props: ["stats", "question", "question_id"],
@@ -84,10 +85,11 @@ export default {
       filteredCount: {},
 
       // Default Colors
-      fallbackColors:
-        "primary secondary accent error negative info success green positive red orange warning background"
-          .split(" ")
-          .map((e) => colors.getPaletteColor(e)),
+      fallbackColors: _
+        .map(
+          "primary secondary accent error negative info success green positive red orange warning background".split(" "),
+          e => colors.getPaletteColor(e)
+        )
     };
   },
 
@@ -195,7 +197,7 @@ export default {
   methods: {
     calcHighest(key) {
       let arr = this.calc(key);
-      if (arr.length) {
+      if (arr?.length) {
         return arr.reduce((a, b) => (a > b ? a : b));
       }
       return false;
@@ -203,25 +205,24 @@ export default {
 
     calcLowest(key) {
       let arr = this.calc(key);
-      if (arr.length) {
+      if (arr?.length) {
         return arr.reduce((a, b) => (a < b ? a : b));
       }
       return false;
     },
 
     calcAverage(key) {
-      // return this.stats.map(e=>e.option_value)
-      let arr = this.calc(key);
-      if (arr.length > 0) {
-        return (arr?.reduce((a, b) => a + b) / arr?.length).toFixed(2);
+      let arr = this.calc(key)
+      if (arr?.length > 0) {
+        return (_.reduce(arr, (a,b) => (a + b)) / arr?.length).toFixed(2)
       }
       return false;
     },
 
     calc(key) {
-      return this.stats
-        ?.map((e) => parseFloat(e[key]))
-        .filter((e) => !isNaN(e));
+      return _
+        .map(this.stats, e => parseFloat(e[key]))
+        .filter(e => !isNaN(e));
     },
 
     filterNulls(arr) {
