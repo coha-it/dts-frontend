@@ -21,7 +21,7 @@ q-layout(view='hHr lpr fFr')
             q-item(:to='getQuestionHash(question)' :class='getQuestionClasses(question)' :disable='questionIsUnselectable(question)')
               q-item-section
                 q-item-label {{ question.title }}
-                q-item-label(caption lines='2') {{ question.subtitle || question.description }}
+                q-item-label(caption lines='2' v-html="question.subtitle || question.description")
                 q-item-label.users_answer(v-if="true || allQuestionsAnswered()" caption)
                   | {{ getUsersAnswer(question) }}
               q-item-section(side='' top='')
